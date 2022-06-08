@@ -1,0 +1,56 @@
+<!-- ============================================================== -->
+<!-- Card Grid-->
+<!-- ============================================================== -->
+<div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+                <!-- <mat-card-title>Edit Serice</mat-card-title> -->
+                <!-- ============================================================== -->
+                <!-- column -->
+                <!-- ============================================================== -->
+                <mat-card-content>
+                    <div class="image-preview mb-3" style="position: relative;display: flex;align-items: center;">
+                        <img [src]="previewUrl!='' && previewUrl!=null?previewUrl:'./assets/images/user.png'" height="200" width="250"/>
+                        <button (click)="openGallery()" class="cursor-p" style="margin-left: 25px;">
+                            <i class="fa fa-edit"></i> Choose File   
+                        </button>
+                        <span style="align-self: center; margin-left: 20px;">{{previewUrl!='' && previewUrl!=null?'':'No File Selected'}}</span>
+                    </div>
+                    <div style="display: none;" fxFlex.gt-sm="100" fxFlex="100" class="m-b-20">
+                        <input class="form-control b-b" placeholder="file" type="file" (change)="fileProgress($event)">
+                    </div>
+                </mat-card-content>
+
+                <form class="basic-form" #form="ngForm" (ngSubmit)="onSubmit()">
+                    <div fxLayout="row wrap">
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input [disabled]="true" matInput placeholder="Service Name" name="service_name"  [ngModel]="servicedata.service_name">
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <mat-form-field>
+                                <textarea [disabled]="true" matInput placeholder="Service Category" name="service_category"  [ngModel]="servicedata.service_category"></textarea>
+                            </mat-form-field>
+                        </div>
+
+                        <!-- column -->
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <button mat-raised-button color="primary">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </mat-card-content>
+            <mat-card-content>
+                <div gt-sm="100" style="margin-right: 10px">
+                    <button mat-raised-button color="primary" (click)="showList(servicedata.service_name)">All Restricted Services</button>
+                </div>
+                <div fxFlex.gt-sm="100">
+                    <button mat-raised-button color="primary" (click)="createResService()">Add Restricted Service</button>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

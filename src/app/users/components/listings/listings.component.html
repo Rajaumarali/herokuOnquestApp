@@ -1,0 +1,168 @@
+
+<div class="mat-card mat-focus-indicator">
+    <div class="bg-light p-10 p-r-20 p-l-20 table-filter" fxFlex.gt-lg="75" fxFlex.gt-md="30" fxFlex.gt-xs="100" fxFlex="100">
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+    </div>
+    <div *ngIf="userType != '3'" fxFlex.gt-lg="75" fxFlex.gt-md="70" fxFlex.gt-xs="100" fxFlex="100" class="align-item-center"> <button mat-raised-button color="primary" (click)="btnCreate()">Add User</button></div>
+   
+  </div>
+  
+  <div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+      <mat-card>
+        <mat-card-content>
+          <span><img *ngIf="showLoader" src="assets/images/loader.gif" alt="homepage" style="left: 45%; top:0" width="40px" class="dark-logo m-l-20 p-a p-t-10"></span>
+          <!-- <mat-card-title>All Users</mat-card-title> -->
+          <!-- <div class="col-sm-7">
+            <select class="form-control col-12" name="property_code" required [(ngModel)]="selectedProperty"  #building="ngModel" (change)="onChange()">
+              <option value="" selected>Choose property name</option>
+              <option value="{{building.property_code}}" *ngFor="let building  of allbuilding">{{building.property_name}}</option>
+            </select>
+            <span class="help-desk" *ngIf="building.invalid && building.touched" style="color: #E74C3C;" >Please enter user type.</span>
+          </div> -->
+         
+          <div class="responsive-table">
+            <mat-table [dataSource]="dataSource" matSort>
+  
+              <!-- ID Column -->
+              <!-- <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.id}} </mat-cell>
+              </ng-container> -->
+  
+              <!-- Progress Column -->
+              <ng-container matColumnDef="first_name">
+                <mat-header-cell *matHeaderCellDef mat-sort-header class="m-r-10"> Name </mat-header-cell>
+                <mat-cell *matCellDef="let row" class="m-r-10 cursor-p" (click)="detail(row.user_id)">
+                  <span class="header-label">name:</span>
+                  <img *ngIf="row.profile_picture_url != ''" src="{{row.profile_picture_url}}" class="img-circle m-r-10" width="40" height="40"/>
+                  <img *ngIf="row.profile_picture_url == ''" src="./assets/images/user.png" class="img-circle m-r-10" width="40" height="40"/>
+                  <h5 class="m-0">{{row.first_name}} {{row.last_name}}</h5>
+                </mat-cell>
+              </ng-container>
+
+               <!-- Name Column -->
+               <!-- <ng-container matColumnDef="city">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> City Name </mat-header-cell>
+                <mat-cell *matCellDef="let row" class="cursor-p" (click)="detail(row.user_id)"> {{row.city}} </mat-cell>
+              </ng-container> -->
+  
+              <!-- Name Column -->
+              <!-- <ng-container matColumnDef="property">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Property Name </mat-header-cell>
+                <mat-cell *matCellDef="let row" class="cursor-p" (click)="detail(row.user_id)"> {{row.property_name}} </mat-cell>
+              </ng-container> -->
+  
+              <!-- Color Column -->
+              <!--<ng-container matColumnDef="unit_Number">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Unit Number </mat-header-cell>
+                <mat-cell *matCellDef="let row" class="cursor-p" (click)="detail(row.user_id)"> {{row.property_code}} </mat-cell>
+              </ng-container>-->
+  
+              <!-- Name Column -->
+              <!-- <ng-container matColumnDef="service_day">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Service Day </mat-header-cell>
+                <mat-cell *matCellDef="let row" class="cursor-p" (click)="detail(row.user_id)" > <span class="d-n" [ngClass]="{'d-b':row.service_day == 7}">Sunday</span><span class="d-n" [ngClass]="{'d-b':row.service_day == 6}">Saturday</span><span class="d-n" [ngClass]="{'d-b':row.service_day == 5}">Friday</span><span class="d-n" [ngClass]="{'d-b':row.service_day == 4}">Thursday</span><span class="d-n" [ngClass]="{'d-b':row.service_day == 3}">Wednesday</span><span class="d-n" [ngClass]="{'d-b':row.service_day == 2}">Tuesday</span><span class="d-n" [ngClass]="{'d-b':row.service_day == 1}">Monday</span> </mat-cell>
+              </ng-container> -->
+  
+              <!-- Color Column -->
+              <ng-container matColumnDef="email">
+                <mat-header-cell *matHeaderCellDef mat-sort-header class="m-r-10 align-center"> Email </mat-header-cell>
+                <mat-cell *matCellDef="let row" (click)="detail(row.user_id)" class="align-center m-r-10 cursor-p"> {{row.email}} </mat-cell>
+              </ng-container>
+  
+              <!-- Color Column -->
+              <ng-container matColumnDef="phone">
+                <mat-header-cell *matHeaderCellDef mat-sort-header class="m-r-10 align-center"> Phone </mat-header-cell>
+                <mat-cell *matCellDef="let row" class="cursor-p m-r-10 align-center" (click)="detail(row.user_id)"> {{getPhone(row.phone)}} </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="type">
+                <mat-header-cell *matHeaderCellDef mat-sort-header class="m-r-10 align-center"> Type </mat-header-cell>
+                <mat-cell *matCellDef="let row" class="cursor-p m-r-10 align-center" (click)="detail(row.user_id)"> {{row.user_type_name}} </mat-cell>
+              </ng-container>
+  
+              <!-- Color Column -->
+              <ng-container matColumnDef="Action">
+                <mat-header-cell *matHeaderCellDef class="align-center"> Action </mat-header-cell>
+                <mat-cell *matCellDef="let row" class="align-center">
+                  <span class="material-icons m-r-10 cursor-p" (click)="btnClick(row.user_id)">edit</span>
+                  <span *ngIf="userType == '5' || userType == '6'" class="material-icons cursor-p c-red" (click)="openDialog(row.user_id)">delete_forever</span>
+                </mat-cell>
+  
+              </ng-container>
+  
+  
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;">
+              </mat-row>
+            </mat-table>
+  
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <!--<div class="row heading-section">
+      <div class="col-md-12">
+          <h3 class="list-heading">All Resident Users</h3>
+      </div>
+  </div>
+  <div class="form-group row">
+      <label class="control-label col-sm-3">Property Name</label>
+      <div class="col-sm-7">
+          <select class="form-control col-12" name="property_code" required [(ngModel)]="selectedProperty"  #building="ngModel" (change)="onChange()">
+              <option value="" selected>Choose property name</option>
+              <option value="{{building.property_code}}" *ngFor="let building  of allbuilding">{{building.property_name}}</option>
+          </select>
+          <span class="help-desk" *ngIf="building.invalid && building.touched" style="color: #E74C3C;" >Please enter user type.</span>
+      </div>
+  </div>
+  
+  
+  <div class="table-responsive-xl" *ngIf="selectedProperty != ''">
+      <table class="table table-hover bg-color-fff">
+          <thead>
+          <tr>
+              <th scope="col">ID</th>
+              <th scope="col">First Name</th>
+              <th scope="col">Last Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Phone #</th>
+              <th scope="col">state</th>
+              <th scope="col" style="width:15%; !important;">Action</th>
+          </tr>
+          </thead>
+          <tbody *ngIf="allResidentUsers.length > 0">
+          <tr *ngFor="let resident of allResidentUsers; let i = index" (click)="detail(resident.user_id)" style="cursor: pointer">
+              <td scope="row">{{ resident.id }}</td>
+              <td>{{ resident.first_name }}</td>
+              <td>{{ resident.last_name }}</td>
+              <td>{{ resident.email }}</td>
+              <td>{{ resident.phone }}</td>
+              <td>{{ resident.state }}</td>
+  
+              <td>
+                  <button class="btn btn-warning" (click)="btnClick(resident.user_id)">Edit</button>
+              </td>
+          </tr>
+          </tbody>
+      </table>
+  </div>-->

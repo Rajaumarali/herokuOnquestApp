@@ -1,0 +1,331 @@
+<!-- ============================================================== -->
+<!-- Card Grid-->
+<!-- ============================================================== -->
+<div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+<!--                <mat-card-title>Form Basic Layouts</mat-card-title>-->
+                <!-- ============================================================== -->
+                <!-- column -->
+                <!-- ============================================================== -->
+                <form class="basic-form" (ngSubmit)="onSubmit()" #form="ngForm">
+                    <div fxLayout="row wrap">
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="First Name" name="first_name"  [ngModel]="user.first_name" #userfirstname="ngModel">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Last Name" name="last_name"  [ngModel]="user.last_name">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Email" name="email"  [ngModel]="user.email">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input maxlength="10" matInput placeholder="Phone Number" name="phone"  [ngModel]="user.phone">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput [matDatepicker]="picker" placeholder="Birthday" name="birthday" [(ngModel)]="user.birthday">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Street Address" name="street_name"  [ngModel]="user.street_name">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Unit Number" name="unit_number"  [ngModel]="user.unit_number">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput id="city_places" ngx-google-places-autocomplete #placesRef="ngx-places" placeholder="City" name="city"  [ngModel]="user.city">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input maxlength="2" matInput id="state_places" ngx-google-places-autocomplete #placesRef="ngx-places" placeholder="State" name="state"  [ngModel]="user.state">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Zip Code" name="zip_code"  [ngModel]="user.zip_code">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <mat-form-field>
+                                <mat-select placeholder="Building" name="building_id" (selectionChange)="changeBuild($event.value)"  [(ngModel)]="user.building_id">
+                                    <mat-option value="{{building.property_code}}" *ngFor="let building  of allBuilding">{{building.property_name}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-sm="100" fxFlex="100" class="m-t-10 m-b-10">
+                            <mat-checkbox color="accent" class="form-control" name="any_pets"  [ngModel]="user.any_pets">Any Pets</mat-checkbox>
+                        </div>
+
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Emergency Contact First Name" name="emergency_contact_first_name"  [ngModel]="user.emergency_contact_first_name">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Emergency Contact Last Name" name="emergency_contact_last_name"  [ngModel]="user.emergency_contact_last_name">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input maxlength="10" matInput placeholder="Emergency Contact Phone Number" name="emergency_contact_phone_number"  [ngModel]="user.emergency_contact_phone_number">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Emergency Contact Relation" name="emergency_contact_relationship"  [ngModel]="user.emergency_contact_relationship">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-sm="100" fxFlex="100" class="m-t-10 m-b-10">
+                            <mat-checkbox color="accent" class="form-control" name="mates"  [ngModel]="user.mates">Roommate</mat-checkbox>
+                        </div>
+
+                         <!-- column -->
+                         <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Roommate First Name" name="mate_first_name"  [ngModel]="user.mate_first_name">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Roommate Last Name" name="mate_last_name"  [ngModel]="user.mate_last_name">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Roommate Phone Number" name="mate_phone"  [ngModel]="user.mate_phone">
+                            </mat-form-field>
+                        </div>
+
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Favorite Holiday" name="favorite_holiday"  [ngModel]="user.favorite_holiday">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Favorite Candy" name="favorite_candy"  [ngModel]="user.favorite_candy">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Favorite Cookie" name="favorite_cookie"  [ngModel]="user.favorite_cookie">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Favorite Beer/Wine" name="favorite_beer_wine"  [ngModel]="user.favorite_beer_wine">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Hobbies" name="hobbies"  [ngModel]="user.hobbies">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Favorite Sport" name="favorite_sport"  [ngModel]="user.favorite_sport">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Other Information" name="other_information"  [ngModel]="user.other_information">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+<!--                        <div fxFlex.gt-md="100" fxFlex="100">-->
+<!--                            <mat-form-field>-->
+<!--                                <input matInput placeholder="Notes" name="notes"  [ngModel]="user.notes">-->
+<!--                            </mat-form-field>-->
+<!--                        </div>-->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <mat-select placeholder="Assigned Captain" name="assigned_captain_id" [(ngModel)]="user.assigned_captain_id" >
+                                    <mat-option value="{{captain.user_id}}" *ngFor="let captain  of allcaptains">{{captain.first_name}} {{captain.last_name}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div [formGroup]="formGroup" fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input [disabled]="captainAssigned == false && user.assigned_captain_id==null ? true:false" matInput [ngxMatDatetimePicker]="picker1"
+                                       placeholder="Schedule Meet & Greet" [min]="minDate"  name="meet_greet_date_time"  [formControl]="meet_greet_date_time" (ngModelChange)="meetgreetdayChange($event)">
+                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                <ngx-mat-datetime-picker #picker1></ngx-mat-datetime-picker>
+                            </mat-form-field>
+                        </div>
+
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <mat-select [disabled]="captainAssigned == false && user.assigned_captain_id==null ? true:false" placeholder="Service Days" name="user_profile_service_day" [(ngModel)]="user.user_profile_service_day">
+                                    <mat-option value="1" *ngIf="service_day.includes('1')==true">Monday </mat-option>
+                                    <mat-option value="2" *ngIf="service_day.includes('2')==true">Tuesday </mat-option>
+                                    <mat-option value="3" *ngIf="service_day.includes('3')==true">Wednesday</mat-option>
+                                    <mat-option value="4" *ngIf="service_day.includes('4')==true">Thursday </mat-option>
+                                    <mat-option value="5" *ngIf="service_day.includes('5')==true">Friday </mat-option>
+                                    <mat-option value="6" *ngIf="service_day.includes('6')==true">Saturday</mat-option>
+                                    <mat-option value="7" *ngIf="service_day.includes('7')==true">Sunday</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                     <!--   <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Meet $ greet Status" name="meet_greet_status" required [ngModel]="user.meet_greet_status">
+                            </mat-form-field>
+                        </div>-->
+                        <!-- column -->
+                        <!--<div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput [matDatepicker]="meet_greet_date_time" placeholder="Meet and greet day" name="meet_greet_date_time"  [ngModel]="user.meet_greet_date_time">
+                                <mat-datepicker-toggle matSuffix [for]="meet_greet_date_time"></mat-datepicker-toggle>
+                                <mat-datepicker #meet_greet_date_time></mat-datepicker>
+                            </mat-form-field>
+                        </div>-->
+
+<!--                        <div style="display: {{meetgreetday}}" fxFlex.gt-md="100" fxFlex="100">-->
+<!--                            <mat-form-field>-->
+<!--                                <mat-select [disabled]="user.assigned_captain_id!=='' && user.assigned_captain_id!==null?'false':'true'" placeholder="Meet and greet day" name="meet_greet_date_time" [(ngModel)]="user.meet_greet_date_time">-->
+<!--                                    <mat-option value="1" *ngIf="service_day.includes('1')==true">Monday </mat-option>-->
+<!--                                    <mat-option value="2" *ngIf="service_day.includes('2')==true">Tuesday </mat-option>-->
+<!--                                    <mat-option value="3" *ngIf="service_day.includes('3')==true">Wednesday</mat-option>-->
+<!--                                    <mat-option value="4" *ngIf="service_day.includes('4')==true">Thursday </mat-option>-->
+<!--                                    <mat-option value="5" *ngIf="service_day.includes('5')==true">Friday </mat-option>-->
+<!--                                    <mat-option value="6" *ngIf="service_day.includes('6')==true">Saturday</mat-option>-->
+<!--                                    <mat-option value="7" *ngIf="service_day.includes('7')==true">Sunday</mat-option>-->
+<!--                                </mat-select>-->
+<!--                            </mat-form-field>-->
+<!--                        </div>-->
+
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100" *ngIf="showPassFields">
+
+                            <div fxFlex.gt-md="50" fxFlex="50">
+                                <mat-form-field>
+                                    <input (input)="txtChange($event.target.value, 0)" matInput placeholder="Password" name="password" type="password" value="{{pass}}">
+                                </mat-form-field>
+<!--                                <small *ngIf="form.controls['password'].hasError('required') && form.controls['password'].touched" class="text-danger font-14">You must include password.</small>-->
+                                <small class="text-danger font-14">{{passMatchErr}}</small>
+                            </div>
+
+                            <div fxFlex.gt-md="50" fxFlex="50">
+                                <mat-form-field>
+                                    <input (input)="txtChange($event.target.value, 1)" matInput placeholder="Confirm Password" name="cpassword" type="password" value="{{cpass}}">
+                                </mat-form-field>
+<!--                                <small *ngIf="form.controls['confirmPassword'].hasError('required') && form.controls['confirmPassword'].touched" class="text-danger font-14">You must include confirm password.</small>-->
+<!--                                <small *ngIf="form.controls['confirmPassword'].errors?.equalTo" class="text-danger font-14">Passwords do not match.</small>-->
+                            </div>
+
+                        </div>
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <button [disabled]="showLoader || passMatchErr!==''" mat-raised-button color="primary">Update</button>
+                        <span *ngIf="showLoader" class="p-a"><img src="assets/images/loader.gif" alt="homepage" width="40px" class="dark-logo m-l-10"></span>
+
+                        </div>
+                    </div>
+                </form>
+            </mat-card-content>
+            <mat-card-content class="matcard-changepass">
+            <div class="btn-changepass" fxFlex.gt-sm="100" fxFlex="100" (click)="toogleFields()">
+                <button [disabled]="showLoader" mat-raised-button color="primary">{{passBtnName}}</button>
+            </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+
+<div fxLayout="row wrap">
+    <!-- Card column -->
+    <div fxFlex.gt-lg="50" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+                <mat-card-title>Recent Notes</mat-card-title>
+                <mat-card-subtitle>Latest notes on Resident</mat-card-subtitle>
+                <div class="comment-widgets">
+                    <!-- Comment Row -->
+                    <div class="d-flex flex-row comment-row" *ngFor="let notes of allNotes">
+                        <div class="p-2">
+                            <span class="round">
+                                <img src="{{notes.concierage_captain_image}}" alt="user" width="50">
+                            </span>
+                        </div>
+                        <div class="comment-text w-100">
+                            <h5 class="m-0">{{notes.name}}</h5>
+                            <span class="text-muted f-s-13">{{notes.created_at | slice:0:10}}</span>
+                            <p class="m-b-5">{{notes.note}}</p>
+                            <div class="comment-footer">
+                                
+                                <span *ngIf="notes.captain_id == userObject.user_id" class="action-icons">
+                                    <a href="javascript:void(0)" (click)="editNote(notes)">
+                                        <i class="ti-pencil-alt"></i>
+                                    </a>
+                                    <a href="javascript:void(0)" (click)="deleteNote(notes)">
+                                        <i class="ti-trash m-l-10"></i>
+                                    </a>
+                                    <!-- <a href="javascript:void(0)">
+                                        <i class="ti-check"></i>
+                                    </a>
+                                    <a href="javascript:void(0)">
+                                        <i class="ti-heart"></i>
+                                    </a> -->
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- column -->
+                    
+                        <mat-form-field>
+                            <input matInput placeholder="Add Notes" name="notes" [(ngModel)]="residentNotes">
+                        </mat-form-field>
+                        <button mat-raised-button color="basic" (click)="cancelNotes()">CANCEL</button>
+                        <button *ngIf="!noteUpdate" mat-raised-button color="primary" class="m-l-10" [disabled]="residentNotes == ''" (click)="saveNotes()">ADD</button>
+                        <button *ngIf="noteUpdate" mat-raised-button color="primary" class="m-l-10" [disabled]="residentNotes == ''" (click)="updateNotes()">UPDATE</button>
+                        <span *ngIf="loader" class="p-a"><img src="assets/images/loader.gif" alt="homepage" width="40px" class="dark-logo m-l-10"></span>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

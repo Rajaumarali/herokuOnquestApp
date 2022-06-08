@@ -1,0 +1,67 @@
+
+    <div fxFlex.gt-md="100" fxFlex="100">
+        <div fxLayout="row wrap">
+            <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+                <mat-card>
+                    <mat-card-content>
+                      
+                        <div class="responsive-table">
+                            <mat-table [dataSource]="dataSource" matSort>
+
+                            <ng-container matColumnDef="service_name">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header class="m-r-10">Service Name </mat-header-cell>
+                            <mat-cell *matCellDef="let row;let i = index;" class="m-r-10 cursor-p" >
+                              {{row.service_name}}
+                            </mat-cell>
+                          </ng-container>
+            
+                          <ng-container matColumnDef="first_name">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header class="m-r-10">Captain </mat-header-cell>
+                            <mat-cell *matCellDef="let row;let i = index;" class="m-r-10 cursor-p" >
+                               name
+                            </mat-cell>
+                          </ng-container>
+              
+                          <ng-container matColumnDef="property_name">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header class="m-w-250 m-r-10"> Property Name</mat-header-cell>
+                            <mat-cell *matCellDef="let row;let i = index;" class="cursor-p m-w-250 m-r-10" > {{row.property_name}} </mat-cell>
+                          </ng-container>
+              
+                          <ng-container matColumnDef="resident">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header class="m-r-10"> Resident Name </mat-header-cell>
+                            <mat-cell *matCellDef="let row;let i = index;" class="cursor-p m-r-10" > {{row.resident}} </mat-cell>
+                          </ng-container>
+              
+                          <ng-container matColumnDef="user_profile_service_day">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header class="m-r-10"> Service Day </mat-header-cell>
+                            <mat-cell *matCellDef="let row;let i = index;" class="cursor-p m-r-10" > {{row.user_profile_service_day == 7?"Sunday":row.user_profile_service_day == 6?"Saturday":row.user_profile_service_day == 5?"Friday":row.user_profile_service_day == 4?"Thursday":row.user_profile_service_day == 3?"Wednesday":row.user_profile_service_day == 2?"Tuesday":row.user_profile_service_day == 1?"Monday":"Not Assigned" }}</mat-cell>
+                          </ng-container>
+              
+                          <ng-container matColumnDef="service_completed">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header class="m-r-10"> Status </mat-header-cell>
+                            <mat-cell *matCellDef="let row;let i = index;"  class="m-r-10 cursor-p"> Completed</mat-cell>
+                          </ng-container>
+              
+                          <ng-container matColumnDef="created_at">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header class="m-r-10"> Created At </mat-header-cell>
+                            <mat-cell *matCellDef="let row;let i = index;" class="cursor-p m-r-10" > {{row.created_at | slice:0:10}} </mat-cell>
+                          </ng-container>
+
+                            
+
+
+
+                                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                <mat-row *matRowDef="let row; columns: displayedColumns;">
+                                </mat-row>
+                            </mat-table>
+
+                            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+
+    </div>
+   

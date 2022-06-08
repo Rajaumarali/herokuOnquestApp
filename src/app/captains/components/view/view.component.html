@@ -1,0 +1,323 @@
+<div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+        <mat-card>
+            <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+                <mat-card class="oh text-center little-profile">
+                    <!--                        <img mat-card-image src="assets/images/background/profile-bg.jpg" alt="Photo of a Shiba Inu" style="height: 187px;">-->
+                    <mat-card-content>
+                        <div class="pro-img user-img">
+                            <img *ngIf="user.profile_picture_url != ''" src="{{user.profile_picture_url}}" width="100" alt="user">
+                            <img *ngIf="user.profile_picture_url == ''" src="./assets/images/user.png" width="100" alt="user">
+                        </div>
+                        <h3 class="m-b-0">{{user.first_name}} {{user.last_name}}</h3>
+                        <div class="m-t-20">
+                            <button mat-raised-button (click)="editResident()" color="accent">Edit</button>
+                          </div>
+                        <div fxLayout="row wrap" class="m-t-40">
+                            <div fxFlex.gt-sm="100%" fxFlex.gt-xs="100%" fxFlex="100" style="text-align: left">
+                                <div class="row ">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Email :</span>
+                                    <span fxFlex.gt-sm="50%">{{user.email}}</span>
+                                </div>
+                                <!-- <div class="row">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="40%">Zip Code :</span>
+                                    <span fxFlex.gt-sm="50%">{{user.zip_code}}</span>
+                                </div> -->
+                                <div class="row">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%"> Assigned Property :</span>
+                                    <span fxFlex.gt-sm="50%">{{user.property_name}}</span>
+                                </div>
+                                <div class="row">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%"> Region :</span>
+                                    <span fxFlex.gt-sm="50%">{{user.region}}</span>
+                                </div>
+                                <div class="row">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%"> Who I Am :</span>
+                                    <span fxFlex.gt-sm="50%">{{user.who_i_am}}</span>
+                                </div>
+                                <div class="row">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">What I Do:</span>
+                                    <span fxFlex.gt-sm="50%">{{user.what_i_do}}</span>
+                                </div>
+                                <div class="row">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Date Created :</span>
+                                    <span fxFlex.gt-sm="50%">{{user.created_at | slice:0:10}}</span>
+                                </div>
+                            <!-- </div>
+                            <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left"> -->
+                                <div class="row">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Birthday:</span>
+                                    <span fxFlex.gt-sm="50%">{{user.birthday==""||user.birthday==null?'N/A':user.birthday}}</span>
+                                </div>
+                                <div class="row">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Phone :</span>
+                                    <span fxFlex.gt-sm="50%">{{getPhone(user.phone)}}</span>
+                                </div>
+                                <!-- <div class="row">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">State:</span>
+                                    <span fxFlex.gt-sm="50%">{{user.state}}</span>
+                                </div> -->
+                                <!-- <div class="row">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Unit Number:</span>
+                                    <span fxFlex.gt-sm="50%">{{user.unit_number}}</span>
+                                </div> -->
+                                <!-- <div class="row">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">City:</span>
+                                    <span fxFlex.gt-sm="50%">{{user.city}}</span>
+                                </div> -->
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </mat-card>
+    </div>
+</div>
+
+
+<!--<div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+        <mat-card>
+            <mat-tab-group *ngIf="userService.length>0;">
+                &lt;!&ndash; Tab 1 &ndash;&gt;
+                <mat-tab *ngFor="let services of userService" label="{{services.service_name}}">
+                    <mat-card-content>
+                        <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+                            <mat-card class="oh text-center little-profile">
+                                <img mat-card-image src="assets/images/background/profile-bg.jpg" alt="Photo of a Shiba Inu" style="height: 187px;">
+                                <mat-card-content>
+                                    <div class="pro-img">
+                                        <img src="{{services.service_image}}" width="100" alt="user">
+                                    </div>
+                                    <h3 class="m-b-0">{{services.service_name}}</h3>
+                                    <h6 class="m-t-0 ">{{services.description}}</h6>
+                                    &lt;!&ndash; <mat-card-actions *ngIf="userType == '5' || userType == '4'">
+                                         <button mat-raised-button color="warn" class="cursor-p" (click)="editProperty(locationPropertyCode)">Edit</button>
+                                     </mat-card-actions>&ndash;&gt;
+                                    <div fxLayout="row wrap" class="m-t-40">
+                                        <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left" *ngIf="services.service_name == 'FLOWER DELIVERY'">
+                                            <div class="row ">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Flower Budget :</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].flower_budget}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Vase :</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].vase}}</span>
+                                            </div>
+
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%"> Vase Budget:</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].vase_budget}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Display Flower Area :</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].display_flower_area}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Other Information :</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].other_information}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%"> Notes :</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].notes}}</span>
+                                            </div>
+                                        </div>
+                                        <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left" *ngIf="services.service_name == 'RX PICKUP'">
+                                            <div class="row ">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Name of Prescription:</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].name_of_prescription}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Payment Required For Pickup :</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].payment_required_for_pickup}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Other Information :</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].other_information}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%"> Notes :</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].notes}}</span>
+                                            </div>
+                                        </div>
+                                        <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left" *ngIf="services.service_name == 'GENERAL'">
+                                            <div class="row ">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Name of General Service:</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].name_of_general_service}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Other Information :</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].other_information}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%"> Notes :</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].notes}}</span>
+                                            </div>
+                                        </div>
+                                        <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left" *ngIf="services.service_name == 'GROCERY SHOPPING'">
+                                            <div class="row ">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Organic Items :</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].organic_items}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Food_allergies :</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].food_allergies}}</span>
+                                            </div>
+
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%"> Restrictions:</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].restrictions}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Prefered Brands :</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].prefered_brands}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Other Grocery Specifications :</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].other_grocery_specifications}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%"> Notes :</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].notes}}</span>
+                                            </div>
+                                        </div>
+                                        <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left" *ngIf="services.service_name == 'HANDY MAN'">
+                                            <div class="row ">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Handyman Type:</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].handyman_type}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Other Handyman :</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].other_handyman}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%"> Reminder :</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].reminder}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%"> Notes :</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].notes}}</span>
+                                            </div>
+                                        </div>
+                                        <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left" *ngIf="services.service_name == 'HOUSE KEEPING'">
+                                            <div class="row ">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Number of Bedrooms:</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].number_of_bedrooms}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Number of Bathrooms :</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].number_of_bathrooms}}</span>
+                                            </div>
+                                            <div class="row ">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Square Footage :</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].square_footage}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Cleaning Supplies :</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].cleaning_supplies}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Housekeeping Preferences :</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].housekeeping_preferences}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%"> Reminder :</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].reminder}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%"> Notes :</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].notes}}</span>
+                                            </div>
+                                        </div>
+                                        <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left" *ngIf="services.service_name == 'LAUNDRY PICKUP'">
+                                            <div class="row ">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Number of Items:</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].number_of_items}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Specific Instructions :</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].specific_instruction}}</span>
+                                            </div>
+                                        </div>
+                                        <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left" *ngIf="services.service_name == 'LAUNDRY DROPOFF'">
+                                            <div class="row ">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Number of Items:</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].number_of_items}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Relevant Instructions :</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].relevant_information}}</span>
+                                            </div>
+                                        </div>
+                                        <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left" *ngIf="services.service_name == 'MOBILE CAR WASH'">
+                                            <div class="row ">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Model</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].model}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Make :</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].make}}</span>
+                                            </div>
+                                            <div class="row ">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">License Plate:</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].license_plate}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Color:</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].color}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Other Details :</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].other_details}}</span>
+                                            </div>
+                                        </div>
+                                        <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left">
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Service Enable :</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].service_enable}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Service Completed :</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].service_completed}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Service Type Id :</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].service_type_id}}</span>
+                                            </div>
+
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Created At :</span>
+                                                <span fxFlex.gt-sm="50%">{{services.service[0].created_at.substring(0, 10)}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Last Updated :</span>
+                                                <span fxFlex.gt-sm="50%">{{(services.service[0].last_updated) ? services.service[0].last_updated.substring(0, 10) : '-' }}</span>
+                                            </div>
+                                        </div>
+                                        &lt;!&ndash;<div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left" *ngIf="services.service_name == 'GROCERY SHOPPING'">
+                                            <div class="row ">
+                                                <span class="col-sm-3">Prefered Brand Photos:</span>
+                                                <span class="col-sm-1" *ngFor="let images of parseJson(services.service[0].prefered_brand_photos)">
+                                                <img class="img-responsive" width="70" height="70" src="{{ images }}"/>
+                                                </span>
+                                            </div>
+                                            <br>
+                                            <div class="row ">
+                                                <span class="col-sm-3">Not Prefered Brand Photos:</span>
+                                                <span class="col-sm-1" *ngFor="let images of parseJson(services.service[0].not_prefered_brand_photos)">
+                                                <img class="img-responsive" width="70" height="70" src="{{ images }}"/>
+                                                </span>
+                                            </div>
+                                        </div>&ndash;&gt;
+                                    </div>
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                    </mat-card-content>
+                </mat-tab>
+                &lt;!&ndash; End Tab 1 &ndash;&gt;
+            </mat-tab-group>
+        </mat-card>
+    </div>
+</div>-->
+

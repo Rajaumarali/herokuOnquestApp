@@ -1,0 +1,59 @@
+
+<div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+        <mat-card>
+                <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+                    <mat-card class="oh text-center little-profile">
+<!--                        <img mat-card-image src="assets/images/background/profile-bg.jpg" alt="Photo of a Shiba Inu" style="height: 187px;">-->
+                        <mat-card-content>
+                            <div class="pro-img user-img">
+                                <img *ngIf="user.profile_picture_url != ''" src="{{user.profile_picture_url}}" width="100" alt="user">
+                                <img *ngIf="user.profile_picture_url == ''" src="./assets/images/user.png" width="100" alt="user">
+                            </div>
+                            <h3 class="m-b-0">{{user.first_name}} {{user.last_name}}</h3>
+                            <div class="m-t-20">
+                                <!-- <button mat-raised-button class="m-r-5" (click)="callResident()" color="primary">Call</button> -->
+                                <!-- <button mat-raised-button class="m-r-5" color="primary" (click)="sendSMS(user.first_name,user.last_name,user.phone,user.user_id)">SMS</button> -->
+                                <!-- <button mat-raised-button class="m-r-5" (click)="sendEmail(user.first_name,user.last_name,user.email)" color="accent">Email</button> -->
+                                <!-- <button mat-raised-button class="m-r-5" (click)="getMessageLogs(user.user_id)" color="primary">Message Logs</button> -->
+                                <button *ngIf="userType != '3'" mat-raised-button (click)="editResident()" color="accent">Edit</button>
+                            </div>
+<!--                              <div class="m-t-20">-->
+<!--                                <button mat-raised-button (click)="editResident()" color="accent">Edit</button>-->
+<!--                              </div>-->
+                              <div fxLayout="row wrap" class="m-t-40">
+                                <div fxFlex.gt-sm="100%" fxFlex.gt-xs="100%" fxFlex="100" style="text-align: left">
+                                            <div class="row ">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">User Type :</span>
+                                                <span fxFlex.gt-sm="50%">{{user.user_type_id==3?'Basic User':user.user_type_id==4?"Global Admin":user.user_type_id==5?'Super Admin':"Regional Admin"}}</span>
+                                            </div>
+                                            <div class="row ">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Email :</span>
+                                                <span fxFlex.gt-sm="50%">{{user.email}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Phone :</span>
+                                                <span fxFlex.gt-sm="50%">{{getPhone(user.phone)}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Region:</span>
+                                                <span fxFlex.gt-sm="50%">{{user.user_type_id==4||user.user_type_id==5?"All":user.user_region}}</span>
+                                            </div>
+                                            
+                                       
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Properties :</span>
+                                                <span fxFlex.gt-sm="50%">{{user.user_type_id==4||user.user_type_id==5||user.user_type_id==6?"All":user.property_name}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%"> Birthday :</span>
+                                                <span fxFlex.gt-sm="50%">{{user.birthday | slice:0:10}}</span>
+                                            </div>
+                                        </div>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+        </mat-card>
+    </div>
+</div>

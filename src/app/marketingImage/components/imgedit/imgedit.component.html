@@ -1,0 +1,62 @@
+<!-- ============================================================== -->
+<!-- Card Grid-->
+<!-- ============================================================== -->
+<div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+                <!-- <mat-card-title>Edit Marketin  g Image</mat-card-title> -->
+                <!-- ============================================================== -->
+                <!-- column -->
+                <!-- ============================================================== -->
+                <mat-card-content>
+                    <div class="image-preview mb-3" style="position: relative;display: flex;align-items: center;">
+                        <img [src]="previewUrl!='' && previewUrl!=null?previewUrl:'./assets/images/user.png'" height="200" width="250"/>
+                        <button (click)="openGallery()" class="cursor-p" style="margin-left: 25px;">
+                            <i class="fa fa-edit"></i> Choose File   
+                        </button>
+                        <span style="align-self: center; margin-left: 20px;">{{previewUrl!='' && previewUrl!=null?'':'No File Selected'}}</span>
+                    </div>
+                    <div style="display: none;" fxFlex.gt-sm="100" fxFlex="100" class="m-b-20">
+                        <input class="form-control b-b" placeholder="file" type="file" (change)="fileProgress($event)">
+                    </div>
+                </mat-card-content>
+
+                <form class="basic-form" #form="ngForm" (ngSubmit)="onSubmit()">
+                    <div fxLayout="row wrap">
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Title" name="title"  [ngModel]="imageData.title">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <mat-form-field>
+                                <mat-select placeholder="Status" name="status"  [(ngModel)]="imageData.status">
+                                    <mat-option value="true">Enable</mat-option>
+                                    <mat-option value="false">Disable</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <!-- column -->
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <mat-form-field>
+                                <mat-select #mySel multiple placeholder="Building" name="property_code" [(ngModel)]="imageData.property_code" >
+                                    <mat-option (onSelectionChange)="onChange()" *ngFor="let prop of properties" value="{{prop.property_code}}">{{prop.property_name}}</mat-option>
+                                    <mat-option value="All" (click)="toggleAllSelection()">All</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <!-- column -->
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <button [disabled]="showLoader" mat-raised-button color="primary">Update</button><span><img *ngIf="showLoader" src="assets/images/loader.gif" alt="homepage" width="40px" class="dark-logo m-l-20 p-a p-t-10"></span>
+                        </div>
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

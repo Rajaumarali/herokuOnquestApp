@@ -1,0 +1,96 @@
+<div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+        <mat-card>
+            <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+                <mat-card class="oh text-center little-profile">
+                    <!--                        <img mat-card-image src="assets/images/background/profile-bg.jpg" alt="Photo of a Shiba Inu" style="height: 187px;">-->
+                    <mat-card-content>
+                        
+                        <h3 class="m-b-0">{{taskDetail.property_name}}</h3>
+                        <button mat-raised-button class="m-t-40" (click)="editProperty(taskDetail.property_code)" color="accent">Edit</button>
+                        <div fxLayout="row wrap" class="m-t-40">
+                            <span *ngIf="showLoader" style="position: relative;left:47%;width: 5%; margin-bottom: 20px" class="p-a"><img src="assets/images/loader.gif" alt="homepage" width="40px" class="dark-logo m-l-10"></span>
+                            <div *ngIf="!showLoader" fxFlex.gt-sm="100%" fxFlex.gt-xs="100%" fxFlex="100" style="text-align: left">
+                                
+                                <div class="row">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="100%">Management Company:</span>
+                                    <span fxFlex.gt-sm="100%">{{taskDetail.management_company}}</span>
+                                </div>
+                                <div class="row">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="100%">Street Address:</span>
+                                    <span fxFlex.gt-sm="100%">{{taskDetail.address_line1}}</span>
+                                </div>
+                                <div class="row" >
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="100%">City/State:</span>
+                                    <span fxFlex.gt-sm="100%">{{taskDetail.address_city}} {{taskDetail.state}}</span>
+                                </div>
+                                <div class="row">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="100%">Zip Code:</span>
+                                    <span fxFlex.gt-sm="100%">{{taskDetail.address_zip}}</span>
+                                </div>
+                                <div class="row">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="100%">Region:</span>
+                                    <span fxFlex.gt-sm="100%">{{taskDetail.region}}</span>
+                                </div>
+                                <div class="row">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="100%">Service Days:</span>
+                                    <span fxFlex.gt-sm="100%">{{taskDetail.service_day}}</span>
+                                </div>
+                                <div class="row">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="100%">Service Booking Cut-Off Time:</span>
+                                    <span fxFlex.gt-sm="100%">{{timeFormat(taskDetail.set_up_time)}} </span>
+                                </div>
+                                <div class="row" >
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="100%">Service Cancellation Cut-Off Time:</span>
+                                    <span fxFlex.gt-sm="100%">{{timeFormat(taskDetail.cutt_off_time)}} </span>
+                                </div>
+                                <div class="row ">
+                                    <span  style="font-weight: 500;" fxFlex.gt-sm="100%">Property Manager Name:</span>
+                                    <span fxFlex.gt-sm="100%">{{taskDetail.property_manager}}</span>
+                                </div>
+                                <div class="row">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="100%">Asst. Property Manager Name:</span>
+                                    <span fxFlex.gt-sm="100%">{{taskDetail.asst_property_manager}}</span>
+                                </div>
+
+                                <div class="row">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="100%">Leasing Manager Name:</span>
+                                    <span fxFlex.gt-sm="100%">{{taskDetail.leasing_manager}}</span>
+                                </div>
+                                <div class="row">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="100%">Leasing Team:</span>
+                                    <span fxFlex.gt-sm="100%">{{taskDetail.leasing_team}}</span>
+                                </div>
+                                
+                            
+                               
+                                <div class="row">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="100%">Front Desk Concierge:</span>
+                                    <span fxFlex.gt-sm="100%">{{taskDetail.front_desk_concierge}}</span>
+                                </div>
+                                <div class="row">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="100%">Property Phone:</span>
+                                    <span fxFlex.gt-sm="100%">{{getPhone(taskDetail.property_phone)}}</span>
+                                </div>
+
+                                <div class="row" >
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="100%">Property Email:</span>
+                                    <span fxFlex.gt-sm="100%">{{taskDetail.property_email}}</span>
+                                </div>
+                                <div class="row" >
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="100%">Property Code:</span>
+                                    <span fxFlex.gt-sm="100%">{{taskDetail.property_code}}</span>
+                                </div>
+                                <div class="row" >
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="100%">Enabled Services:</span>
+                                    <span fxFlex.gt-sm="100%">{{services_enable}}</span>
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </mat-card>
+    </div>
+</div>

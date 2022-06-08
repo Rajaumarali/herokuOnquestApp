@@ -1,0 +1,17 @@
+/* You can add global styles to this file, and also import other style files  */
+@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700');
+    
+.cursor-p{
+    cursor: pointer;
+}
+.user-profile .profile-img::before {
+    width: 70px !important;
+    height: 70px !important;
+    top: 21px !important;
+}
+.p-a{
+    position: absolute;
+}
+.m-l-10{
+    margin-left: 10px;
+}

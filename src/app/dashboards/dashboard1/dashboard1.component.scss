@@ -1,0 +1,53 @@
+.piechart {
+  height: 300px;
+  width: 280px;
+  margin: 0 auto;
+}
+.min-height-150{
+  min-height: 150px;;
+}
+.home-table{
+  max-height: 432px;
+}
+.m-r-10{
+  margin-right: 10px;
+}
+.cursor-p{
+  cursor: pointer;
+}
+.c-red{
+  color: red;
+}
+.m-w-250{
+  min-width: 250px;
+}
+.responsive-table{
+  height: 317px;
+}
+button.mat-focus-indicator.m-r-5.downloads-section {
+  padding: 0px 10px;
+  line-height: 2;
+  background: blue;
+  color: white;
+  font-size: 12px;
+}
+.mat-header-cell{
+  justify-content: center;
+  padding: 0px;
+}
+mat-cell.mat-cell {
+  padding: 0px;
+  justify-content: center;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+.m-r-10{
+  margin-right: 10px;
+}
+.m-w-160{
+  min-width: 160px;
+}
+.apexcharts-toolbar{
+  top: 25px !important;
+  right: 25px !important;
+}

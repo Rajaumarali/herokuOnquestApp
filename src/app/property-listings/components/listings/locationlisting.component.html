@@ -1,0 +1,91 @@
+<div class="mat-card mat-focus-indicator">
+    <div class="bg-light p-10 p-r-20 p-l-20 table-filter" fxFlex.gt-lg="75" fxFlex.gt-md="30" fxFlex.gt-xs="100" fxFlex="100">
+        <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+    </div>
+    <div *ngIf="userType != '6'" fxFlex.gt-lg="75" fxFlex.gt-md="70" fxFlex.gt-xs="100" fxFlex="100" class="align-item-center"> <button mat-raised-button color="primary" (click)="btnCreate()">Add Property</button></div>
+
+</div>
+
+<div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+                <!-- <mat-card-title>All Properties</mat-card-title> -->
+                <div class="responsive-table">
+                    <mat-table [dataSource]="dataSource" matSort>
+
+                        <ng-container matColumnDef="property_name">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header class="w-m-200 m-r-10"> Property Name</mat-header-cell>
+                            <mat-cell class="cursor-p w-m-200 m-r-10" *matCellDef="let row" (click)="openProperty(row)"> {{row.property_name}} </mat-cell>
+                        </ng-container>
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="property_code">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header class="m-r-10"> Code</mat-header-cell>
+                            <mat-cell class="cursor-p m-r-10" *matCellDef="let row" (click)="detail(row)"> {{row.property_code}} </mat-cell>
+                        </ng-container>
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="management_company">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header class="w-m-200 m-r-10">Management Company</mat-header-cell>
+                            <mat-cell class="cursor-p w-m-200 m-r-10" *matCellDef="let row" (click)="detail(row)"> {{row.management_company}} </mat-cell>
+                        </ng-container>
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="address_line1">
+                            <mat-header-cell class="w-m-200 m-r-10" *matHeaderCellDef mat-sort-header>Street Address</mat-header-cell>
+                            <mat-cell class="cursor-p w-m-200 m-r-10" *matCellDef="let row" (click)="detail(row)"> {{row.address_line1}} </mat-cell>
+                        </ng-container>
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="region">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header class="m-r-10"> Region</mat-header-cell>
+                            <mat-cell class="cursor-p m-r-10" *matCellDef="let row" (click)="detail(row)"> {{row.region}} </mat-cell>
+                        </ng-container>
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="address_city">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header class="m-r-10">City/State</mat-header-cell>
+                            <mat-cell class="cursor-p m-r-10" *matCellDef="let row" (click)="detail(row)"> {{row.address_city}} </mat-cell>
+                        </ng-container>
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="address_zip">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header class="m-r-10">Zip</mat-header-cell>
+                            <mat-cell class="cursor-p m-r-10" *matCellDef="let row" (click)="detail(row)"> {{row.address_zip}} </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="active" *ngIf="userType == '5'">
+                            <mat-header-cell *matHeaderCellDef class="m-r-10"> Active </mat-header-cell>
+                            <mat-cell class="cursor-p m-r-10" *matCellDef="let row">
+                            <section class="example-section">
+                                <mat-slide-toggle
+                                    class="example-margin"
+                                    [checked]="row.active"
+                                    [disabled]="false"
+                                    (click)="changeStatus(row)">
+                                  
+                                </mat-slide-toggle>
+                              </section>
+                            </mat-cell>
+                        </ng-container>
+
+                        <!-- Color Column -->
+                        <ng-container matColumnDef="action" *ngIf="userType == '5' || userType == '4' || userType == '3' || userType == '6'">
+                            <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                                <!-- <span class="material-icons m-r-10 cursor-p" (click)="editbtn(row.property_code)">edit</span> -->
+                                <span *ngIf="userType == '5'" class="material-icons cursor-p c-red" (click)="openDialog(row.building_id,row.property_code)">delete_forever</span>
+                            </mat-cell>
+
+                        </ng-container>
+
+
+                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumns;">
+                        </mat-row>
+                    </mat-table>
+
+                    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+

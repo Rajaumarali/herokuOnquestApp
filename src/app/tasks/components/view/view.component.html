@@ -1,0 +1,266 @@
+<div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+        <mat-card>
+            <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+                <mat-card class="oh text-center little-profile">
+                    <!--                        <img mat-card-image src="assets/images/background/profile-bg.jpg" alt="Photo of a Shiba Inu" style="height: 187px;">-->
+                    <mat-card-content>
+                        <!-- <div class="pro-img user-img">
+                            <img *ngIf="taskDetail.service_image != ''" src="{{taskDetail.service_image}}" width="100" alt="user">
+                            <img *ngIf="taskDetail.service_image == ''" src="./assets/images/user.png" width="100" alt="user">
+                        </div> -->
+                        <h3 class="m-b-0">{{taskDetail.service_name}}</h3>
+                        <!-- <h6 class="m-t-0">{{taskDetail.description}}</h6> -->
+                        <div fxLayout="row wrap" class="m-t-40">
+                            <div fxFlex.gt-sm="100%" fxFlex.gt-xs="100%" fxFlex="100" style="text-align: left">
+                                <div class="row ">
+                                    <span  style="font-weight: 500;" fxFlex.gt-sm="50%">First Name:</span>
+                                    <span class="cursor-p" (click)="profile(taskDetail.user_id)" fxFlex.gt-sm="50%">{{taskDetail.first_name}}</span>
+                                </div>
+                                <div class="row">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Last Name:</span>
+                                    <span fxFlex.gt-sm="50%">{{taskDetail.last_name}}</span>
+                                </div>
+                                
+                                <div class="row">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Unit Number:</span>
+                                    <span fxFlex.gt-sm="50%">{{taskDetail.unit_number}}</span>
+                                </div>
+                                <div class="row">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Property Name:</span>
+                                    <span fxFlex.gt-sm="50%">{{taskDetail.property_name}}</span>
+                                </div>
+                                <div class="row">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Email:</span>
+                                    <span fxFlex.gt-sm="50%">{{taskDetail.email}}</span>
+                                </div>
+                                <div class="row">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Phone #:</span>
+                                    <span fxFlex.gt-sm="50%">{{getPhone(taskDetail.phone)}}</span>
+                                </div>
+                                <div class="row">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Date Created:</span>
+                                    <span fxFlex.gt-sm="50%">{{taskDetail.created_at}}</span>
+                                </div>
+                                <div class="row">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Last Updated:</span>
+                                    <span fxFlex.gt-sm="50%">{{taskDetail.last_updated?taskDetail.last_updated:taskDetail.updated_at}}</span>
+                                </div>
+                                <div class="row">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Service Status:</span>
+                                    <span fxFlex.gt-sm="50%" >{{taskDetail.service_enable!='true'?"Cancelled":taskDetail.service_completed=='true'?'Completed':'Not Completed'}}</span>
+                                </div>
+                                <div class="row">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Responsible Party:</span>
+                                    <span fxFlex.gt-sm="50%" >{{taskDetail.responsible_party}}</span>
+                                </div>
+                                <div class="row">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Completed Date:</span>
+                                    <span fxFlex.gt-sm="50%">{{taskDetail.service_completed_date}}</span>
+                                </div>
+                                <div class="row" *ngIf="taskDetail.service_name =='RX PICK-UP'">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Prescription Name:</span>
+                                    <span fxFlex.gt-sm="50%">{{taskDetail.name_of_prescription}}</span>
+                                </div>
+                                <div class="row" *ngIf="taskDetail.service_name =='RX PICK-UP'">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Payment Required:</span>
+                                    <span fxFlex.gt-sm="50%">{{taskDetail.payment_required_for_pickup}}</span>
+                                </div>
+                                <div class="row" *ngIf="taskDetail.service_name =='ONQUEST CLEAN'">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Specific Instructions:</span>
+                                    <span fxFlex.gt-sm="50%">{{taskDetail.notes}}</span>
+                                </div>
+                                <div class="row" *ngIf="taskDetail.service_name =='LAUNDRY PICK-UP' || taskDetail.service_name =='LAUNDRY DROP-OFF'">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Number of Items:</span>
+                                    <span fxFlex.gt-sm="50%">{{taskDetail.number_of_items}}</span>
+                                </div>
+                                <div class="row" *ngIf="taskDetail.service_name =='FLOWER DELIVERY'">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Arrangement Type:</span>
+                                    <span fxFlex.gt-sm="50%">{{taskDetail.notes}}</span>
+                                </div>
+                                <div class="row" *ngIf="taskDetail.service_name =='FLOWER DELIVERY'">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Flower Budget:</span>
+                                    <span fxFlex.gt-sm="50%">{{taskDetail.flower_budget}}</span>
+                                </div>
+                                <div class="row" *ngIf="taskDetail.service_name =='FLOWER DELIVERY'">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Vase Required:</span>
+                                    <span fxFlex.gt-sm="50%">{{taskDetail.vase}}</span>
+                                </div>
+                                <div class="row" *ngIf="taskDetail.service_name =='FLOWER DELIVERY'">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Vase Budget:</span>
+                                    <span fxFlex.gt-sm="50%">{{taskDetail.vase_budget}}</span>
+                                </div>
+                                <div class="row" *ngIf="taskDetail.service_name =='FLOWER DELIVERY'">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Display Area:</span>
+                                    <span fxFlex.gt-sm="50%">{{taskDetail.display_flower_area}}</span>
+                                </div>
+                                <div class="row" *ngIf="taskDetail.service_name =='FLOWER DELIVERY'|| taskDetail.service_name =='RX PICK-UP'||taskDetail.service_name =='PACKAGE PICK-UP'">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Additional Information:</span>
+                                    <span fxFlex.gt-sm="50%">{{taskDetail.other_information}}</span>
+                                </div>
+                                <div class="row" *ngIf="taskDetail.service_name =='PACKAGE PICK-UP'">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Number Of Packages:</span>
+                                    <span fxFlex.gt-sm="50%">{{taskDetail.number_of_packages}}</span>
+                                </div>
+                                <div class="row" *ngIf="taskDetail.service_name =='LAUNDRY PICK-UP' || taskDetail.service_name =='LAUNDRY DROP-OFF'">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Specific Instructions:</span>
+                                    <span fxFlex.gt-sm="50%">{{taskDetail.specific_instruction}}</span>
+                                </div>
+                                
+                                <div class="row" *ngIf="taskDetail.service_name =='GROCERY SHOPPING'|| taskDetail.service_name =='FLOWER DELIVERY' || taskDetail.service_name =='RX PICK-UP'">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Paid Status:</span>
+                                    <span fxFlex.gt-sm="50%">{{taskDetail.is_paid==0? 'Not paid':'Paid'}}</span>
+                                </div>
+                                <div class="row" *ngIf="taskDetail.service_name =='GROCERY SHOPPING'|| taskDetail.service_name =='FLOWER DELIVERY' || taskDetail.service_name =='RX PICK-UP'">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Total Amount Paid:</span>
+                                    <span fxFlex.gt-sm="50%">{{taskDetail.total_amount}}</span>
+                                </div>
+                                <div class="row" *ngIf="taskDetail.service_name =='GROCERY SHOPPING'|| taskDetail.service_name =='FLOWER DELIVERY' || taskDetail.service_name =='RX PICK-UP'">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Payment Message:</span>
+                                    <span fxFlex.gt-sm="50%">{{taskDetail.payment_message}}</span>
+                                </div>
+                                <div class="row" *ngIf="taskDetail.service_name =='GROCERY SHOPPING'|| taskDetail.service_name =='FLOWER DELIVERY' || taskDetail.service_name =='RX PICK-UP'">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Receipt:</span>
+                                    <div *ngFor="let img of taskDetail.payment_invoice">
+                                        <img (click)="openImage(img)" [src]="getImage(img)" class="img-circle m-r-10" width="40" height="40"/>
+                                    </div>
+                                </div>
+                                
+                                
+                                
+                                
+                                
+
+                            <!-- </div>
+                            <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left"> -->
+                               
+
+                               
+                                
+                                
+                                
+                                <!-- <div class="row">
+                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Notes:</span>
+                                    <span fxFlex.gt-sm="50%">{{taskDetail.notes}}</span>
+                                </div> -->
+                                
+                                
+                                
+                            </div>
+                            <div style="display: flex; align-items: center; position: relative;">
+                                <div *ngIf="taskDetail.service_completed=='false' && taskDetail.service_enable=='true' && paymentProfFound==true" class="task-complete">
+                                    <button mat-raised-button class="m-r-0" color="primary" (click)="complete()">Complete Task</button>
+                                    <!-- <span *ngIf="showLoader" style="position: relative;width: 5%; left: 5%" class="p-a"><img src="assets/images/loader.gif" alt="homepage" width="40px" class="dark-logo m-l-10"></span> -->
+                                </div>
+                                <div *ngIf="taskDetail.service_completed=='false' && taskDetail.service_enable=='true' && paymentProfFound==true" class="task-btn">
+                                    <button mat-raised-button class="m-r-5" color="btn-danger" (click)="cancel()">Cancel Task</button>
+                                </div>
+                                <span *ngIf="showLoader" style="position: relative;width: 5%; left: 5%" class="p-a"><img src="assets/images/loader.gif" alt="homepage" width="40px" class="dark-logo m-l-10"></span>
+                            <!-- <div *ngIf="taskDetail.service_name == 'GROCERY SHOPPING'" class="task-btn">
+                                <button mat-raised-button class="m-r-5" color="primary" (click)="openList()">View List</button>
+                            </div> -->
+                        </div>
+                        <div class="task-btn absolute">
+                            <button mat-raised-button class="m-r-5" color="red" (click)="goBack()">Exit</button>
+                        </div>
+                        <!-- <div *ngIf="taskDetail.service_name == 'GROCERY SHOPPING'" class="task-btn">
+                            <button mat-raised-button class="m-r-5" color="primary" (click)="openList()">View Tasks</button>
+                        </div> -->
+                    </div>
+                </mat-card-content>
+                <div *ngIf="taskDetail.service_completed=='false' && paymentProfFound==false" class="task-complete">
+                    <span style="font-weight: 500;">Payment profile not found</span>
+                </div>
+                </mat-card>
+                <div *ngIf="taskDetail.service_name == 'GROCERY SHOPPING'" mat-dialog-content>
+                    <div fxFlex.gt-md="100" fxFlex="100">
+                        <div fxLayout="row wrap">
+                            <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+                                <mat-card>
+                                    <mat-card-content>
+                        <h1 mat-dialog-title>Grocery List</h1>
+<!--                        <mat-card-title>All Message Logs</mat-card-title>-->
+                        <span *ngIf="loader" style="position: relative;width: 5%; left: 45%" class="p-a"><img src="assets/images/loader.gif" alt="homepage" width="40px" class="dark-logo m-l-10"></span>
+                        <div class="responsive-table">
+                            <mat-table [dataSource]="dataSource" matSort>
+
+                                <ng-container matColumnDef="name">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header class="m-w-250"> Item Name </mat-header-cell>
+                                    <mat-cell *matCellDef="let row" class="m-w-250 cursor-p" >
+                                        <span class="header-label"> Item Name:</span>
+                                        <h5 class="m-0">{{row.name}}</h5>
+                                    </mat-cell>
+                                </ng-container>
+
+                                <!-- Name Column -->
+                                <ng-container matColumnDef="quantity">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Quantity</mat-header-cell>
+                                    <mat-cell *matCellDef="let row" class="cursor-p" > {{row.quantity}} </mat-cell>
+                                </ng-container>
+
+                                <!-- Color Column -->
+                                <ng-container matColumnDef="image">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Image </mat-header-cell>
+                                    <mat-cell *matCellDef="let row" class="cursor-p" >
+                                        <img (click)="openImage(row.image)" *ngIf="row.image != ''" [src]="getImage(row.image)" class="img-circle m-r-10" width="40" height="40"/>
+                                    </mat-cell>
+                                </ng-container>
+
+                                <!-- Color Column -->
+                                <ng-container matColumnDef="comment">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header class="m-w-250"> Comment </mat-header-cell>
+                                    <mat-cell *matCellDef="let row" class="m-w-250 cursor-p"> {{row.comment}} </mat-cell>
+                                </ng-container>
+
+                                <!-- Color Column -->
+                                <ng-container matColumnDef="created_at">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Created At </mat-header-cell>
+                                    <mat-cell *matCellDef="let row" class="cursor-p" > {{row.created_at | date:'medium'}} </mat-cell>
+                                </ng-container>
+
+
+
+                                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                <mat-row *matRowDef="let row; columns: displayedColumns;">
+                                </mat-row>
+                            </mat-table>
+
+                            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                        </div>
+                        <h1 mat-dialog-title>Additional List Item</h1>
+                        <div *ngIf="userItem.length>0">
+                            <div class="row">
+                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Items:</span>
+                                <span fxFlex.gt-sm="50%">{{userItem[0].name}}</span>
+                            </div>
+                            <div class="row" >
+                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Images:</span>
+                                <div *ngIf="userItem[0].image!=''">
+                                    <img *ngFor="let img of userItem[0].image" (click)="openImage(img)" [src]="getImage(img)" class="img-circle m-r-10" width="40" height="40"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="userItem.length==0;">
+                            <span style="font-weight: 500;">No additional items found</span>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+
+    </div>
+    
+    </div>
+    <!-- <div mat-dialog-actions>
+      <button mat-button (click)="onNoClick()"  tabindex="-1">Close</button>
+    </div> -->
+            </div>
+        </mat-card>
+    </div>
+    <div id="myModal" class="modal">
+        <div style="position: relative;margin-left: 15%;">
+            <span (click)="closeModal()" class="close">&times;</span>
+            <img class="modal-content" id="img01">
+        </div>
+      </div>
+</div>

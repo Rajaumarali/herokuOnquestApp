@@ -1,0 +1,116 @@
+
+<mat-card>
+    <mat-card-content>
+        <!-- <mat-card-title>Create User</mat-card-title> -->
+<!--        <mat-card-subtitle>Angular2 custom validation here is the</mat-card-subtitle>-->
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+            <div fxLayout="row wrap">
+                <div fxFlex.gt-sm="100" fxFlex="100">
+                    <mat-form-field>
+                        <mat-select (selectionChange)="change()" placeholder="Select User Type"  name="user_type_id" required [(ngModel)]="selectedUserType" [formControl]="form.controls['user_type_id']">
+                            <mat-option value="{{user.id}}" *ngFor="let user  of allUsers">{{user.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <small *ngIf="form.controls['user_type_id'].hasError('user_type_id') && form.controls['user_type_id'].touched" class="text-danger font-14">You must select user type.</small>
+                </div>
+                <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+                    <mat-form-field>
+                        <input matInput placeholder="First Name" name="first_name" [formControl]="form.controls['first_name']">
+                    </mat-form-field>
+                    <mat-hint *ngIf="form.controls['first_name'].hasError('required') && form.controls['first_name'].touched" class="text-danger font-14">You must include a first name.</mat-hint>
+                    <mat-hint *ngIf="form.controls['first_name'].hasError('minlength') && form.controls['first_name'].touched" class="text-danger font-14">Your first name must be at least 5 characters long.</mat-hint>
+                    <mat-hint *ngIf="form.controls['first_name'].hasError('maxlength') && form.controls['first_name'].touched" class="text-danger font-14">Your first name cannot exceed 20 characters.</mat-hint>
+                </div>
+                
+                <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+                    <mat-form-field>
+                        <input matInput placeholder="Last Name" name="last_name" [formControl]="form.controls['last_name']">
+                    </mat-form-field>
+                    <mat-hint *ngIf="form.controls['last_name'].hasError('required') && form.controls['last_name'].touched" class="text-danger font-14">You must include a last name.</mat-hint>
+                    <mat-hint *ngIf="form.controls['last_name'].hasError('minlength') && form.controls['last_name'].touched" class="text-danger font-14">Your last name must be at least 5 characters long.</mat-hint>
+                    <mat-hint *ngIf="form.controls['last_name'].hasError('maxlength') && form.controls['last_name'].touched" class="text-danger font-14">Your Last name cannot exceed 20 characters.</mat-hint>
+                </div>
+
+                <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+                    <mat-form-field>
+                        <input matInput placeholder="Email ID" name="email" [formControl]="form.controls['email']" type="email">
+                    </mat-form-field>
+                    <small *ngIf="form.controls['email'].hasError('required') && form.controls['email'].touched" class="text-danger font-14">You must include an email address.</small>
+                    <small *ngIf="form.controls['email'].errors?.email && form.controls['email'].touched" class="text-danger font-14">You must include a valid email address.</small>
+                </div>
+                
+                <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+                    <mat-form-field>
+                        <input matInput [matDatepicker]="picker" placeholder="Birthday" name="birthday"  [formControl]="form.controls['birthday']">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                    <small *ngIf="form.controls['birthday'].hasError('required') && form.controls['birthday'].touched" class="text-danger font-14">You must include a birthday.</small>
+                </div>
+
+                <div class="p-10" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+                    <mat-form-field>
+                        <input matInput placeholder="Phone Number" name="phone" [formControl]="form.controls['phone']" type="text">
+                    </mat-form-field>
+                    <small *ngIf="form.controls['phone'].hasError('required') && form.controls['phone'].touched" class="text-danger font-14">You must include phone number.</small>
+                    <small *ngIf="form.controls['phone'].errors?.phone && form.controls['phone'].touched" class="text-danger font-14">You must include a valid phone number.</small>
+                </div>
+                <div *ngIf="selectedUserType=='6'" class="p-10" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+                    <mat-form-field>
+                        <mat-select placeholder="Region"  name="region" required [(ngModel)]="selectedRegion" [formControl]="form.controls['region']">
+                            <mat-option value="{{region.region}}" *ngFor="let region  of allRegion">{{region.region}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <small *ngIf="form.controls['region'].hasError('required') && form.controls['region'].touched" class="text-danger font-14">You must include a region.</small>
+                </div>
+                <div *ngIf="selectedUserType=='4' || selectedUserType=='5'" class="p-10" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+                    <mat-form-field>
+                        <mat-select [disabled]="selectedUserType=='4' || selectedUserType=='5'" placeholder="Region"  name="region" required [(ngModel)]="selectedRegion" [formControl]="form.controls['region']">
+                            <mat-option value="ALL" >All</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div *ngIf="selectedUserType=='3'" class="p-10" fxFlex.gt-sm="100" fxFlex="100">
+                    <mat-form-field>
+                        <mat-select placeholder="Select Property"  name="building_id" required [(ngModel)]="selectedBuilding" [formControl]="form.controls['building_id']">
+                            <mat-option value="{{building.property_code}}" *ngFor="let building  of allbuilding">{{building.property_name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <small *ngIf="form.controls['building_id'].hasError('building_id') && form.controls['building_id'].touched" class="text-danger font-14">You must select property name.</small>
+                </div>
+                <div *ngIf="selectedUserType=='4' || selectedUserType=='5'" class="p-10" fxFlex.gt-sm="100" fxFlex="100">
+                    <mat-form-field>
+                        <mat-select [disabled]="selectedUserType=='4' || selectedUserType=='5'" placeholder="Select Property"  name="building_id" required [(ngModel)]="selectedBuilding" [formControl]="form.controls['building_id']">
+                            <mat-option value="ALL">All</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    
+                </div>
+                
+                
+                <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+                    <mat-form-field>
+                        <input matInput autocomplete="new-password" placeholder="Password" name="password" [formControl]="form.controls['password']" type="password">
+                    </mat-form-field>
+                    <small *ngIf="form.controls['password'].hasError('required') && form.controls['password'].touched" class="text-danger font-14">You must include password.</small>
+                </div>
+
+                <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+                    <mat-form-field>
+                        <input matInput placeholder="Confirm Password" [formControl]="form.controls['confirmPassword']" type="password">
+                    </mat-form-field>
+                    <small *ngIf="form.controls['confirmPassword'].hasError('required') && form.controls['confirmPassword'].touched" class="text-danger font-14">You must include confirm password.</small>
+                    <small *ngIf="form.controls['confirmPassword'].errors?.equalTo" class="text-danger font-14">Passwords do not match.</small>
+                </div>
+
+            </div>
+
+            <mat-card-actions>
+                <button [disabled]="showLoader || !form.valid" mat-raised-button color="primary" type="submit" >Create</button>
+                <span *ngIf="showLoader" class="p-a"><img src="assets/images/loader.gif" alt="homepage" width="40px" class="dark-logo m-l-10"></span>
+
+            </mat-card-actions>
+        </form>
+    </mat-card-content>
+</mat-card>

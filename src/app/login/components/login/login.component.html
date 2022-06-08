@@ -1,0 +1,57 @@
+<div class="row m-h-100vh">
+    <h1 class="t-a-c m-t-10-per"><img src="../../../../assets/images/onquestblue.png" alt="homepage" width="400px" class="dark-logo"></h1>
+    <div class="col-md-4"></div>
+    <div class="login-main-cont">
+       <div id="wrapper">
+            <div class="form m-h-320">
+                <section class="login_content">
+                    <form #form="ngForm" (ngSubmit)="onSubmit()">
+
+                        <h2 class="login-heading">WELCOME!</h2>
+                        <p class="login-p">Sign in to OnQuest Dashboard</p>
+                        <!-- <div class="form-group">
+                            <div class="table-dropdown" >
+                                <mat-form-field>
+                                  <mat-label>Select Property</mat-label>
+                                  <select matNativeControl required name="user_type_id" ngModel (change)="onChange()">
+                                    <option  value="{{user.id}}" *ngFor="let user of userTypes">
+                                      {{user.name}}
+                                    </option>
+                                  </select>
+                                </mat-form-field>
+                                <span style="color: red;">{{alertMessage}}</span>
+                              </div>
+                        </div> -->
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Email" name="username" required ngModel #userUsername="ngModel"/>
+                            <span class="help-desk" *ngIf="userUsername.invalid && userUsername.touched" style="color: #E74C3C;" >Please enter your email.</span>
+                        </div>
+                        <div class="form-group m-t-25">
+                            <input type="password" class="form-control" placeholder="Password" name="password" required ngModel #userPassword="ngModel"/>
+                            <span class="help-desk" *ngIf="userPassword.invalid && userPassword.touched" style="color: #E74C3C;" >Please enter your password.</span>
+                        </div>
+                        <div class="form-group row m-0 m-t-25">
+                            <div class="col-md-2"><button  mat-raised-button color="primary" type="submit" class="f-l">LOGIN</button><span *ngIf="showLoader"><img src="../../../../assets/images/loader.gif" alt="homepage" width="40px" class="dark-logo m-l-20"></span>
+                            </div>
+                            <div class="col-md-6 p-20"><span class="help-desk alert-message" *ngIf="isError">Invalid password or email.</span></div>
+                        </div>
+                        <br />
+                        <a (click)="openForgetScreen()" style="color: gray;" href="javascript:void(0)" >Forgot Password</a>
+                        <div class="clearfix"></div>
+                        <div class="separator">
+
+                            <!-- <p class="change_link">New to site?
+                                <a routerLink="/auth/register" class="to_register"> Create Account </a>
+                            </p> -->
+                            <div class="clearfix"></div>
+                            <br />
+                        </div>
+                    </form>
+                    <!-- form -->
+                </section>
+                <!-- content -->
+            </div>
+       </div>
+    </div>
+
+</div>

@@ -1,0 +1,46 @@
+<div class="row m-h-100vh">
+  <h1 class="t-a-c m-t-10-per"><img src="../../../../assets/images/onquestblue.png" alt="homepage" width="400px" class="dark-logo"></h1>
+  <div class="col-md-4"></div>
+  <div class="login-main-cont">
+    <div id="wrapper">
+      <div class="form m-h-320">
+        <section class="login_content">
+      <form #form="ngForm" (ngSubmit)="onSubmit()">
+        <div class="text-center">
+<!--          <img alt="homepage" src="assets/images/logo-icon.png">-->
+          <h4 class="m-t-0">Recover Password</h4>
+        </div>
+        <p class="text-center font-14">Enter your email and we will send you a link to reset your password.</p>
+
+        <div fxLayout="column" fxLayoutAlign="space-around">
+          
+            <div fxFlex.gt-sm="100" fxFlex="100">
+              <mat-form-field>
+                  <mat-select [disabled]="showvalid=='none'?false:true" (selectionChange)="change()" placeholder="Select User Type"  name="user_type_id" required [(ngModel)]="selectedUserType">
+                      <mat-option value="{{user.id}}" *ngFor="let user  of allUsers">{{user.name}}</mat-option>
+                  </mat-select>
+              </mat-form-field>
+              <small *ngIf="form.controls['user_type_id'].hasError('user_type_id') && form.controls['user_type_id'].touched" class="text-danger font-14">You must select user type.</small>
+            </div>
+            <mat-form-field style="width: 100%">
+              <input matInput placeholder="Email address" type="email" name="email" ngModel >
+            </mat-form-field>
+            <small *ngIf="form.controls['email'].hasError('required') && form.controls['email'].touched" class="text-danger support-text">You must include an email address.</small>
+            <small *ngIf="form.controls['email'].errors?.email && form.controls['email'].touched" class="text-danger support-text">You must include a valid email address.</small>
+              <mat-form-field style="width: 100%; display: {{showvalid}}">
+                  <input matInput placeholder="Enter Validation Code" type="text" name="validcode" ngModel >
+              </mat-form-field>
+         
+          <button mat-raised-button color="primary" type="submit" class="btn-block btn-lg m-t-20" [disabled]="!form.valid">Submit</button>
+        </div>
+        
+      </form>
+      <button mat-raised-button type="button" (click)="cancel()" class="btn-block btn-lg m-t-20">Cancel</button>
+          <!-- form -->
+        </section>
+        <!-- content -->
+      </div>
+    </div>
+  </div>
+
+</div>

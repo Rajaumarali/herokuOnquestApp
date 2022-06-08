@@ -1,0 +1,100 @@
+<mat-card>
+    <mat-card-content>
+        <!-- <mat-card-title>Create Captain</mat-card-title> -->
+<!--        <mat-card-subtitle>Angular2 custom validation here is the</mat-card-subtitle>-->
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
+
+            <div fxLayout="row wrap">
+                <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+                    <mat-form-field>
+                        <input matInput placeholder="First Name" name="first_name" [formControl]="form.controls['first_name']">
+                    </mat-form-field>
+                    <mat-hint *ngIf="form.controls['first_name'].hasError('required') && form.controls['first_name'].touched" class="text-danger font-14">You must include a first name.</mat-hint>
+                    <mat-hint *ngIf="form.controls['first_name'].hasError('minlength') && form.controls['first_name'].touched" class="text-danger font-14">Your first name must be at least 5 characters long.</mat-hint>
+                    <mat-hint *ngIf="form.controls['first_name'].hasError('maxlength') && form.controls['first_name'].touched" class="text-danger font-14">Your first name cannot exceed 20 characters.</mat-hint>
+                </div>
+
+                <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+                    <mat-form-field>
+                        <input matInput placeholder="Last Name" name="last_name" [formControl]="form.controls['last_name']">
+                    </mat-form-field>
+                    <mat-hint *ngIf="form.controls['last_name'].hasError('required') && form.controls['last_name'].touched" class="text-danger font-14">You must include a last name.</mat-hint>
+                    <mat-hint *ngIf="form.controls['last_name'].hasError('minlength') && form.controls['last_name'].touched" class="text-danger font-14">Your last name must be at least 5 characters long.</mat-hint>
+                    <mat-hint *ngIf="form.controls['last_name'].hasError('maxlength') && form.controls['last_name'].touched" class="text-danger font-14">Your Last name cannot exceed 20 characters.</mat-hint>
+                </div>
+
+                <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+                    <mat-form-field>
+                        <input matInput placeholder="Email ID" name="email" [formControl]="form.controls['email']" type="email">
+                    </mat-form-field>
+                    <small *ngIf="form.controls['email'].hasError('required') && form.controls['email'].touched" class="text-danger font-14">You must include an email address.</small>
+                    <small *ngIf="form.controls['email'].errors?.email && form.controls['email'].touched" class="text-danger font-14">You must include a valid email address.</small>
+                </div>
+
+                <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+                    <mat-form-field>
+                        <mat-select [disabled]="allphones[0]?false:true" placeholder="Select Phone Number"  name="phone_select" [formControl]="form.controls['phone']">
+                            <mat-option value="{{phone.phoneNumber}}" *ngFor="let phone  of allphones">{{phone.phoneNumber}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <!-- <small *ngIf="form.controls['building_id'].hasError('building_id') && form.controls['building_id'].touched" class="text-danger font-14">You must select property name.</small> -->
+                </div>
+
+                <!-- <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+                    <mat-form-field>
+                        <input matInput placeholder="Phone number" name="phone" [formControl]="form.controls['phone']" type="text">
+                    </mat-form-field>
+                    <small *ngIf="form.controls['phone'].hasError('required') && form.controls['phone'].touched" class="text-danger font-14">You must include phone number.</small>
+                    <small *ngIf="form.controls['phone'].errors?.phone && form.controls['phone'].touched" class="text-danger font-14">You must include a valid phone number.</small>
+                </div> -->
+                <div fxFlex.gt-sm="100" fxFlex="100">
+                    <mat-form-field>
+                        <mat-select placeholder="Region" name="region" (selectionChange)="onRegionChange($event.value)"  [(ngModel)]="userRegion" [formControl]="form.controls['region']">
+                            <mat-option *ngFor="let building  of allRegions" value="{{building.region}}">{{building.region}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div fxFlex.gt-sm="100" fxFlex="100">
+                    <mat-form-field>
+                        <mat-select placeholder="Select Primary Property"  name="building_id" (selectionChange)="onPropertyChange($event.value)" required [(ngModel)]="selectedBuilding" [formControl]="form.controls['building_id']">
+                            <span *ngFor="let building  of allbuilding"><mat-option *ngIf="building.property_code != selectedAddition && building.region == userRegion" value="{{building.property_code}}" >{{building.property_name}}</mat-option></span>
+                        </mat-select>
+                    </mat-form-field>
+                    <small *ngIf="form.controls['building_id'].hasError('building_id') && form.controls['building_id'].touched" class="text-danger font-14">You must select property name.</small>
+                </div>
+
+                <div fxFlex.gt-sm="100" fxFlex="100">
+                    <mat-form-field>
+                        <mat-select multiple placeholder="Select Additional Properties"  name="additional_building" [(ngModel)]="selectedAddition" [formControl]="form.controls['additional_building']">
+                            <span *ngFor="let building  of allbuilding"  ><mat-option value="{{building.property_code}}" *ngIf="building.property_code != user.building_id && building.region == userRegion">{{building.property_name}}</mat-option></span>
+                        </mat-select>
+                    </mat-form-field>
+                    <!-- <small *ngIf="form.controls['building_id'].hasError('building_id') && form.controls['building_id'].touched" class="text-danger font-14">You must select property name.</small> -->
+                </div>
+                
+                
+                <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+                    <mat-form-field>
+                        <input matInput autocomplete="new-password" placeholder="Password" name="password" [formControl]="form.controls['password']" type="password">
+                    </mat-form-field>
+                    <small *ngIf="form.controls['password'].hasError('required') && form.controls['password'].touched" class="text-danger font-14">You must include password.</small>
+                </div>
+
+                <div class="p-10" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+                    <mat-form-field>
+                        <input matInput autocomplete="new-password" placeholder="Confirm Password" [formControl]="form.controls['confirmPassword']" type="password">
+                    </mat-form-field>
+                    <small *ngIf="form.controls['confirmPassword'].hasError('required') && form.controls['confirmPassword'].touched" class="text-danger font-14">You must include confirm password.</small>
+                    <small *ngIf="form.controls['confirmPassword'].errors?.equalTo" class="text-danger font-14">Passwords do not match.</small>
+                </div>
+
+            </div>
+
+            <mat-card-actions>
+                <button [disabled]="showLoader || !form.valid" mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Create</button>
+                <span *ngIf="showLoader" class="p-a"><img src="assets/images/loader.gif" alt="homepage" width="40px" class="dark-logo m-l-10"></span>
+
+            </mat-card-actions>
+        </form>
+    </mat-card-content>
+</mat-card>

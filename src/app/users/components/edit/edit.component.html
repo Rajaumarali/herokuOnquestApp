@@ -1,0 +1,127 @@
+
+<!-- ============================================================== -->
+<!-- Card Grid-->
+<!-- ============================================================== -->
+<div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+                <!--                <mat-card-title>Form Basic Layouts</mat-card-title>-->
+                <!-- ============================================================== -->
+                <!-- column -->
+                <!-- ============================================================== -->
+                <mat-card-content>
+                    <div class="image-preview mb-3" style="position: relative;display: flex;align-items: center;">
+                        <img [src]="previewUrl!='' && previewUrl!=null?previewUrl:'./assets/images/user.png'" height="200" width="250"/>
+                        <button (click)="openGallery()" class="cursor-p" style="margin-left: 25px;">
+                            <i class="fa fa-edit"></i> Choose File   
+                        </button>
+                        <span style="align-self: center; margin-left: 20px;">{{previewUrl!='' && previewUrl!=null?'':'No File Selected'}}</span>
+                    </div>
+                    <div style="display: none;" fxFlex.gt-sm="100" fxFlex="100" class="m-b-20">
+                        <input class="form-control b-b" placeholder="file" type="file" (change)="fileProgress($event)">
+                    </div>
+                </mat-card-content>
+                <form class="basic-form" (ngSubmit)="onSubmit()" #form="ngForm">
+                    <div fxLayout="row wrap">
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="First Name" name="first_name"  [ngModel]="user.first_name" #userfirstname="ngModel">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Last Name" name="last_name"  [ngModel]="user.last_name">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Email" name="email"  [ngModel]="user.email">
+                            </mat-form-field>
+                        </div>
+                        <div class="row p-10" fxFlex.gt-md="50" fxFlex="50">
+                            <span style="font-weight: 500;" fxFlex.gt-sm="50%">User Type: </span>
+                            <span fxFlex.gt-sm="50%">{{user.user_type_id=='3'?'Basic Admin':user.user_type_id=='4'?'Global Admin':user.user_type_id=='5'?'Super Admin':'Regional Admin'}}</span>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput [matDatepicker]="picker"placeholder="Birthday" name="birthday"  [(ngModel)]="user.birthday">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Phone Number" name="phone"  [ngModel]="getPhone(user.phone)">
+                            </mat-form-field>
+                        </div>
+                      
+                        <!-- column -->
+                        <div *ngIf="userType == 3" fxFlex.gt-sm="100" fxFlex="100">
+                            <mat-form-field>
+                                <mat-select placeholder="Properties" name="building_id"  [(ngModel)]="user.building_id">
+                                    <mat-option value="{{building.property_code}}" *ngFor="let building  of allBuilding">{{building.property_name}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div *ngIf="userType=='4' || userType=='5'" class="p-10" fxFlex.gt-sm="100" fxFlex="100">
+                            <mat-form-field>
+                                <mat-select [disabled]="userType=='4' || userType=='5'" placeholder="Select Property"  name="building_id" required [(ngModel)]="user.building_id">
+                                    <mat-option value="ALL">All</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            
+                        </div>
+                        <div *ngIf="userType == 6" fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <mat-select placeholder="Region"  name="region" required [(ngModel)]="user.user_region" >
+                                    <mat-option value="{{region.region}}" *ngFor="let region  of allRegion">{{region.region}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div *ngIf="userType=='4' || userType=='5'" class="p-10" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+                            <mat-form-field>
+                                <mat-select [disabled]="userType=='4' || userType=='5'" placeholder="Region"  name="region" required [(ngModel)]="user.user_region" >
+                                    <mat-option value="ALL" >All</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex.gt-md="100" fxFlex="100" *ngIf="showPassFields">
+
+                            <div fxFlex.gt-md="50" fxFlex="50">
+                                <mat-form-field>
+                                    <input (input)="txtChange($event.target.value, 0)" matInput placeholder="Password" name="password" type="password" value="{{pass}}">
+                                </mat-form-field>
+<!--                                <small *ngIf="form.controls['password'].hasError('required') && form.controls['password'].touched" class="text-danger font-14">You must include password.</small>-->
+                                <small class="text-danger font-14">{{passMatchErr}}</small>
+                            </div>
+
+                            <div fxFlex.gt-md="50" fxFlex="50">
+                                <mat-form-field>
+                                    <input (input)="txtChange($event.target.value, 1)" matInput placeholder="Confirm Password" name="cpassword" type="password" value="{{cpass}}">
+                                </mat-form-field>
+<!--                                <small *ngIf="form.controls['confirmPassword'].hasError('required') && form.controls['confirmPassword'].touched" class="text-danger font-14">You must include confirm password.</small>-->
+<!--                                <small *ngIf="form.controls['confirmPassword'].errors?.equalTo" class="text-danger font-14">Passwords do not match.</small>-->
+                            </div>
+
+                        </div>
+                        
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <button [disabled]="showLoader" mat-raised-button color="primary">Update</button><span><img *ngIf="showLoader" src="assets/images/loader.gif" alt="homepage" width="40px" class="dark-logo m-l-20 p-a p-t-10"></span>
+                        </div>
+                    </div>
+                </form>
+                <mat-card-content class="matcard-changepass">
+                    <div class="btn-changepass" fxFlex.gt-sm="100" fxFlex="100" (click)="toogleFields()">
+                        <button [disabled]="showLoader" mat-raised-button color="primary">{{passBtnName}}</button>
+                    </div>
+                </mat-card-content>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

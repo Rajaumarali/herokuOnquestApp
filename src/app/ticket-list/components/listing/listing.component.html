@@ -1,0 +1,151 @@
+<div fxLayout="row wrap">
+    <div class="cursor-p" fxFlex.gt-sm="33.3333" fxFlex.gt-xs="100" fxFlex="100">
+        <mat-card class="bg-blue">
+            <mat-card-content>
+                <!-- Row -->
+                <div class="d-flex no-block">
+                    <div class="box-texts">
+                        <h1 class="m-0">{{totaltickets}}</h1>
+                        <h3 class="m-0">Total Tasks</h3>
+                    </div>
+                       
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div (click)="openTask(outStandingServices)" class="cursor-p" fxFlex.gt-sm="33.3333" fxFlex.gt-xs="100" fxFlex="100">
+        <mat-card class="bg-success">
+            <mat-card-content>
+                 <!-- Row -->
+                 <div class="d-flex no-block">
+                    <div class="box-texts">
+                        <h1 class="m-0">{{openTickets}}</h1>
+                        <h3 class="m-0">Open</h3>
+                    </div>
+                       
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div (click)="openTask(completeService)" class="cursor-p" fxFlex.gt-sm="33.3333" fxFlex.gt-xs="100" fxFlex="100">
+        <mat-card class="bg-danger">
+            <mat-card-content>
+                 <!-- Row -->
+                 <div class="d-flex no-block">
+                    <div class="box-texts">
+                        <h1 class="m-0">{{closedTickets}}</h1>
+                        <h3 class="m-0">Complete</h3>
+                    </div>
+                       
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+    
+<div class="mat-card mat-focus-indicator">
+    <div class="bg-light p-10 p-r-20 p-l-20 table-filter" fxFlex.gt-lg="75" fxFlex.gt-md="30" fxFlex.gt-xs="100" fxFlex="100">
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+    </div>
+    <!-- <div fxFlex.gt-lg="75" fxFlex.gt-md="70" fxFlex.gt-xs="100" fxFlex="100" class="align-item-center"> <button mat-raised-button color="primary">Add Resident</button></div> -->
+  </div>
+  
+  <div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+      <mat-card>
+        <mat-card-content>
+          <!-- <mat-card-title>All Tasks</mat-card-title> -->
+          <!-- Property dropdown -->
+          <!-- <div class="table-dropdown" >
+          <mat-form-field>
+            <mat-label>Select Property</mat-label>
+            <select matNativeControl required [(ngModel)]="selectedProperty"  #building="ngModel" (change)="onChange()">
+              <option  value="{{building.property_code}}" *ngFor="let building  of allbuilding">
+                {{building.property_name}}
+              </option>
+            </select>
+            <span class="help-desk" *ngIf="building.invalid && building.touched" style="color: red;" >Please select property.</span>
+          </mat-form-field>
+          <span><img *ngIf="propertyDropdown" src="assets/images/loader.gif" alt="homepage" width="40px" class="dark-logo m-l-20 p-a p-t-10"></span>
+          <span style="color: red;">{{alertMessage}}</span>
+        </div> -->
+          <div class="responsive-table">
+            <mat-table [dataSource]="dataSource" matSort>
+
+            <!-- Progress Column -->
+              <ng-container matColumnDef="service_name">
+                <mat-header-cell *matHeaderCellDef mat-sort-header class="m-r-10">Service Name </mat-header-cell>
+                <mat-cell *matCellDef="let row;let i = index;" class="m-r-10 cursor-p" (click)="detail(row)">
+                  {{row.service_name}}
+                </mat-cell>
+              </ng-container>
+
+              <!-- Progress Column -->
+              <ng-container matColumnDef="captain">
+                <mat-header-cell *matHeaderCellDef mat-sort-header class="m-r-10">Captain </mat-header-cell>
+                <mat-cell *matCellDef="let row;let i = index;" class="m-r-10 cursor-p" (click)="detail(row)">
+                    {{row.captain}}
+                </mat-cell>
+              </ng-container>
+  
+              <!-- Name Column -->
+              <ng-container matColumnDef="property_name">
+                <mat-header-cell *matHeaderCellDef mat-sort-header class="m-w-250 m-r-10"> Property Name</mat-header-cell>
+                <mat-cell *matCellDef="let row;let i = index;" class="cursor-p m-w-250 m-r-10" (click)="detail(row)"> {{row.property_name}} </mat-cell>
+              </ng-container>
+  
+              <!-- Color Column -->
+              <ng-container matColumnDef="resident">
+                <mat-header-cell *matHeaderCellDef mat-sort-header class="m-r-10"> Resident Name </mat-header-cell>
+                <mat-cell *matCellDef="let row;let i = index;" class="cursor-p m-r-10" (click)="detail(row)"> {{row.resident}} </mat-cell>
+              </ng-container>
+  
+              <!-- Name Column -->
+              <ng-container matColumnDef="user_profile_service_day">
+                <mat-header-cell *matHeaderCellDef mat-sort-header class="m-r-10"> Service Day </mat-header-cell>
+                <mat-cell *matCellDef="let row;let i = index;" class="cursor-p m-r-10" (click)="detail(row)"> {{row.user_profile_service_day}} </mat-cell>
+              </ng-container>
+  
+              <!-- Color Column -->
+              <ng-container matColumnDef="status">
+                <mat-header-cell *matHeaderCellDef mat-sort-header class="m-r-10"> Status </mat-header-cell>
+                <mat-cell *matCellDef="let row;let i = index;" (click)="detail(row)" class="m-r-10 cursor-p"> {{row.status}}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="responsible_party">
+                <mat-header-cell *matHeaderCellDef mat-sort-header class="m-r-10"> Responsible Party </mat-header-cell>
+                <mat-cell *matCellDef="let row;let i = index;" (click)="detail(row)" class="m-r-10 cursor-p"> {{row.responsible_party}}</mat-cell>
+              </ng-container>
+  
+              <!-- Color Column -->
+              <ng-container matColumnDef="created_at">
+                <mat-header-cell *matHeaderCellDef mat-sort-header class="m-r-10"> Created At </mat-header-cell>
+                <mat-cell *matCellDef="let row;let i = index;" class="cursor-p m-r-10" (click)="detail(row)"> {{row.created_at | slice:0:10}} </mat-cell>
+              </ng-container>
+  
+              <!-- Color Column -->
+              <!-- <ng-container matColumnDef="Action">
+                <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                  <span class="material-icons m-r-10 cursor-p" (click)="btnClick(row.user_id)">edit</span>
+                  <span class="material-icons cursor-p c-red" (click)="btnClick(row.user_id)">delete_forever</span>
+                </mat-cell>
+  
+              </ng-container> -->
+  
+  
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;">
+              </mat-row>
+            </mat-table>
+  
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>

@@ -1,0 +1,83 @@
+.bg-color-fff {
+    background-color: #fff;
+}
+.table-filter{
+    background: transparent;
+    max-width: 30%;
+}
+mat-row, mat-footer-row {
+    min-height: 75px;
+}
+.align-item-center{
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    margin-right: 20px;
+}
+.m-w-250{
+    min-width: 250px;
+}
+.m-w-45-per{
+    min-width: 45%;
+}
+.descritpions-cell{
+    padding: 0px 25px 0px 0px;
+}
+.m-r-10{
+    margin-right: 10px;
+}
+.cursor-p{
+    cursor: pointer;
+}
+.c-red{
+    color: red;
+}
+.d-n{
+    display: none;
+}
+.d-b{
+    display: block;
+}
+.task-btn {
+    margin: 10px 20px 0px -10px;
+    width: fit-content;
+    display: inline-block;
+}
+.a-c{
+    align-items: center;
+    margin: 5px 10px !important;
+    float: left;
+    font-size: 12px;
+    width: calc((100% - 80px)/4) !important;
+}
+.a-c-6{
+    align-items: center;
+    margin: 5px 10px !important;
+    float: left;
+    font-size: 12px;
+    width: calc((100% - 120px)/6) !important;
+}
+.downloadsTable{
+    width: -webkit-fill-available;
+}
+.downloadsTableRow th{
+    font-weight: unset;
+}
+.downloadsTableRow td, .downloadsTable tr th {
+    text-align: center;
+}
+
+tr.downloadsTableRow td {
+    border: 1px solid;
+}
+.description{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.description:hover{
+    overflow: visible;
+    white-space: unset;
+    position: absolute;
+    background: #c0c0c0;
+}

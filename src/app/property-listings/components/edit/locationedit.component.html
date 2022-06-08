@@ -1,0 +1,164 @@
+<!-- ============================================================== -->
+<!-- Card Grid-->
+<!-- ============================================================== -->
+<div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+                <!--                <mat-card-title>Form Basic Layouts</mat-card-title>-->
+                <!-- ============================================================== -->
+                <!-- column -->
+                <!-- ============================================================== -->
+                <form class="basic-form" (ngSubmit)="onSubmit()" #form="ngForm">
+                    <div fxLayout="row wrap">
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Property Name" name="property_name"  [ngModel]="location.property_name">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput maxlength="10" placeholder="Property Phone" name="property_phone"  [ngModel]="location.property_phone">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Property Email" name="property_email"  [ngModel]="location.property_email">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Property Code" name="property_code"  [ngModel]="location.property_code">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Management Company" name="management_company"  [ngModel]="location.management_company">
+                            </mat-form-field>
+                        </div>
+
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Property Manager Name" name="property_manager"  [ngModel]="location.property_manager">
+                            </mat-form-field>
+                        </div>
+
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Asst. Property Manager Name" name="asst_property_manager"  [ngModel]="location.asst_property_manager">
+                            </mat-form-field>
+                        </div>
+
+                         <!-- column -->
+                         <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Leasing Manager Name" name="leasing_manager"  [ngModel]="location.leasing_manager">
+                            </mat-form-field>
+                        </div>
+
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Leasing Team Name" name="leasing_team"  [ngModel]="location.leasing_team">
+                            </mat-form-field>
+                        </div>
+
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Front Desk Concierge" name="front_desk_concierge"  [ngModel]="location.front_desk_concierge">
+                            </mat-form-field>
+                        </div>
+
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput id="adrs1_places" ngx-google-places-autocomplete #placesRef="ngx-places" placeholder="Street Address" name="address_line1"  [ngModel]="location.address_line1">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <!-- <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput id="adrs2_places" ngx-google-places-autocomplete #placesRef="ngx-places" placeholder="Address Line 2" name="address_line2"  [ngModel]="location.address_line2">
+                            </mat-form-field>
+                        </div> -->
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput id="city_places" ngx-google-places-autocomplete #placesRef="ngx-places" placeholder="City/State" name="address_city"  [ngModel]="location.address_city">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Region" name="region"  [ngModel]="location.region">
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Zip Code" name="address_zip"  [ngModel]="location.address_zip">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <!--MultiSelect field-->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <mat-select #enabDay placeholder="Service days" name="service_day" [(ngModel)]="location.service_day" multiple>
+                                    <mat-option value="All" (click)="toggleAllSelectionDay()">All </mat-option>
+                                    <mat-option value="1" (click)="onChangeDay()">Monday </mat-option>
+                                    <mat-option value="2" (click)="onChangeDay()">Tuesday </mat-option>
+                                    <mat-option value="3" (click)="onChangeDay()">Wednesday</mat-option>
+                                    <mat-option value="4" (click)="onChangeDay()">Thursday </mat-option>
+                                    <mat-option value="5" (click)="onChangeDay()">Friday </mat-option>
+                                    <mat-option value="6" (click)="onChangeDay()">Saturday</mat-option>
+                                    <mat-option value="7" (click)="onChangeDay()">Sunday</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <mat-form-field>
+                                <mat-select #enabSel multiple placeholder="Services" name="services" [(ngModel)]="services_enable" >
+                                    <mat-option value="All" (click)="toggleAllSelection()">
+                                        All
+                                    </mat-option>
+                                    <mat-option (click)="onChange()" *ngFor="let service  of services" value="{{service.id}}">{{service.service}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <mat-form-field>
+                                <mat-select placeholder="Service Booking Cut-Off Time" name="set_up_time" [(ngModel)]="location.set_up_time" >
+                                    <mat-option *ngFor="let time of times" value="{{time.value}}">{{time.time}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <mat-form-field>
+                                <mat-select placeholder="Service Cancellation Cut-Off Time" name="cutt_off_time" [(ngModel)]="location.cutt_off_time" >
+                                    <mat-option *ngFor="let time of times" value="{{time.value}}">{{time.time}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+
+                        <!-- column -->
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <button mat-raised-button color="primary">Update</button>
+                            <span *ngIf="showLoader" class="p-a"><img src="assets/images/loader.gif" alt="homepage" width="40px" class="dark-logo m-l-10"></span>
+
+                        </div>
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

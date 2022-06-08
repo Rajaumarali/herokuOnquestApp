@@ -1,0 +1,1172 @@
+<div class="mat-card mat-focus-indicator" style="height: 55px;">
+  <div fxFlex.gt-lg="75" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100" class="align-item-center"> <button mat-raised-button color="primary" (click)="generatePDF()">Download Report</button></div>
+</div>
+
+<div *ngIf="reportId == 'properties'" style="height: 0; visibility: hidden;"  id="properties-pdf">
+  <div >
+    <mat-card>
+      <div class="m-t-40" fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+        <mat-card class="oh text-center little-profile" style="text-align: left">
+          <mat-card-content *ngFor="let property of finalDetailArr">
+            <span class="m-b-0" style="font-size: 21px;font-weight: 500;">Property</span>
+            <div fxLayout="row wrap" class="m-t-40">
+              <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left">
+                <div class="row ">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Property Name :</span>
+                  <span fxFlex.gt-sm="50%">{{property.property.property_name}}</span>
+                </div>
+                
+
+                <div class="row">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Property Manager:</span>
+                  <span fxFlex.gt-sm="50%">{{property.property.property_manager}}</span>
+                </div>
+            
+              </div>
+              <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left">
+                <div class="row">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Management Company :</span>
+                  <span fxFlex.gt-sm="50%">{{property.property.management_company}}</span>
+                </div>
+                <div class="row">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Email :</span>
+                  <span fxFlex.gt-sm="50%">{{property.property.property_email}}</span>
+                </div>
+                
+              </div>
+            </div>
+            <span class="m-b-0" style="font-size: 21px;font-weight: 500;">Enabled Services</span>
+            <div style="display: inline-block; width: -webkit-fill-available;" class="m-t-40">
+              <table *ngIf="property.services[0]">
+                <tr>
+                  <th>Name</th>
+                </tr>
+                <tr *ngFor="let service of property.services">
+                  <th>{{service.service_name}}</th>
+                </tr>
+              </table>
+              <mat-card-content *ngIf="property.services.length==0">
+                <mat-card-title>No Services Found!</mat-card-title>
+              </mat-card-content>
+              
+            </div>
+            <span class="m-b-0" style="font-size: 21px;font-weight: 500;">Captains</span>
+            <div style="display: inline-block; width: -webkit-fill-available;" class="m-t-40">
+             
+              <table *ngIf="property.captains[0]">
+                <tr>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                </tr>
+                <tr *ngFor="let captain of property.captains">
+                  <th>{{captain.first_name}}</th>
+                  <th>{{captain.last_name}}</th>
+                </tr>
+              </table>
+           
+                <mat-card-content *ngIf="property.captains.length==0">
+                  <mat-card-title>No Captains Found!</mat-card-title>
+                </mat-card-content>
+            
+            </div>
+            <span class="m-b-0" style="font-size: 21px;font-weight: 500;">Regional Admin</span>
+            <div style="display: inline-block; width: -webkit-fill-available;" class="m-t-40">
+              <table *ngIf="property.Regional[0]">
+                <tr>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                </tr>
+                <tr *ngFor="let regional of property.Regional">
+                  <th>{{regional.first_name}}</th>
+                  <th>{{regional.last_name}}</th>
+                </tr>
+              </table>
+              <mat-card-content *ngIf="property.Regional.length==0">
+                <mat-card-title>No Regional Admin Found!</mat-card-title>
+              </mat-card-content>
+            </div>
+          </mat-card-content>
+    </mat-card>
+  </div>
+    </mat-card>
+    </div>
+</div>
+
+<div fxLayout="row wrap" id="html-2-pdfwrapper" *ngIf="reportId == 'properties' ">
+  <div fxFlex.gt-sm="100" fxFlex="100">
+    <mat-card>
+      <span *ngIf="loader" style="position: relative;left: 45%;width: 5%; margin-bottom: 20px" class="p-a"><img src="assets/images/loader.gif" alt="homepage" width="40px" class="dark-logo m-l-10"></span>
+      <div class="m-t-40" fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+        <mat-card class="oh text-center little-profile" style="text-align: left">
+          <span class="m-b-0" style="font-size: 21px;font-weight: 500;">Properties</span>
+          <mat-card-content *ngFor="let property of allPropertiesReport">
+            <div fxLayout="row wrap" class="m-t-40">
+              <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left">
+                <div class="row ">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Property Name :</span>
+                  <span fxFlex.gt-sm="50%">{{property.property_name}}</span>
+                </div>
+                
+
+                <div class="row">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Property Manager:</span>
+                  <span fxFlex.gt-sm="50%">{{property.property_manager}}</span>
+                </div>
+            
+              </div>
+              <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left">
+                <div class="row">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Management Company :</span>
+                  <span fxFlex.gt-sm="50%">{{property.management_company}}</span>
+                </div>
+                <div class="row">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Email :</span>
+                  <span fxFlex.gt-sm="50%">{{property.property_email}}</span>
+                </div>
+                
+              </div>
+            </div>
+            <div  class="task-btn">
+              <button mat-raised-button class="m-r-5" color="primary" (click)="openUsers(property.property_code,'Basic User','')">View Basic Users</button>
+            </div>
+            <div class="task-btn">
+              <button mat-raised-button class="m-r-5" color="primary" (click)="openUsers(property.property_code,'Regional Admin',property.region)">View Regional Users</button>
+            </div>
+            <div class="task-btn">
+              <button mat-raised-button class="m-r-5" color="primary" (click)="openUsers(property.property_code,'Captains','')">View Captains</button>
+            </div>
+            <div class="task-btn">
+              <button mat-raised-button class="m-r-5" color="primary" (click)="openUsers(property.property_code,'Services','')">View Services</button>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-card>
+  </div>
+</div>
+
+<div fxLayout="row wrap" id="html-2-pdfwrapper" *ngIf="downloadOption=='PDF'">
+  <div fxFlex.gt-sm="100" fxFlex="100">
+    <mat-card>
+      <span *ngIf="loader" style="position: relative;left: 45%;width: 5%; margin-bottom: 20px" class="p-a"><img src="assets/images/loader.gif" alt="homepage" width="40px" class="dark-logo m-l-10"></span>
+      
+      <!-- 11 March Code -->
+      <div *ngIf="reportId == 'app_downloads' "class="m-t-40" fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+        <mat-card class="oh text-center little-profile" style="text-align: left">
+          <mat-card-content>
+            <span class="m-b-0" style="font-size: 21px;font-weight: 500;">App Downloads</span>
+            <div fxLayout="row wrap" class="m-t-40">
+              <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left">
+                <div class="row ">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Number of Android Downloads :</span>
+                  <span fxFlex.gt-sm="50%">{{androidCount}}</span>
+                </div>
+              </div>
+              <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left">
+                <div class="row">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Number of IOS Downloads : :</span>
+                  <span fxFlex.gt-sm="50%">{{appleCount}}</span>
+                </div>
+                
+              </div>
+            </div>
+            <table class="downloadsTable" *ngIf="allDownloadsDetail[0]">
+              <tr style="font-weight: bold;">
+                <th>Property</th>
+                <th>Device</th>
+                <th>Resident</th>
+                <th>Region</th>
+                <th>Download Date</th>
+              </tr>
+              <tr class="downloadsTableRow" *ngFor="let element of allDownloadsDetail">
+                <td>{{element.property_name}}</td>
+                <td>{{element.os}}</td>
+                <td>{{element.first_name}} {{element.last_name}}</td>
+                <td>{{element.region}}</td>
+                <td>{{element.created_at | slice : 0: 10}}</td>
+              </tr>
+            </table>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      
+      <div *ngIf="reportId == 'new_signup'" fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+        <mat-card class="oh text-center little-profile" style="text-align: left">
+          <mat-card-content *ngFor="let user of matchedSignupResident">
+            <span class="m-b-0" style="font-size: 21px;font-weight: 500;">{{user.first_name}} {{user.last_name}}</span>
+            <div fxLayout="row wrap" class="m-t-40">
+              <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left">
+                <div class="row ">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Email :</span>
+                  <span fxFlex.gt-sm="50%">{{user.email}}</span>
+                </div>
+                <div class="row">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%"> Created At :</span>
+                  <span fxFlex.gt-sm="50%">{{user.created_at}}</span>
+                </div>
+                <div class="row">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Property Name :</span>
+                  <span fxFlex.gt-sm="50%">{{user.property_name}}</span>
+                </div>
+              </div>
+              <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left">
+                <div class="row">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Phone :</span>
+                  <span fxFlex.gt-sm="50%">{{user.phone}}</span>
+                </div>
+                <div class="row">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Region :</span>
+                  <span fxFlex.gt-sm="50%">{{selectedPropRegion}}</span>
+                </div>
+                <div class="row">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Service Day :</span>
+                  <span fxFlex.gt-sm="50%">{{user.user_profile_service_day=='1'?'Monday':
+                          user.user_profile_service_day=='2'?'Tuesday':
+                                  user.user_profile_service_day=='3'?'Wednesday':
+                                          user.user_profile_service_day=='4'?'Thursday':
+                                                  user.user_profile_service_day=='5'?'Friday':
+                                                          user.user_profile_service_day=='6'?'Saturday':
+                                                                  user.user_profile_service_day=='0'?'Sunday':'Not Assigned'}}</span>
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+     
+    </mat-card>
+  </div>
+</div>
+
+<div fxLayout="row wrap" id="feature_usage-pdf" *ngIf="reportId=='feature_usage'">
+  <div fxFlex.gt-sm="100" fxFlex="100">
+    <mat-card>
+      <span *ngIf="loader" style="position: relative;left: 45%;width: 5%; margin-bottom: 20px" class="p-a"><img src="assets/images/loader.gif" alt="homepage" width="40px" class="dark-logo m-l-10"></span>
+      
+      <!-- 11 March Code -->
+      <div class="m-t-40" fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+        <mat-card class="oh text-center little-profile" style="text-align: left">
+          <span class="m-b-0" style="font-size: 21px;font-weight: 500;">Feature Usage</span>
+          <mat-card-content >
+            <span class="m-b-0" style="font-size: 18px;font-weight: 500;">Service Completion</span>
+            <table class="downloadsTable">
+              <tr style="font-weight: bold;">
+                <th>Services</th>
+                <th>Completion Rate</th>
+              </tr>
+              <tr class="downloadsTableRow">
+                <td>Grocery Shopping</td>
+                <td>{{groceryCompletion}}%</td>
+              </tr>
+              <tr class="downloadsTableRow">
+                <td>Flower Delivery</td>
+                <td>{{flowerCompletion}}%</td>
+              </tr>
+              <tr class="downloadsTableRow">
+                <td>Rx Pick-Up</td>
+                <td>{{rxCompletion}}%</td>
+              </tr>
+              <tr class="downloadsTableRow">
+                <td>OnQuest Clean</td>
+                <td>{{onquestCompletion}}%</td>
+              </tr>
+              <tr class="downloadsTableRow">
+                <td>Package Pick-Up</td>
+                <td>{{packageCompletion}}%</td>
+              </tr>
+              <tr class="downloadsTableRow">
+                <td>Laundry Pick-Up</td>
+                <td>{{laundrypickCompletion}}%</td>
+              </tr>
+              <tr class="downloadsTableRow">
+                <td>Laundry Drop-Off</td>
+                <td>{{laundrydropCompletion}}%</td>
+              </tr>
+            </table>
+            <div class="m-t-40">
+              <mat-card-title>{{'All Services'}}</mat-card-title>
+              <table class="downloadsTable">
+                <tr style="font-weight: bold;">
+                  <th>Service Name</th>
+                  <th>Property</th>
+                  <th>Region</th>
+                  <th>Captain</th>
+                  <th>Date</th>
+                </tr>
+                <tr class="downloadsTableRow" *ngFor="let element of allServicesFeature">
+                  <td>{{element.service_name}}</td>
+                  <td>{{element.property_name}}</td>
+                  <td>{{element.region}}</td>
+                  <td>{{element.captain}}</td>
+                  <td>{{element.created_at | slice:0:10}}</td>
+                </tr>
+              </table>
+            </div>
+
+           
+
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-card>
+  </div>
+</div>
+
+<div fxLayout="row wrap" id="task_completion-pdf" *ngIf="reportId=='task_completion'">
+  <div fxFlex.gt-sm="100" fxFlex="100">
+    <mat-card>
+      <span *ngIf="loader" style="position: relative;left: 45%;width: 5%; margin-bottom: 20px" class="p-a"><img src="assets/images/loader.gif" alt="homepage" width="40px" class="dark-logo m-l-10"></span>
+      
+      <!-- 11 March Code -->
+      <div class="m-t-40" fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+        <mat-card class="oh text-center little-profile" style="text-align: left">
+           
+            <div class="m-t-40">
+              <mat-card-title>{{'Task Completion'}}</mat-card-title>
+              <table class="downloadsTable">
+                <tr style="font-weight: bold;">
+                  <th>Service Name</th>
+                  <th>Resident</th>
+                  <th>Captain</th>
+                  <th>Property</th>
+                  <th>Requested Date</th>
+                  <th>Completed Date</th>
+                  <th>Service Day</th>
+                </tr>
+                <tr class="downloadsTableRow" *ngFor="let element of taskCompletionArr">
+                  <td>{{element.service_name}}</td>
+                  <td>{{element.first_name}} {{element.last_name}}</td>
+                  <td>{{element.captain}}</td>
+                  <td>{{element.property_name}}</td>
+                  <td>{{element.created_at | slice:0:10}}</td>
+                  <td>{{element.updated_at? (element.updated_at | slice:0:10 ):element.last_updated | slice:0:10}}</td>
+                  <td>{{element.user_profile_service_day.user_profile_service_day == '1' ? 'Monday' :
+                    element.user_profile_service_day == '2' ? 'Tuesday' :
+                        element.user_profile_service_day == '3' ? 'Wednesday' :
+                            element.user_profile_service_day == '4' ? 'Thursday' :
+                                element.user_profile_service_day == '5' ? 'Friday' :
+                                    element.user_profile_service_day == '6' ? 'Saturday' :
+                                        element.user_profile_service_day == '0' ? 'Sunday' : 'Not Assigned'}}</td>
+                </tr>
+              </table>
+            </div>
+
+           
+        </mat-card>
+      </div>
+    </mat-card>
+  </div>
+</div>
+
+<div fxLayout="row wrap" id="incomplete_tasks-pdf" *ngIf="reportId=='incomplete_tasks'">
+  <div fxFlex.gt-sm="100" fxFlex="100">
+    <mat-card>
+      <span *ngIf="loader" style="position: relative;left: 45%;width: 5%; margin-bottom: 20px" class="p-a"><img src="assets/images/loader.gif" alt="homepage" width="40px" class="dark-logo m-l-10"></span>
+      
+      <!-- 11 March Code -->
+      <div class="m-t-40" fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+        <mat-card class="oh text-center little-profile" style="text-align: left">
+           
+            <div class="m-t-40">
+              <mat-card-title>{{'InComplete Tasks'}}</mat-card-title>
+              <table class="downloadsTable">
+                <tr style="font-weight: bold;">
+                  <th>Service Name</th>
+                  <th>Resident</th>
+                  <th>Captain</th>
+                  <th>Property</th>
+                  <th>Requested Date</th>
+                  <th>Service Day</th>
+                </tr>
+                <tr class="downloadsTableRow" *ngFor="let element of inCompleteTasksArr">
+                  <td>{{element.service_name}}</td>
+                  <td>{{element.first_name}} {{element.last_name}}</td>
+                  <td>{{element.captain}}</td>
+                  <td>{{element.property_name}}</td>
+                  <td>{{element.created_at | slice:0:10}}</td>
+                  <td>{{element.user_profile_service_day}}</td>
+                </tr>
+              </table>
+            </div>
+
+           
+        </mat-card>
+      </div>
+    </mat-card>
+  </div>
+</div>
+
+<div fxLayout="row wrap" id="admin_users-pdf" *ngIf="reportId=='admin_users'">
+  <div fxFlex.gt-sm="100" fxFlex="100">
+    <mat-card>
+      <span *ngIf="loader" style="position: relative;left: 45%;width: 5%; margin-bottom: 20px" class="p-a"><img src="assets/images/loader.gif" alt="homepage" width="40px" class="dark-logo m-l-10"></span>
+      
+      <!-- 11 March Code -->
+      <div class="m-t-40" fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+        <mat-card class="oh text-center little-profile" style="text-align: left">
+           
+            <div class="m-t-40">
+              <mat-card-title>{{'Admin Users'}}</mat-card-title>
+              <table class="downloadsTable">
+                <tr style="font-weight: bold;">
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Type</th>
+                  <th>Region</th>
+                  <th>Assigned Property</th>
+                  <th>Created At</th>
+                </tr>
+                <tr class="downloadsTableRow" *ngFor="let element of allAdminUsers">
+                  <td>{{element.first_name}} {{element.last_name}}</td>
+                  <td>{{element.email}}</td>
+                  <td>{{element.type}}</td>
+                  <td>{{element.user_type_id==3?element.region:element.user_type_id==4||element.user_type_id==5?"All Regions":element.user_region}}</td>
+                  <td>{{element.user_type_id==4||element.user_type_id==5?"All Properties":element.user_type_id==6?"All Region Properties":element.property_name}}</td>
+                  <td>{{element.created_at | slice:0:10}}</td>
+                </tr>
+              </table>
+            </div>
+
+           
+        </mat-card>
+      </div>
+    </mat-card>
+  </div>
+</div>
+
+<div fxLayout="row wrap" id="captain_list-pdf" *ngIf="reportId=='captain_list'">
+  <div fxFlex.gt-sm="100" fxFlex="100">
+    <mat-card>
+      <span *ngIf="loader" style="position: relative;left: 45%;width: 5%; margin-bottom: 20px" class="p-a"><img src="assets/images/loader.gif" alt="homepage" width="40px" class="dark-logo m-l-10"></span>
+      
+      <!-- 11 March Code -->
+      <div class="m-t-40" fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+        <mat-card class="oh text-center little-profile" style="text-align: left">
+           
+            <div class="m-t-40">
+              <mat-card-title>{{'Captain List'}}</mat-card-title>
+              <table class="downloadsTable">
+                <tr style="font-weight: bold;">
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Region</th>
+                  <th>Assigned Property/Properties</th>
+                  <th>Created At</th>
+                </tr>
+                <tr class="downloadsTableRow" *ngFor="let element of allCaptainList">
+                  <td>{{element.first_name}} {{element.last_name}}</td>
+                  <td>{{element.email}}</td>
+                  <td>{{element.region}}</td>
+                  <td>{{element.assigned_buildings}}</td>
+                  <td>{{element.created_at | slice:0:10}}</td>
+                </tr>
+              </table>
+            </div>
+
+           
+        </mat-card>
+      </div>
+    </mat-card>
+  </div>
+</div>
+
+<div fxLayout="row wrap" id="property_summary-pdf" *ngIf="reportId=='property_summary'">
+  <div fxFlex.gt-sm="100" fxFlex="100">
+    <mat-card>
+      <span *ngIf="loader" style="position: relative;left: 45%;width: 5%; margin-bottom: 20px" class="p-a"><img src="assets/images/loader.gif" alt="homepage" width="40px" class="dark-logo m-l-10"></span>
+      
+      <!-- 11 March Code -->
+      <div class="m-t-40" fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+        <mat-card class="oh text-center little-profile" style="text-align: left">
+           
+            <div class="m-t-40">
+              <mat-card-title>{{'Property Summary'}}</mat-card-title>
+              <table class="downloadsTable">
+                <tr style="font-weight: bold;">
+                  <th>Property Name</th>
+                  <th>Total Task Completed</th>
+                  <th>Residents With Tasks Completed</th>
+                </tr>
+                <tr class="downloadsTableRow" *ngFor="let element of allPropertySummary">
+                  <td>{{element.name}}</td>
+                  <td>{{element.total_task}}</td>
+                  <td>{{element.total_acc}}</td>
+                </tr>
+              </table>
+            </div>
+
+           
+        </mat-card>
+      </div>
+    </mat-card>
+  </div>
+</div>
+
+<div fxLayout="row wrap" id="missing_payment_method-pdf" *ngIf="reportId=='missing_payment_method'">
+  <div fxFlex.gt-sm="100" fxFlex="100">
+    <mat-card>
+      <span *ngIf="loader" style="position: relative;left: 45%;width: 5%; margin-bottom: 20px" class="p-a"><img src="assets/images/loader.gif" alt="homepage" width="40px" class="dark-logo m-l-10"></span>
+      
+      <!-- 11 March Code -->
+      <div class="m-t-40" fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+        <mat-card class="oh text-center little-profile" style="text-align: left">
+           
+            <div class="m-t-40">
+              <mat-card-title>{{'Missing Payment Method'}}</mat-card-title>
+              <table class="downloadsTable">
+                <tr style="font-weight: bold;">
+                  <th>Name</th>
+                  <th>Property Name</th>
+                  <th>Captain</th>
+                  <th>Service Day</th>
+                  <th>Missing</th>
+                </tr>
+                <tr class="downloadsTableRow" *ngFor="let element of missingPayments">
+                  <td>{{element.first_name}} {{element.last_name}}</td>
+                  <td>{{element.property_name}}</td>
+                  <td>{{element.captain}}</td>
+                  <td>{{element.user_profile_service_day=='1'?'Monday':
+                    element.user_profile_service_day=='2'?'Tuesday':
+                    element.user_profile_service_day=='3'?'Wednesday':
+                    element.user_profile_service_day=='4'?'Thursday':
+                    element.user_profile_service_day=='5'?'Friday':
+                    element.user_profile_service_day=='6'?'Saturday':
+                    element.user_profile_service_day=='0'?'Sunday':'Not Assigned'}}</td>
+                  <td>Missing Valid Payment Method</td>
+                  </tr>
+              </table>
+            </div>
+
+           
+        </mat-card>
+      </div>
+    </mat-card>
+  </div>
+</div>
+
+<div fxLayout="row wrap" id="task_detail-pdf" *ngIf="reportId=='task_detail'">
+  <div fxFlex.gt-sm="100" fxFlex="100">
+    <mat-card>
+      <span *ngIf="loader" style="position: relative;left: 45%;width: 5%; margin-bottom: 20px" class="p-a"><img src="assets/images/loader.gif" alt="homepage" width="40px" class="dark-logo m-l-10"></span>
+      
+      <!-- 11 March Code -->
+      <div *ngIf="taskDetailsArr[0]" class="m-t-40" fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+        <mat-card class="oh text-center little-profile" style="text-align: left">
+          <span class="m-b-0" style="font-size: 21px;font-weight: 500;">Task Details</span>
+           
+            <div *ngIf="taskDetailsArr[0].service_name=='GROCERY SHOPPING'" class="m-t-40">
+              <mat-card-title>Grocery Shopping</mat-card-title>
+              <div style="display: inline-block; width: -webkit-fill-available;border-bottom: 1px solid; padding-bottom: 20px; margin-top: 10px;" *ngFor="let element of taskDetailsArr" class="m-t-40">
+                <div class="row wrap a-c-6">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Resident :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.first_name}} {{element.last_name}}</span>
+                </div>
+                <div class="row wrap a-c-6">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Phone :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.phone}}</span>
+                </div>
+                <div class="row wrap a-c-6">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Unit Number :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.unit_number}}</span>
+                </div>
+                <div class="row wrap a-c-6">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Captain :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.captain}}</span>
+                </div>
+                <div class="row wrap a-c-6">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Region :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.region}}</span>
+                </div>
+                <div class="row wrap a-c-6">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Property :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.property_name}}</span>
+                </div>
+                <div class="row wrap a-c-6">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Completed :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.service_completed=='true'?'Completed': 'Not Completed'}}</span>
+                </div>
+                <div class="row wrap a-c-6">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Complete At :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.service_completed_date==null?'N/A':element.service_completed_date}}</span>
+                </div>
+                <div class="row wrap a-c-6">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">List Name :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.listname}}</span>
+                </div>
+                <div class="row wrap a-c-6">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Description :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.description}}</span>
+                </div>
+                <div class="row wrap a-c-6">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Total Amount :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.total_amount==null?'N/A':element.total_amount}}</span>
+                </div>
+                <div class="row wrap a-c-6">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Requested :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.created_at | slice:0:10}}</span>
+                </div>
+              </div>
+            </div>
+            
+            <div *ngIf="taskDetailsArr[0].service_name=='FLOWER DELIVERY'" class="m-t-40">
+              <mat-card-title>Flower Delivery</mat-card-title>
+              <div style="display: inline-block; width: -webkit-fill-available;border-bottom: 1px solid; padding-bottom: 20px; margin-top: 10px;" *ngFor="let element of taskDetailsArr" class="m-t-40">
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Resident :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.first_name}} {{element.last_name}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Phone :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.phone}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Unit Number :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.unit_number}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Captain :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.captain}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Region :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.region}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Property :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.property_name}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Completed :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.service_completed=='true'?'Completed': 'Not Completed'}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Complete At :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.service_completed_date==null?'N/A':element.service_completed_date}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Display Area :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.display_flower_area}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Flower Budget :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.flower_budget}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Total Amount :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.total_amount}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Arrangement Type :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.notes}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Information :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.other_information}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Vase Required :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.vase}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Vase Budget :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.vase_budget}}</span>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="taskDetailsArr[0].service_name=='RX PICK-UP'" class="m-t-40">
+              <mat-card-title>Rx Pick-Up</mat-card-title>
+              <div style="display: inline-block; width: -webkit-fill-available;border-bottom: 1px solid; padding-bottom: 20px; margin-top: 10px;" *ngFor="let element of taskDetailsArr" class="m-t-40">
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Resident :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.first_name}} {{element.last_name}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Phone :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.phone}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Unit Number :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.unit_number}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Captain :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.captain}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Region :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.region}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Property :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.property_name}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Completed :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.service_completed=='true'?'Completed': 'Not Completed'}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Complete At :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.service_completed_date==null?'N/A':element.service_completed_date}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Prescription Name :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.name_of_prescription}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Payment Required :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.payment_required_for_pickup}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Information :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.other_information}}</span>
+                </div>
+                
+              </div>
+            </div>
+
+            <div *ngIf="taskDetailsArr[0].service_name=='ONQUEST CLEAN'" class="m-t-40">
+              <mat-card-title>OnQuest Clean</mat-card-title>
+              <div style="display: inline-block; width: -webkit-fill-available;border-bottom: 1px solid; padding-bottom: 20px; margin-top: 10px;" *ngFor="let element of taskDetailsArr" class="m-t-40">
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Resident :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.first_name}} {{element.last_name}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Phone :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.phone}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Unit Number :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.unit_number}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Captain :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.captain}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Region :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.region}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Property :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.property_name}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Completed :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.service_completed=='true'?'Completed': 'Not Completed'}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Complete At :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.service_completed_date==null?'N/A':element.service_completed_date}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">More Information :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.notes}}</span>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="taskDetailsArr[0].service_name=='LAUNDRY PICK-UP'" class="m-t-40">
+              <mat-card-title>Laundry Pick-Up</mat-card-title>
+              <div style="display: inline-block; width: -webkit-fill-available;border-bottom: 1px solid; padding-bottom: 20px; margin-top: 10px;" *ngFor="let element of taskDetailsArr" class="m-t-40">
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Resident :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.first_name}} {{element.last_name}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Phone :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.phone}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Unit Number :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.unit_number}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Captain :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.captain}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Region :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.region}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Property :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.property_name}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Completed :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.service_completed=='true'?'Completed': 'Not Completed'}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Complete At :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.service_completed_date==null?'N/A':element.service_completed_date}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Pick Items :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.number_of_items}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Other Instructions :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.specific_instruction}}</span>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="taskDetailsArr[0].service_name=='LAUNDRY DROP-OFF'" class="m-t-40">
+              <mat-card-title>Laundry Drop-Off</mat-card-title>
+              <div style="display: inline-block; width: -webkit-fill-available;border-bottom: 1px solid; padding-bottom: 20px; margin-top: 10px;" *ngFor="let element of taskDetailsArr" class="m-t-40">
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Resident :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.first_name}} {{element.last_name}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Phone :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.phone}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Unit Number :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.unit_number}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Captain :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.captain}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Region :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.region}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Property :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.property_name}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Completed :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.service_completed=='true'?'Completed': 'Not Completed'}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Complete At :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.service_completed_date==null?'N/A':element.service_completed_date}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Drop Items :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.number_of_items}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Other Instructions :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.relevant_information}}</span>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="taskDetailsArr[0].service_name=='PACKAGE PICK-UP'" class="m-t-40">
+              <mat-card-title>Package Pick-Up</mat-card-title>
+              <div style="display: inline-block; width: -webkit-fill-available;border-bottom: 1px solid; padding-bottom: 20px; margin-top: 10px;" *ngFor="let element of taskDetailsArr" class="m-t-40">
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Resident :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.first_name}} {{element.last_name}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Phone :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.phone}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Unit Number :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.unit_number}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Captain :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.captain}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Region :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.region}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Property :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.property_name}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Completed :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.service_completed=='true'?'Completed': 'Not Completed'}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Complete At :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.service_completed_date==null?'N/A':element.service_completed_date}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Package Items :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.number_of_packages}}</span>
+                </div>
+                <div class="row wrap a-c">
+                  <span style="font-weight: 500;" fxFlex.gt-sm="50%">Other Instructions :</span>
+                  <span fxFlex.gt-sm="50%" class="description">{{element.other_information}}</span>
+                </div>
+              </div>
+            </div>
+        </mat-card>
+      </div>
+    </mat-card>
+  </div>
+</div>
+
+<div fxLayout="row wrap" *ngIf="downloadOption!='PDF' && reportId == 'app_downloads' ">
+  <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-content>
+        <span *ngIf="loader" style="position: relative;left: 45%;width: 5%; margin-bottom: 20px" class="p-a"><img src="assets/images/loader.gif" alt="homepage" width="40px" class="dark-logo m-l-10"></span>
+        <mat-card-title>{{'App Downloads'}}</mat-card-title>
+
+        <div class="responsive-table">
+
+          <table mat-table #table [dataSource]="dataSource" id="mytab">
+
+            <ng-container matColumnDef="property_name">
+              <th mat-header-cell *matHeaderCellDef>Property </th>
+              <td mat-cell *matCellDef="let row">
+                <h5 class="m-0"> {{row.property_name}}</h5>
+              </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="first_name">
+              <th mat-header-cell *matHeaderCellDef> Resident </th>
+              <td mat-cell *matCellDef="let element"> {{element.first_name}} {{element.last_name}}</td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="region">
+              <th mat-header-cell *matHeaderCellDef> Region </th>
+              <td mat-cell *matCellDef="let element"> {{element.region}}</td>
+            </ng-container>
+            <!-- Name Column -->
+            <ng-container matColumnDef="os">
+              <th mat-header-cell *matHeaderCellDef> Device </th>
+              <td mat-cell *matCellDef="let element"> {{element.os}}</td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="created_at">
+              <th mat-header-cell *matHeaderCellDef> Download Date </th>
+              <td mat-cell *matCellDef="let element"> {{element.created_at | slice:0:10}}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<div fxLayout="row wrap" id="residents-pdf" *ngIf=" reportId == 'residents' ">
+  <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-content>
+        <span *ngIf="loader" style="position: relative;left: 45%;width: 5%; margin-bottom: 20px" class="p-a"><img src="assets/images/loader.gif" alt="homepage" width="40px" class="dark-logo m-l-10"></span>
+        <mat-card-title>{{'Residents'}}</mat-card-title>
+
+        <div class="responsive-table">
+
+          <table mat-table #table [dataSource]="dataSource" id="mytab">
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="first_name">
+              <th mat-header-cell *matHeaderCellDef> Resident </th>
+              <td mat-cell *matCellDef="let element"> {{element.first_name}} {{element.last_name}}</td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="email">
+              <th mat-header-cell *matHeaderCellDef> Email </th>
+              <td mat-cell *matCellDef="let element"> {{element.email}}</td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="property_name">
+              <th mat-header-cell *matHeaderCellDef>Property </th>
+              <td mat-cell *matCellDef="let row">
+                <h5 class="m-0"> {{row.property_name}}</h5>
+              </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="service_day">
+              <th mat-header-cell *matHeaderCellDef> Service Day </th>
+              <td mat-cell *matCellDef="let element"> {{element.user_profile_service_day=='1'?'Monday':
+                      element.user_profile_service_day=='2'?'Tuesday':
+                              element.user_profile_service_day=='3'?'Wednesday':
+                                      element.user_profile_service_day=='4'?'Thursday':
+                                              element.user_profile_service_day=='5'?'Friday':
+                                                      element.user_profile_service_day=='6'?'Saturday':
+                                                              element.user_profile_service_day=='0'?'Sunday':'Not Assigned'}} </td>
+            </ng-container>
+            <!-- Name Column -->
+            <ng-container matColumnDef="captain">
+              <th mat-header-cell *matHeaderCellDef> Captain </th>
+              <td mat-cell *matCellDef="let element"> {{element.captain}}</td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="complete_services">
+              <th mat-header-cell *matHeaderCellDef>Complete Services </th>
+              <td mat-cell *matCellDef="let row">
+                <h5 class="m-0"> {{row.service_complete}}</h5>
+              </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="incomplete_services">
+              <th mat-header-cell *matHeaderCellDef>InComplete Services </th>
+              <td mat-cell *matCellDef="let row">
+                <h5 class="m-0"> {{row.service_incomplete}}</h5>
+              </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="created_at">
+              <th mat-header-cell *matHeaderCellDef> Created Date </th>
+              <td mat-cell *matCellDef="let element"> {{element.created_at | slice:0:10}}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<div fxLayout="row wrap" id="payment_histories-pdf" *ngIf=" reportId == 'payment_histories' ">
+  <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-content>
+        <span *ngIf="loader" style="position: relative;left: 45%;width: 5%; margin-bottom: 20px" class="p-a"><img src="assets/images/loader.gif" alt="homepage" width="40px" class="dark-logo m-l-10"></span>
+        <mat-card-title>{{'All Payment History'}}</mat-card-title>
+
+        <div class="responsive-table">
+
+          <table mat-table #table [dataSource]="dataSource" id="mytab">
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="first_name">
+              <th mat-header-cell *matHeaderCellDef> Resident </th>
+              <td mat-cell *matCellDef="let element"> {{element.first_name}} {{element.last_name}}</td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="service">
+              <th mat-header-cell *matHeaderCellDef> Service </th>
+              <td mat-cell *matCellDef="let element"> {{element.service}}</td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="amount">
+              <th mat-header-cell *matHeaderCellDef>Amount </th>
+              <td mat-cell *matCellDef="let row">
+                <h5 class="m-0"> {{row.service=='Flower Delivery'?row.flower_delivery_total_amount:row.service=='Grocery Shopping'?row.grocery_total_amount:row.service=='Rx Pick-Up'?row.rx_pickup_total_amount:'N/A'}}</h5>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="created_at">
+              <th mat-header-cell *matHeaderCellDef>Date of Payment </th>
+              <td mat-cell *matCellDef="let row">
+                <h5 class="m-0"> {{row.created_at | slice:0:10}}</h5>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<div fxLayout="row wrap" *ngIf="downloadOption!='PDF' && reportId == 'new_signup'">
+  <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-content>
+        <span *ngIf="loader" style="position: relative;left: 45%;width: 5%; margin-bottom: 20px" class="p-a"><img src="assets/images/loader.gif" alt="homepage" width="40px" class="dark-logo m-l-10"></span>
+        <mat-card-title>New Sign Up Activities </mat-card-title>
+
+        <div class="responsive-table">
+
+          <table mat-table #table [dataSource]="dataSource" id="mytab">
+
+            <ng-container matColumnDef="resident_name">
+              <th mat-header-cell *matHeaderCellDef> Resident Name </th>
+              <td mat-cell *matCellDef="let row">
+                <h5 class="m-0">{{row.resident_name}}</h5>
+              </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="email">
+              <th mat-header-cell *matHeaderCellDef> Email </th>
+              <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="property_name">
+              <th mat-header-cell *matHeaderCellDef> Property Name </th>
+              <td mat-cell *matCellDef="let element"> {{element.property_name}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="street_name">
+              <th mat-header-cell *matHeaderCellDef> Street Name </th>
+              <td mat-cell *matCellDef="let element"> {{element.street_name}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="state">
+              <th mat-header-cell *matHeaderCellDef> State </th>
+              <td mat-cell *matCellDef="let element"> {{element.state}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="city">
+              <th mat-header-cell *matHeaderCellDef> City </th>
+              <td mat-cell *matCellDef="let element"> {{element.city}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="created_at">
+              <th mat-header-cell *matHeaderCellDef> Created At </th>
+              <td mat-cell *matCellDef="let element"> {{element.created_at}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="phone">
+              <th mat-header-cell *matHeaderCellDef> Phone </th>
+              <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="service_day">
+              <th mat-header-cell *matHeaderCellDef> Service Day </th>
+              <td mat-cell *matCellDef="let element"> {{element.service_day}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+
+

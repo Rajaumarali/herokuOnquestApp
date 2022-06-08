@@ -1,0 +1,1468 @@
+<div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+        <mat-card>
+                <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+                    <mat-card class="oh text-center little-profile">
+<!--                        <img mat-card-image src="assets/images/background/profile-bg.jpg" alt="Photo of a Shiba Inu" style="height: 187px;">-->
+                        <mat-card-content>
+                            <div class="pro-img user-img">
+                                <img *ngIf="user.profile_picture_url != ''" src="{{user.profile_picture_url}}" width="100" alt="user">
+                                <img *ngIf="user.profile_picture_url == ''" src="./assets/images/user.png" width="100" alt="user">
+                            </div>
+                            <h3 class="m-b-0">{{user.first_name}} {{user.last_name}}</h3>
+                            <div class="m-t-20">
+                                <!-- <button mat-raised-button class="m-r-5" (click)="callResident()" color="primary">Call</button> -->
+                                <button mat-raised-button class="m-r-5" color="primary" (click)="sendSMS(user.first_name,user.last_name,user.phone,user.user_id)">SMS</button>
+                                <button mat-raised-button class="m-r-5" (click)="sendEmail(user.first_name,user.last_name,user.email)" color="accent">Email</button>
+                                <button mat-raised-button class="m-r-5" (click)="getMessageLogs(user.user_id,user.first_name,user.last_name)" color="primary">Message Logs</button>
+                                <button mat-raised-button (click)="editResident()" color="accent">Edit</button>
+                            </div>
+<!--                              <div class="m-t-20">-->
+<!--                                <button mat-raised-button (click)="editResident()" color="accent">Edit</button>-->
+<!--                              </div>-->
+                              <!-- <div fxLayout="row wrap" class="m-t-40">
+                                <div fxFlex.gt-sm="100%" fxFlex.gt-xs="100%" fxFlex="100" style="text-align: left">
+                                            <div class="row ">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="100%">Email:</span>
+                                                <span fxFlex.gt-sm="100%">{{user.email}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="100%">Phone:</span>
+                                                <span fxFlex.gt-sm="100%">{{user.phone}}</span>
+                                            </div>
+                                            
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="100%">Zip Code:</span>
+                                                <span fxFlex.gt-sm="100%">{{user.zip_code}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="100%">State:</span>
+                                                <span fxFlex.gt-sm="100%">{{user.state}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="100%"> Birthday:</span>
+                                                <span fxFlex.gt-sm="100%">{{user.birthday | slice:0:10}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="100%">Service Day:</span>
+                                                <span fxFlex.gt-sm="100%">
+                                                            <span  *ngIf="user.user_profile_service_day == '1'">Monday</span>
+                                                            <span  *ngIf="user.user_profile_service_day == '2'">Tuesday</span>
+                                                            <span  *ngIf="user.user_profile_service_day == '3'">Wednesday</span>
+                                                            <span  *ngIf="user.user_profile_service_day == '4'">Thursday</span>
+                                                            <span  *ngIf="user.user_profile_service_day == '5'">Friday</span>
+                                                            <span  *ngIf="user.user_profile_service_day == '6'">Saturday</span>
+                                                            <span  *ngIf="user.user_profile_service_day == '7'">Sunday</span>
+                                                        </span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="100%"> Unit Number:</span>
+                                                <span fxFlex.gt-sm="100%">{{user.unit_number}}</span>
+                                            </div>
+                                       
+                                            <div class="row">
+                                                 <span style="font-weight: 500;" fxFlex.gt-sm="100%">Emergency Contact Relationship:</span>
+                                                 <span fxFlex.gt-sm="100%">{{user.emergency_contact_relationship}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="100%">Emergency Contact First Name:</span>
+                                                <span fxFlex.gt-sm="100%">{{user.emergency_contact_first_name}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="100%">Emergency Contact Last Name:</span>
+                                                <span fxFlex.gt-sm="100%">{{user.emergency_contact_last_name}}</span>
+                                            </div>
+
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="100%"> Emergency Contact #:</span>
+                                                <span fxFlex.gt-sm="100%">{{user.emergency_contact_phone_number}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="100%">Meet & Greet Date & Time:</span>
+                                                <span fxFlex.gt-sm="100%">{{user.meet_greet_date_time | slice:0:25}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="100%">Meet Greet Status:</span>
+                                                <span *ngIf="user.meet_greet_status != ''" fxFlex.gt-sm="100%">{{user.meet_greet_status}}</span>
+                                                <span *ngIf="user.meet_greet_status == ''" fxFlex.gt-sm="100%">Not Completed</span>
+                                            </div>
+                                             <div class="row">
+                                                 <span style="font-weight: 500;" fxFlex.gt-sm="100%">Property Name:</span>
+                                                 <span fxFlex.gt-sm="100%">{{user.property_name}}</span>
+                                             </div>
+                                        </div>
+                            </div> -->
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+        </mat-card>
+    </div>
+</div>
+
+<div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+        <mat-card>
+            <div class="profile-tab-title">
+                <mat-card-title>Profiles</mat-card-title>
+            </div>
+            <mat-tab-group>
+                <mat-tab class="profile-tab" label="Personal">
+                    <mat-card-content>
+                        <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+                            <mat-card class="oh text-center little-profile">
+                                <!-- <img mat-card-image src="assets/images/background/profile-bg.jpg" alt="Photo of a Shiba Inu" style="height: 187px;"> -->
+                                <mat-card-content class="profile-tab">
+                                    <!-- <div class="pro-img user-img">
+                                        <img src="{{user.profile_picture_url}}" width="100" alt="user">
+                                    </div> -->
+                                    <h3 class="m-b-0">Personal Profile</h3>
+<!--                                    <h6 class="m-t-0 ">{{services.description}}</h6>-->
+                                    <div  fxLayout="row wrap" class="m-t-40">
+                                        <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left" >
+                                        
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%"> Unit Number:</span>
+                                                <span fxFlex.gt-sm="50%">{{user.unit_number}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Service Day:</span>
+                                                <span fxFlex.gt-sm="50%">
+                                                            <span  *ngIf="user.user_profile_service_day == '1'">Monday</span>
+                                                            <span  *ngIf="user.user_profile_service_day == '2'">Tuesday</span>
+                                                            <span  *ngIf="user.user_profile_service_day == '3'">Wednesday</span>
+                                                            <span  *ngIf="user.user_profile_service_day == '4'">Thursday</span>
+                                                            <span  *ngIf="user.user_profile_service_day == '5'">Friday</span>
+                                                            <span  *ngIf="user.user_profile_service_day == '6'">Saturday</span>
+                                                            <span  *ngIf="user.user_profile_service_day == '7'">Sunday</span>
+                                                        </span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Meet & Greet Date/Time:</span>
+                                                <span fxFlex.gt-sm="50%">{{user.meet_greet_date_time | slice:0:25}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Meet Greet Status:</span>
+                                                <span *ngIf="user.meet_greet_status != '' && user.meet_greet_status != 'todo'" fxFlex.gt-sm="50%">Completed</span>
+                                                <span *ngIf="user.meet_greet_status == '' || user.meet_greet_status == 'todo'" fxFlex.gt-sm="50%">Not Completed</span>
+                                            </div>
+                                            <div class="row ">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Assigned Captains:</span>
+                                                <span fxFlex.gt-sm="50%">{{user.captain}}</span>
+                                            </div>
+                                            <div class="row ">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Email:</span>
+                                                <span fxFlex.gt-sm="50%">{{user.email}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Phone:</span>
+                                                <span fxFlex.gt-sm="50%">{{getPhone(user.phone)}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%"> Birthday:</span>
+                                                <span fxFlex.gt-sm="50%">{{user.birthday | slice:0:10}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Property Name:</span>
+                                                <span fxFlex.gt-sm="50%">{{user.property_name}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%"> Street Address:</span>
+                                                <span fxFlex.gt-sm="50%">{{user.street_name?user.street_name:"N/A"}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">City/State/Zip Code:</span>
+                                                <span fxFlex.gt-sm="50%">{{user.city}} {{user.state}} {{user.zip_code}}</span>
+                                            </div>
+                                            
+                                            
+                                            
+                                            
+                                                
+                                        </div>
+                                        <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left" >
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%"> Pets:</span>
+                                                <span fxFlex.gt-sm="50%">{{user.any_pets?"Yes":"No"}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%"> Roommates:</span>
+                                                <span fxFlex.gt-sm="50%">{{user.mates?"Yes":"No"}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%"> Roommate Name:</span>
+                                                <span fxFlex.gt-sm="50%">{{user.mate_first_name==""?"N/A":user.mate_first_name}} {{user.mate_last_name==""?"N/A":user.mate_last_name}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%"> Roommate Phone:</span>
+                                                <span fxFlex.gt-sm="50%">{{user.mate_phone==0?"N/A":getPhone(user.mate_phone)}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Emergency Contact Name:</span>
+                                                <span fxFlex.gt-sm="50%">{{user.emergency_contact_first_name}} {{user.emergency_contact_last_name}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%"> Emergency Contact Number:</span>
+                                                <span fxFlex.gt-sm="50%">{{getPhone(user.emergency_contact_phone_number)}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Emergency Contact Relationship:</span>
+                                                <span fxFlex.gt-sm="50%">{{user.emergency_contact_relationship}}</span>
+                                           </div>
+                                           <div class="row">
+                                               <span style="font-weight: 500;" fxFlex.gt-sm="50%"> Favorite Holiday:</span>
+                                               <span fxFlex.gt-sm="50%">{{user.favorite_holiday==""?"N/A":user.favorite_holiday}}</span>
+                                           </div>
+                                           <div class="row">
+                                               <span style="font-weight: 500;" fxFlex.gt-sm="50%"> Favorite Candy:</span>
+                                               <span fxFlex.gt-sm="50%">{{user.favorite_candy==""?"N/A":user.favorite_candy}}</span>
+                                           </div>
+                                           <div class="row">
+                                               <span style="font-weight: 500;" fxFlex.gt-sm="50%"> Favorite Cookie:</span>
+                                               <span fxFlex.gt-sm="50%">{{user.favorite_cookie==""?"N/A":user.favorite_cookie}}</span>
+                                           </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%"> Favorite Beer/Wine:</span>
+                                                <span fxFlex.gt-sm="50%">{{user.favorite_beer_wine==""?"N/A":user.favorite_beer_wine}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%"> Hobbies:</span>
+                                                <span fxFlex.gt-sm="50%">{{user.hobbies==""?"N/A":user.hobbies}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%"> Favorite Sport:</span>
+                                                <span fxFlex.gt-sm="50%">{{user.favorite_sport==""?"N/A":user.favorite_sport}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%"> Other Information:</span>
+                                                <span fxFlex.gt-sm="50%">{{user.other_information==""?"N/A":user.other_information}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                    </mat-card-content>
+                   
+                </mat-tab>
+                <!-- Tab 1 -->
+                <mat-tab label="Pet">
+                    <mat-card-content *ngIf="petProfiles.length>0;">
+                        <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+                            <mat-card class="oh text-center little-profile padding-card">
+                                <!-- <img mat-card-image src="assets/images/background/profile-bg.jpg" alt="Photo of a Shiba Inu" style="height: 187px;"> -->
+                                <mat-card-content>
+                                    <div class="pro-img user-img">
+                                        <h3 class="m-b-0">Pet Profile</h3>
+                                    </div>
+<!--                                    <h6 class="m-t-0 ">{{services.description}}</h6>-->
+                                    <div *ngFor="let petProfile of petProfiles" fxLayout="row wrap" class="m-t-40">
+                                        
+                                        <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left" >
+                                            <div class="row ">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Name:</span>
+                                                <span fxFlex.gt-sm="50%">{{petProfile.name}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Age:</span>
+                                                <span fxFlex.gt-sm="50%">{{petProfile.age}}</span>
+                                            </div>
+
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%"> Pet Type:</span>
+                                                <span fxFlex.gt-sm="50%">{{petProfile.pet_type}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Breed:</span>
+                                                <span fxFlex.gt-sm="50%">{{petProfile.breed}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Size:</span>
+                                                <span fxFlex.gt-sm="50%">{{petProfile.size}}</span>
+                                            </div>
+                                            <!-- <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%"> Pet Type:</span>
+                                                <span fxFlex.gt-sm="50%">{{petProfile.pet_type}}</span>
+                                            </div> -->
+                                       
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Gender:</span>
+                                                <span fxFlex.gt-sm="50%">{{petProfile.gender}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Pet Color:</span>
+                                                <span fxFlex.gt-sm="50%">{{petProfile.pet_color}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Other Information:</span>
+                                                <span fxFlex.gt-sm="50%">{{petProfile.other_information}}</span>
+                                            </div>
+                                            <!-- <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Service Enable:</span>
+                                                <span fxFlex.gt-sm="50%">{{petProfile.service_enable}}</span>
+                                            </div> -->
+
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Created At:</span>
+                                                <span fxFlex.gt-sm="50%">{{petProfile.created_at.substring(0, 10)}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Last Updated:</span>
+                                                <span fxFlex.gt-sm="50%">{{(petProfile.last_updated) ? petProfile.last_updated.substring(0, 10) : '-' }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="pro-img user-img">
+                                            <img *ngIf="petProfile.profile_picture_url != ''" (click)="openImage(petProfile.profile_picture_url)" src="{{petProfile.profile_picture_url}}" width="100" alt="user">
+                                            <img *ngIf="petProfile.profile_picture_url == ''" src="./assets/images/user.png" width="100" alt="user">
+                                        </div>
+                                    </div>
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                    </mat-card-content>
+                    <mat-card-content *ngIf="petProfiles.length==0;">
+                        <mat-card-title>No Pet Profile Found!</mat-card-title>
+                    </mat-card-content>
+                </mat-tab>
+                <!-- End Tab 1 -->
+                <!-- Tab 2 -->
+                <mat-tab label="Housekeeping">
+                    <mat-card-content *ngIf="houseKeeping.id">
+                        <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+                            <mat-card class="oh text-center little-profile padding-card">
+                                <!-- <img mat-card-image src="assets/images/background/profile-bg.jpg" alt="Photo of a Shiba Inu" style="height: 187px;"> -->
+                                <mat-card-content>
+                                    <!-- <div class="pro-img user-img">
+                                        <img src="" width="100" alt="user">
+                                    </div> -->
+                                    <h3 class="m-b-0">Housekeeping Profile</h3>
+                                    <!--                                    <h6 class="m-t-0 ">{{services.description}}</h6>-->
+                                    <div fxLayout="row wrap" class="m-t-40">
+                                        <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left" >
+                                            <div class="row ">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Number of Bedrooms:</span>
+                                                <span fxFlex.gt-sm="50%">{{houseKeeping.number_of_bedrooms}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Number of Bathrooms:</span>
+                                                <span fxFlex.gt-sm="50%">{{houseKeeping.number_of_bathrooms}}</span>
+                                            </div>
+                                            <div class="row ">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Square Footage:</span>
+                                                <span fxFlex.gt-sm="50%">{{houseKeeping.square_footage}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Cleaning Supplies:</span>
+                                                <span fxFlex.gt-sm="50%">{{houseKeeping.cleaning_supplies}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Other Preferences:</span>
+                                                <span fxFlex.gt-sm="50%">{{houseKeeping.housekeeping_preferences}}</span>
+                                            </div>
+                                        
+                                            <!-- <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Service Enable:</span>
+                                                <span fxFlex.gt-sm="50%">{{houseKeeping.service_enable}}</span>
+                                            </div> -->
+                                            <!-- <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Service Completed:</span>
+                                                <span fxFlex.gt-sm="50%">{{houseKeeping.service_completed}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Service Type Id:</span>
+                                                <span fxFlex.gt-sm="50%">{{houseKeeping.service_type_id}}</span>
+                                            </div> -->
+                                            <!-- <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%"> Reminder:</span>
+                                                <span fxFlex.gt-sm="50%">{{houseKeeping.reminder}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%"> Notes:</span>
+                                                <span fxFlex.gt-sm="50%">{{houseKeeping.notes}}</span>
+                                            </div> -->
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Created At:</span>
+                                                <span fxFlex.gt-sm="50%">{{houseKeeping.created_at.substring(0, 10)}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Last Updated:</span>
+                                                <span fxFlex.gt-sm="50%">{{(houseKeeping.last_updated) ? houseKeeping.last_updated.substring(0, 10) : '-' }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                    </mat-card-content>
+                    <mat-card-content *ngIf="!houseKeeping.id">
+                        <mat-card-title>No Housekeeping Profile Found!</mat-card-title>
+                    </mat-card-content>
+                </mat-tab>
+                <!-- End Tab 2 -->
+                <!-- Tab 3 -->
+                <mat-tab label="Rx Pick-Up">
+                    <mat-card-content *ngIf="rxPickup.id">
+                        <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+                            <mat-card class="oh text-center little-profile padding-card">
+                                <!-- <img mat-card-image src="assets/images/background/profile-bg.jpg" alt="Photo of a Shiba Inu" style="height: 187px;"> -->
+                                <mat-card-content>
+                                    <!-- <div class="pro-img user-img">
+                                        <img src="" width="100" alt="user">
+                                    </div> -->
+                                    <h3 class="m-b-0">RX Pick-Up Profile</h3>
+                                    <!--                                    <h6 class="m-t-0 ">{{services.description}}</h6>-->
+                                    <div fxLayout="row wrap" class="m-t-40">
+                                        <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left" >
+                                            <div class="row ">
+                                                <span  style="font-weight: 500;" fxFlex.gt-sm="50%">Preferred Pharmacy Name:</span>
+                                                <span fxFlex.gt-sm="50%">{{rxPickup.prefered_pharmacy_name}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span  style="font-weight: 500;" fxFlex.gt-sm="50%">Pharmacy Street Address:</span>
+                                                <span fxFlex.gt-sm="50%">{{rxPickup.street_name}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span  style="font-weight: 500;" fxFlex.gt-sm="50%">Pharmacy City:</span>
+                                                <span fxFlex.gt-sm="50%">{{rxPickup.city}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span  style="font-weight: 500;" fxFlex.gt-sm="50%">Pharmacy State:</span>
+                                                <span fxFlex.gt-sm="50%">{{rxPickup.state}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span  style="font-weight: 500;" fxFlex.gt-sm="50%">Pharmacy Zip Code:</span>
+                                                <span fxFlex.gt-sm="50%">{{rxPickup.zip_code}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span  style="font-weight: 500;" fxFlex.gt-sm="50%">Pharmacy Phone Number:</span>
+                                                <span  fxFlex.gt-sm="50%">{{getPhone(rxPickup.phone_number)}}</span>
+                                            </div>
+                                        <!-- </div>
+                                        <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left" > -->
+                                            <div class="row">
+                                                <span  style="font-weight: 500;" fxFlex.gt-sm="50%">Medications:</span>
+                                                <span  fxFlex.gt-sm="50%">{{rxPickup.medication}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Insurance on File:</span>
+                                                <span fxFlex.gt-sm="50%">{{rxPickup.insurance}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Other Instructions:</span>
+                                                <span fxFlex.gt-sm="50%">{{rxPickup.other_instructions}}</span>
+                                            </div>
+                                            <!-- <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Notes:</span>
+                                                <span fxFlex.gt-sm="50%">{{rxPickup.notes}}</span>
+                                            </div> -->
+                                            <!-- <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Service Enable:</span>
+                                                <span fxFlex.gt-sm="50%">{{rxPickup.service_enable}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Service Type Id:</span>
+                                                <span fxFlex.gt-sm="50%">{{rxPickup.service_type_id}}</span>
+                                            </div> -->
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Created At:</span>
+                                                <span fxFlex.gt-sm="50%">{{rxPickup.created_at.substring(0, 10)}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Last Updated:</span>
+                                                <span fxFlex.gt-sm="50%">{{rxPickup.last_updated.substring(0, 10)}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                    </mat-card-content>
+                    <mat-card-content *ngIf="!rxPickup.id">
+                        <mat-card-title>No Rx Pick-Up Profile Found!</mat-card-title>
+                    </mat-card-content>
+                </mat-tab>
+                <!-- End Tab 3 -->
+                <!-- Tab 4 -->
+                <mat-tab label="Grocery Shopping">
+                    <mat-card-content *ngIf="groceryShoping.id">
+                        <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+                            <mat-card class="oh text-center little-profile padding-card">
+                                <!-- <img mat-card-image src="assets/images/background/profile-bg.jpg" alt="Photo of a Shiba Inu" style="height: 187px;"> -->
+                                <mat-card-content>
+                                    <!-- <div class="pro-img user-img">
+                                        <img src="" width="100" alt="user">
+                                    </div> -->
+                                    <h3 class="m-b-0">Grocery Shopping Profile</h3>
+                                                                 <h6 class="m-t-0 ">{{groceryShoping.description}}</h6>
+                                    <div fxLayout="row wrap" class="m-t-40">
+                                        <div fxFlex.gt-sm="100%" fxFlex.gt-xs="100%" fxFlex="100" style="text-align: left" >
+                                           
+                                            <div class="row ">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Organic Items:</span>
+                                                <span fxFlex.gt-sm="50%">{{groceryShoping.organic_items_req==null && groceryShoping.organic_items==null?'Not Preferred':groceryShoping.organic_items_req!=null?'Require':'Preferred'}} </span>
+                                            </div>
+                                            <div class="row ">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Organic Items List:</span>
+                                                <span fxFlex.gt-sm="50%">{{groceryShoping.organic_items!=null?groceryShoping.organic_items:groceryShoping.organic_items_req!=null?groceryShoping.organic_items_req:'N/A'}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Food Allergies List:</span>
+                                                <span fxFlex.gt-sm="50%">{{groceryShoping.food_allergies}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%"> Other Food Restrictions:</span>
+                                                <span fxFlex.gt-sm="50%">{{groceryShoping.restrictions}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Preferred Brands:</span>
+                                                <span fxFlex.gt-sm="50%">{{groceryShoping.prefered_brands}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Preferred Brands Photos:</span>
+                                                <div>
+                                                    <span *ngFor="let img of groceryShoping.prefered_brand_photos">
+                                                        <img (click)="openImage(img)" style="margin-right: 20px;" src="{{img}}" width="50"/>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Not Preferred Brands:</span>
+                                                <span fxFlex.gt-sm="50%">{{groceryShoping.not_prefered_brands}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Not Preferred Brands Photos:</span>
+                                                <div>
+                                                    <span *ngFor="let img of groceryShoping.not_prefered_brand_photos">
+                                                        <img (click)="openImage(img)" style="margin-right: 20px;" src="{{img}}" width="50"/>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Preferred Grocery Store Name:</span>
+                                                <span fxFlex.gt-sm="50%">{{groceryShoping.grocery_store_name}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Preferred Grocery Store Street Address:</span>
+                                                <span fxFlex.gt-sm="50%">{{groceryShoping.grocery_store_street_address}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Preferred Grocery Store City:</span>
+                                                <span fxFlex.gt-sm="50%">{{groceryShoping.grocery_store_city}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Preferred Grocery Store State:</span>
+                                                <span fxFlex.gt-sm="50%">{{groceryShoping.grocery_store_state}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Preferred Grocery Store Zip Code:</span>
+                                                <span fxFlex.gt-sm="50%">{{groceryShoping.grocery_store_zip_code}}</span>
+                                            </div>
+                                        <!-- </div>
+                                        <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left" > -->
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Other Specifications:</span>
+                                                <span fxFlex.gt-sm="50%">{{groceryShoping.other_grocery_specifications}}</span>
+                                            </div>
+                                            <!-- <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Service Completed:</span>
+                                                <span fxFlex.gt-sm="50%">{{groceryShoping.service_completed}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Notes:</span>
+                                                <span fxFlex.gt-sm="50%">{{groceryShoping.notes}}</span>
+                                            </div> -->
+                                            <!-- <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Service Enable:</span>
+                                                <span fxFlex.gt-sm="50%">{{groceryShoping.service_enable}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Service Type Id:</span>
+                                                <span fxFlex.gt-sm="50%">{{groceryShoping.service_type_id}}</span>
+                                            </div> -->
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Created At:</span>
+                                                <span fxFlex.gt-sm="50%">{{groceryShoping.created_at.substring(0, 10)}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Last Updated:</span>
+                                                <span fxFlex.gt-sm="50%">{{groceryShoping.last_updated ? groceryShoping.last_updated.substring(0, 10) : 'N/A' }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                    </mat-card-content>
+                    <mat-card-content *ngIf="!groceryShoping.id">
+                        <mat-card-title>No Grocery Shopping Profile Found!</mat-card-title>
+                    </mat-card-content>
+                </mat-tab>
+                <!-- End Tab 4 -->
+            </mat-tab-group>
+        </mat-card>
+    </div>
+</div>
+
+
+<div fxLayout="row wrap">
+    <!-- Card column -->
+    <div fxFlex.gt-lg="50" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+                <mat-card-title>Notes</mat-card-title>
+                <mat-card-subtitle>Latest Notes on Resident</mat-card-subtitle>
+                <div class="comment-widgets">
+                    <!-- Comment Row -->
+                    <div class="d-flex flex-row comment-row" *ngFor="let notes of allNotes">
+                        <div class="p-2">
+                            <span class="round">
+                                <img src="{{notes.concierage_captain_image}}" alt="user" width="50">
+                            </span>
+                        </div>
+                        <div class="comment-text w-100">
+                            <h5 class="m-0">{{notes.name}}</h5>
+                            <span class="text-muted f-s-13">{{notes.created_at | slice:0:10}}</span>
+                            <p class="m-b-5">{{notes.note}}</p>
+                            <div class="comment-footer">
+                                
+                                <span *ngIf="notes.captain_id == userObject.user_id" class="action-icons">
+                                    <a href="javascript:void(0)" (click)="editNote(notes)">
+                                        <i class="ti-pencil-alt"></i>
+                                    </a>
+                                    <a href="javascript:void(0)" (click)="deleteNote(notes)">
+                                        <i class="ti-trash m-l-10"></i>
+                                    </a>
+                                    <!-- <a href="javascript:void(0)">
+                                        <i class="ti-check"></i>
+                                    </a>
+                                    <a href="javascript:void(0)">
+                                        <i class="ti-heart"></i>
+                                    </a> -->
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- column -->
+                    
+                </div>
+                        <mat-form-field>
+                            <input matInput placeholder="Add Notes" name="notes" [(ngModel)]="residentNotes">
+                        </mat-form-field>
+                        <button mat-raised-button color="basic" (click)="cancelNotes()">CANCEL</button>
+                        <button *ngIf="!noteUpdate" mat-raised-button color="primary" class="m-l-10" [disabled]="residentNotes == ''" (click)="saveNotes()">ADD</button>
+                        <button *ngIf="noteUpdate" mat-raised-button color="primary" class="m-l-10" [disabled]="residentNotes == ''" (click)="updateNotes()">UPDATE</button>
+                        <span *ngIf="showLoader" class="p-a"><img src="assets/images/loader.gif" alt="homepage" width="40px" class="dark-logo m-l-10"></span>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+
+
+
+<div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+        <mat-card>
+            <div class="profile-tab-title">
+                <mat-card-title>Payment History</mat-card-title>
+            </div>
+            <!-- <mat-tab-group *ngIf="userService.length>0;"> -->
+                <mat-tab-group >
+                <!-- Tab 1 -->
+                <mat-tab label="GROCERY SHOPPING">
+                    <mat-card-content *ngIf="groceryPayment[0]">
+                        <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+                            <mat-card class="oh text-center little-profile">
+                                <!-- <img mat-card-image src="assets/images/background/profile-bg.jpg" alt="Photo of a Shiba Inu" style="height: 187px;"> -->
+                                <mat-card-content class="payment-cont">
+                                    <!-- <div class="pro-img user-img">
+                                        <img src="{{groceryPayment[0].service_image}}" width="100" alt="user">
+                                    </div> -->
+                                    <!-- <h3 class="m-b-0">{{groceryPayment[0].service_name}}</h3>
+                                    <h6 class="m-t-0 ">{{groceryPayment[0].description}}</h6> -->
+                                    <!-- <mat-card-actions *ngIf="userType == '5' || userType == '4'">
+                                         <button mat-raised-button color="warn" class="cursor-p" (click)="editProperty(locationPropertyCode)">Edit</button>
+                                     </mat-card-actions>-->
+                                    <div class="gro_item" *ngFor="let services of groceryPayment; index as i" fxLayout="row wrap" class="m-t-40">
+                                        <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left">
+                                            <div class="row ">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">List Name:</span>
+                                                <span fxFlex.gt-sm="50%">{{services.item.listname}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Created At:</span>
+                                                <span fxFlex.gt-sm="50%">{{services.item.created_at | slice:0:10}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Service Completed Date:</span>
+                                                <span fxFlex.gt-sm="50%">{{services.item.service_completed_date}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Paid Status:</span>
+                                                <span fxFlex.gt-sm="50%">{{services.item.is_paid==0? 'Not paid':'Paid'}}</span>
+                                            </div>
+                                            <!-- <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Notes:</span>
+                                                <span fxFlex.gt-sm="50%">{{services.item.notes}}</span>
+                                            </div> -->
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Total Amount Paid:</span>
+                                                <span fxFlex.gt-sm="50%">{{services.item.total_amount}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Payment Message:</span>
+                                                <span fxFlex.gt-sm="50%">{{services.item.payment_message}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Receipt:</span>
+                                                <div>
+                                                    <img (click)="openImage(images)" *ngFor="let images of services.item.payment_invoice" [src]="getImage(images)" class="img-circle m-r-10" width="40" height="40"/>
+                                                </div>
+                                            </div>
+                                       
+
+                                            <!-- <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Service Completed:</span>
+                                                <span fxFlex.gt-sm="50%">{{services.item.service_completed=='true'?'Completed':'Not Completed'}}</span>
+                                            </div> -->
+                                            
+                                           
+                                            
+                                           
+                                            
+                                        </div>
+                                    <!-- <div style="width: -webkit-fill-available;" fxLayout="row wrap">
+                                            <div fxFlex.gt-sm="100%">
+                                            
+                                                
+                                                  <mat-list *ngFor="let items of allList">
+                                                    <div *ngIf="items.id==services.list_id">
+                                                        <mat-list style="width: calc(100%/4); float: left;" class="grocList" *ngFor="let item of items.res">
+                                                        <mat-list-item  *ngIf="item.item_type=='inventoryItem'">
+                                                            <img *ngIf="item.image !== ''" mat-list-avatar [src]="item.image" alt="No Image Found">
+                                                            <img *ngIf="item.image == ''" src="./assets/images/user.png" width="100" alt="user">
+                                                            <h3 matLine>{{item.name}} (Qty:{{item.quantity}})</h3>
+                                                            <p matLine class="text-muted">{{item.comment}}</p>
+                                                   
+                                                            </mat-list-item>
+                                                        </mat-list>
+                                                </div>
+                                                  </mat-list>
+                                          
+                                            </div>
+                                          </div> -->
+                                        <div class="task-btn">
+                                            <!-- <button mat-raised-button class="m-r-5" (click)="callResident()" color="primary">Call</button> -->
+                                            <button mat-raised-button class="m-r-5" color="primary" (click)="openGroceryTask(services.item)">View Task</button>
+                                        </div>
+                                    </div>
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                    </mat-card-content>
+                    <mat-card-content *ngIf="groceryPayment.length==0;">
+                        <mat-card-title>No Grocery Payment Found!</mat-card-title>
+                    </mat-card-content>
+                </mat-tab>
+                <!-- End Tab 1 -->
+                <!-- Tab 5 -->
+                <mat-tab label="RX PICK-UP">
+                    <mat-card-content *ngIf="rxPayment[0]">
+                        <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+                            <mat-card class="oh text-center little-profile">
+                                <!-- <img mat-card-image src="assets/images/background/profile-bg.jpg" alt="Photo of a Shiba Inu" style="height: 187px;"> -->
+                                <mat-card-content class="payment-cont">
+                                    <!-- <div class="pro-img user-img">
+                                        <img src="{{rxPayment[0].service_image}}" width="100" alt="user">
+                                    </div>
+                                    <h3 class="m-b-0">{{rxPayment[0].service_name}}</h3>
+                                    <h6 class="m-t-0 ">{{rxPayment[0].description}}</h6> -->
+                                    <!-- <mat-card-actions *ngIf="userType == '5' || userType == '4'">
+                                         <button mat-raised-button color="warn" class="cursor-p" (click)="editProperty(locationPropertyCode)">Edit</button>
+                                     </mat-card-actions>-->
+                                    <div *ngFor="let services of rxPayment" fxLayout="row wrap" class="m-t-40">
+                                        <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left">
+
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%"> Prescription Name:</span>
+                                                <span fxFlex.gt-sm="50%">{{services.item.name_of_prescription}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Date Created:</span>
+                                                <span fxFlex.gt-sm="50%">{{services.item.created_at}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Payment Required For Pick-Up:</span>
+                                                <span fxFlex.gt-sm="50%">{{services.item.payment_required_for_pickup}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Service Completed Date:</span>
+                                                <span fxFlex.gt-sm="50%">{{services.item.service_completed_date}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Paid Status:</span>
+                                                <span fxFlex.gt-sm="50%">{{services.item.is_paid==0? 'Not paid':'Paid'}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Total Amount Paid:</span>
+                                                <span fxFlex.gt-sm="50%">{{services.item.total_amount}}</span>
+                                            </div>
+                                            
+                                        
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Payment Message:</span>
+                                                <span fxFlex.gt-sm="50%">{{services.item.payment_message}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Receipt:</span>
+                                                <div>
+                                                    <img (click)="openImage(images)" *ngFor="let images of services.item.payment_invoice" src="{{images}}" class="img-circle m-r-10" width="40" height="40"/>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Information:</span>
+                                                <span fxFlex.gt-sm="50%">{{services.item.other_information==''?'N/A':services.other_information}}</span>
+                                            </div> -->
+                                            
+                                            <!-- <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Notes:</span>
+                                                <span fxFlex.gt-sm="50%">{{services.item.notes}}</span>
+                                            </div> -->
+                                        </div>
+                                        <div class="task-btn">
+                                            <!-- <button mat-raised-button class="m-r-5" (click)="callResident()" color="primary">Call</button> -->
+                                            <button mat-raised-button class="m-r-5" color="primary" (click)="openRXTask(services.item)">View Task</button>
+                                        </div>
+                                    </div>
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                    </mat-card-content>
+                    <mat-card-content *ngIf="rxPayment.length==0;">
+                        <mat-card-title>No Rx Pick-Up Payment Found!</mat-card-title>
+                    </mat-card-content>
+                </mat-tab>
+                <!-- End Tab 5 -->
+              
+                <!-- Tab 7 -->
+                <mat-tab label="FLOWER DELIVERY">
+                    <mat-card-content *ngIf="flowerPayment[0]">
+                        <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+                            <mat-card class="oh text-center little-profile">
+                                <!-- <img mat-card-image src="assets/images/background/profile-bg.jpg" alt="Photo of a Shiba Inu" style="height: 187px;"> -->
+                                <mat-card-content class="payment-cont">
+                                    
+                                    <div *ngFor="let services of flowerPayment" fxLayout="row wrap" class="m-t-40">
+                                        <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left">
+
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Date Created:</span>
+                                                <span fxFlex.gt-sm="50%">{{services.item.created_at|slice:0:10}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Service Completed Date:</span>
+                                                <span fxFlex.gt-sm="50%">{{services.item.service_completed_date}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Paid Status:</span>
+                                                <span fxFlex.gt-sm="50%">{{services.item.is_paid==0? 'Not paid':'Paid'}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Total Amount Paid:</span>
+                                                <span fxFlex.gt-sm="50%">{{services.item.total_amount}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Payment Message:</span>
+                                                <span fxFlex.gt-sm="50%">{{services.item.payment_message}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Receipt:</span>
+                                                <div>
+                                                    <img (click)="openImage(images)" *ngFor="let images of services.item.payment_invoice" src="{{images}}" class="img-circle m-r-10" width="40" height="40"/>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%"> Display Area:</span>
+                                                <span fxFlex.gt-sm="50%">{{services.item.display_flower_area}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Vase:</span>
+                                                <span fxFlex.gt-sm="50%">{{services.item.vase}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%"> Vase Budget:</span>
+                                                <span fxFlex.gt-sm="50%">{{services.item.vase_budget}}</span>
+                                            </div>
+                                            
+                                            
+                                            
+                                            
+                                            <div class="row">
+                                                <span style="font-weight: 500;" fxFlex.gt-sm="50%">Flower Budget:</span>
+                                                <span fxFlex.gt-sm="50%">{{services.item.flower_budget}}</span>
+                                            </div> -->
+                                            
+                                        </div>
+                                        <div class="task-btn">
+                                            <!-- <button mat-raised-button class="m-r-5" (click)="callResident()" color="primary">Call</button> -->
+                                            <button mat-raised-button class="m-r-5" color="primary" (click)="openFlowerTask(services.item)">View Task</button>
+                                        </div>
+                                    </div>
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                    </mat-card-content>
+                    <mat-card-content *ngIf="flowerPayment.length==0;">
+                        <mat-card-title>No Flower Delivery Payment Found!</mat-card-title>
+                    </mat-card-content>
+                </mat-tab>
+                <!-- End Tab 7 -->
+               
+            </mat-tab-group>
+        </mat-card>
+    </div>
+</div>
+
+<div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+        <mat-card>
+            <div class="profile-tab-title">
+                <mat-card-title>Tasks</mat-card-title>
+            </div>
+            <mat-tab-group >
+                <!-- Tab 1 -->
+                <mat-tab label="GROCERY SHOPPING">
+                    <mat-card-content>
+                        <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+                            <mat-card class="oh text-center little-profile">
+                                <!-- <img mat-card-image src="assets/images/background/profile-bg.jpg" alt="Photo of a Shiba Inu" style="height: 187px;"> -->
+                                <mat-card-content class="payment-cont">
+                                    <!-- <div class="pro-img user-img">
+                                        <img src="{{groceryService[0].service_image}}" width="100" alt="user">
+                                    </div> -->
+                                    <h3 class="m-b-0">Grocery Shopping</h3>
+                                    <!-- <h6 class="m-t-0 ">{{groceryService[0].description}}</h6> -->
+                                    <!-- <mat-card-actions *ngIf="userType == '5' || userType == '4'">
+                                         <button mat-raised-button color="warn" class="cursor-p" (click)="editProperty(locationPropertyCode)">Edit</button>
+                                     </mat-card-actions>-->
+                                     <div class="gro_item" *ngFor="let services of groceryService; index as i" class="m-t-40">
+                                        <div (click)="openTaskDetail(services)" fxLayout="row wrap" class="m-t-40 cursor-p">
+                                            <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left">
+                                                <div class="row ">
+                                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Date Created:</span>
+                                                    <span fxFlex.gt-sm="50%">{{services.created_at}}</span>
+                                                </div>
+                                                <div class="row">
+                                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">List Name:</span>
+                                                    <span fxFlex.gt-sm="50%">{{services.listname}}</span>
+                                                </div>
+                                                <div class="row">
+                                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Service Status:</span>
+                                                    <span fxFlex.gt-sm="50%">{{services.service_enable!='true'?"Cancelled":services.service_completed=='true'?'Completed':'Not Completed'}}</span>
+                                                </div>
+                                            </div>
+                                            <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left">
+                                                <div class="row">
+                                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Responsible Party :</span>
+                                                    <span fxFlex.gt-sm="50%">{{services.responsible_party}}</span>
+                                                </div>
+                                                <div class="row">
+                                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Paid Status:</span>
+                                                    <span fxFlex.gt-sm="50%">{{services.is_paid==0? 'Not paid':'Paid'}}</span>
+                                                </div>
+                                                <div class="row">
+                                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Service Day:</span>
+                                                    <span fxFlex.gt-sm="50%">{{services.user_profile_service_day=='1'?'Monday':services.user_profile_service_day=='2'?'Tuesday':services.user_profile_service_day=='3'?'Wednesday':services.user_profile_service_day=='4'?'Thursday':services.user_profile_service_day=='5'?'Friday':services.user_profile_service_day=='6'?'Saturday':services.user_profile_service_day=='7'?'Sunday':'Not Assigned'}}</span>
+                                                </div>
+                                            
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                    </mat-card-content>
+                
+                </mat-tab>
+                <!-- End Tab 1 -->
+                <!-- Tab 2 -->
+                <mat-tab label="LAUNDRY PICK-UP">
+                    <mat-card-content >
+                        <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+                            <mat-card class="oh text-center little-profile">
+                                <!-- <img mat-card-image src="assets/images/background/profile-bg.jpg" alt="Photo of a Shiba Inu" style="height: 187px;"> -->
+                                <mat-card-content class="payment-cont">
+                                    <!-- <div class="pro-img user-img">
+                                        <img src="{{laundryPickService[0].service_image}}" width="100" alt="user">
+                                    </div> -->
+                                    <h3 class="m-b-0">Laundry Pick-Up</h3>
+                                    <!-- <h6 class="m-t-0 ">{{laundryPickService[0].description}}</h6> -->
+                                    <!-- <mat-card-actions *ngIf="userType == '5' || userType == '4'">
+                                         <button mat-raised-button color="warn" class="cursor-p" (click)="editProperty(locationPropertyCode)">Edit</button>
+                                     </mat-card-actions>-->
+                                     <div class="gro_item" *ngFor="let services of laundryPickService; index as i" class="m-t-40">
+                                        <div (click)="openTaskDetail(services)" fxLayout="row wrap" class="m-t-40 cursor-p">
+                                            <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left">
+                                                <div class="row ">
+                                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Date Created:</span>
+                                                    <span fxFlex.gt-sm="50%">{{services.created_at}}</span>
+                                                </div>
+                                                <div class="row">
+                                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Number of Items:</span>
+                                                    <span fxFlex.gt-sm="50%">{{services.number_of_items}}</span>
+                                                </div>
+                                                <div class="row">
+                                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Service Status:</span>
+                                                    <span fxFlex.gt-sm="50%">{{services.service_enable!='true'?"Cancelled":services.service_completed=='true'?'Completed':'Not Completed'}}</span>
+                                                </div>
+                                            </div>
+                                            <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left">
+                                                <div class="row">
+                                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Responsible Party :</span>
+                                                    <span fxFlex.gt-sm="50%">{{services.responsible_party}}</span>
+                                                </div>
+                                                <div class="row">
+                                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Service Day:</span>
+                                                    <span fxFlex.gt-sm="50%">{{services.user_profile_service_day=='1'?'Monday':services.user_profile_service_day=='2'?'Tuesday':services.user_profile_service_day=='3'?'Wednesday':services.user_profile_service_day=='4'?'Thursday':services.user_profile_service_day=='5'?'Friday':services.user_profile_service_day=='6'?'Saturday':services.user_profile_service_day=='7'?'Sunday':'Not Assigned'}}</span>
+                                                </div>
+                                            
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                   
+
+                                   
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                    </mat-card-content>
+                   
+                </mat-tab>
+                <!-- End Tab 2 -->
+                <!-- Tab 3 -->
+                <mat-tab label="LAUNDRY DROP-OFF">
+                    <mat-card-content >
+                        <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+                            <mat-card class="oh text-center little-profile">
+                                <!-- <img mat-card-image src="assets/images/background/profile-bg.jpg" alt="Photo of a Shiba Inu" style="height: 187px;"> -->
+                                <mat-card-content class="payment-cont">
+                                    <!-- <div class="pro-img user-img">
+                                        <img src="{{laundryDropService[0].service_image}}" width="100" alt="user">
+                                    </div> -->
+                                    <h3 class="m-b-0">Laundry Drop-Off</h3>
+                                    <!-- <h6 class="m-t-0 ">{{laundryDropService[0].description}}</h6> -->
+                                    <!-- <mat-card-actions *ngIf="userType == '5' || userType == '4'">
+                                         <button mat-raised-button color="warn" class="cursor-p" (click)="editProperty(locationPropertyCode)">Edit</button>
+                                     </mat-card-actions>-->
+
+
+                                     <div class="gro_item" *ngFor="let services of laundryDropService; index as i" class="m-t-40">
+                                        <div (click)="openTaskDetail(services)" fxLayout="row wrap" class="m-t-40 cursor-p">
+                                            <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left">
+                                                <div class="row ">
+                                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Date Created:</span>
+                                                    <span fxFlex.gt-sm="50%">{{services.created_at}}</span>
+                                                </div>
+                                                <div class="row">
+                                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Number of Items:</span>
+                                                    <span fxFlex.gt-sm="50%">{{services.number_of_items}}</span>
+                                                </div>
+                                                <div class="row">
+                                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Service Status:</span>
+                                                    <span fxFlex.gt-sm="50%">{{services.service_enable!='true'?"Cancelled":services.service_completed=='true'?'Completed':'Not Completed'}}</span>
+                                                </div>
+                                            </div>
+                                            <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left">
+                                                <div class="row">
+                                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Responsible Party :</span>
+                                                    <span fxFlex.gt-sm="50%">{{services.responsible_party}}</span>
+                                                </div>
+                                                <div class="row">
+                                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Service Day:</span>
+                                                    <span fxFlex.gt-sm="50%">{{services.user_profile_service_day=='1'?'Monday':services.user_profile_service_day=='2'?'Tuesday':services.user_profile_service_day=='3'?'Wednesday':services.user_profile_service_day=='4'?'Thursday':services.user_profile_service_day=='5'?'Friday':services.user_profile_service_day=='6'?'Saturday':services.user_profile_service_day=='7'?'Sunday':'Not Assigned'}}</span>
+                                                </div>
+                                            
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                  
+                                    
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                    </mat-card-content>
+                </mat-tab>
+                <!-- End Tab 3 -->
+                <!-- Tab 5 -->
+                <mat-tab label="RX PICK-UP">
+                    <mat-card-content>
+                        <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+                            <mat-card class="oh text-center little-profile">
+                                <!-- <img mat-card-image src="assets/images/background/profile-bg.jpg" alt="Photo of a Shiba Inu" style="height: 187px;"> -->
+                                <mat-card-content class="payment-cont">
+                                    <!-- <div class="pro-img user-img">
+                                        <img src="{{rxService[0].service_image}}" width="100" alt="user">
+                                    </div> -->
+                                    <h3 class="m-b-0">Rx Pick-Up</h3>
+                                    <!-- <h6 class="m-t-0 ">{{rxService[0].description}}</h6> -->
+                                    <!-- <mat-card-actions *ngIf="userType == '5' || userType == '4'">
+                                         <button mat-raised-button color="warn" class="cursor-p" (click)="editProperty(locationPropertyCode)">Edit</button>
+                                     </mat-card-actions>-->
+
+
+                                     <div class="gro_item" *ngFor="let services of rxService; index as i" class="m-t-40">
+                                        <div (click)="openTaskDetail(services)" fxLayout="row wrap" class="m-t-40 cursor-p">
+                                            <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left">
+                                                <div class="row ">
+                                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Date Created:</span>
+                                                    <span fxFlex.gt-sm="50%">{{services.created_at}}</span>
+                                                </div>
+                                                <div class="row">
+                                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Number of Prescription:</span>
+                                                    <span fxFlex.gt-sm="50%">{{services.name_of_prescription}}</span>
+                                                </div>
+                                                <div class="row">
+                                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Service Status:</span>
+                                                    <span fxFlex.gt-sm="50%">{{services.service_enable!='true'?"Cancelled":services.service_completed=='true'?'Completed':'Not Completed'}}</span>
+                                                </div>
+                                            </div>
+                                            <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left">
+                                                <div class="row">
+                                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Responsible Party :</span>
+                                                    <span fxFlex.gt-sm="50%">{{services.responsible_party}}</span>
+                                                </div>
+                                                <div class="row">
+                                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Paid Status:</span>
+                                                    <span fxFlex.gt-sm="50%">{{services.is_paid==0? 'Not paid':'Paid'}}</span>
+                                                </div>
+                                                <div class="row">
+                                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Service Day:</span>
+                                                    <span fxFlex.gt-sm="50%">{{services.user_profile_service_day=='1'?'Monday':services.user_profile_service_day=='2'?'Tuesday':services.user_profile_service_day=='3'?'Wednesday':services.user_profile_service_day=='4'?'Thursday':services.user_profile_service_day=='5'?'Friday':services.user_profile_service_day=='6'?'Saturday':services.user_profile_service_day=='7'?'Sunday':'Not Assigned'}}</span>
+                                                </div>
+                                            
+                                            </div>
+                                        </div>
+                                    </div>
+
+<!-- 
+                                     <div class="responsive-table">
+                                        <mat-table [dataSource]="dataSourceRx" matSort>
+                              
+                                          <ng-container matColumnDef="created_at">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header class="m-w-250 align-center"> Date Created </mat-header-cell>
+                                            <mat-cell *matCellDef="let row" (click)="openTaskDetail(row)" class="cursor-p m-w-250 align-center"> {{row.created_at}} </mat-cell>
+                                          </ng-container>
+
+                                          <ng-container matColumnDef="name_of_prescription">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header class="m-w-250 align-center"> Number of Prescription </mat-header-cell>
+                                            <mat-cell *matCellDef="let row" (click)="openTaskDetail(row)" class="cursor-p m-w-250 align-center"> {{row.name_of_prescription}} </mat-cell>
+                                          </ng-container>
+                                          <ng-container matColumnDef="is_paid">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header class="m-w-250 align-center"> Paid Status </mat-header-cell>
+                                            <mat-cell *matCellDef="let row" (click)="openTaskDetail(row)" class="cursor-p m-w-250 align-center"> {{ row.payment_required_for_pickup=='Yes'? row.is_paid==0? 'Not paid':'Paid':'Payment not required'}} </mat-cell>
+                                          </ng-container>
+
+                                          <ng-container matColumnDef="service_completed">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header class="m-w-250 align-center"> Service Status </mat-header-cell>
+                                            <mat-cell *matCellDef="let row" (click)="openTaskDetail(row)" class="cursor-p m-w-250 align-center"> {{row.service_enable!='true'?"Cancelled":row.service_completed=='true'?'Completed':'Not Completed'}} </mat-cell>
+                                          </ng-container>
+
+                                          <ng-container matColumnDef="responsible_party">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header class="m-w-250 align-center"> Responsible Party </mat-header-cell>
+                                            <mat-cell *matCellDef="let row;let i = index;" (click)="openTaskDetail(row)"  class="m-w-250 align-center cursor-p"> {{row.responsible_party}}</mat-cell>
+                                          </ng-container>
+                                      
+                                          <ng-container matColumnDef="user_profile_service_day">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header class="m-w-250 align-center"> Service Day </mat-header-cell>
+                                            <mat-cell *matCellDef="let row" (click)="openTaskDetail(row)" class="cursor-p m-w-250 align-center"> {{row.user_profile_service_day=='1'?'Monday':row.user_profile_service_day=='2'?'Tuesday':row.user_profile_service_day=='3'?'Wednesday':row.user_profile_service_day=='4'?'Thursday':row.user_profile_service_day=='5'?'Friday':row.user_profile_service_day=='6'?'Saturday':row.user_profile_service_day=='7'?'Sunday':'Not Assigned'}} </mat-cell>
+                                          </ng-container>
+
+                                          <mat-header-row *matHeaderRowDef="displayedColumnsRx"></mat-header-row>
+                                          <mat-row *matRowDef="let row; columns: displayedColumnsRx;">
+                                          </mat-row>
+                                        </mat-table>
+                              
+                                        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                                      </div> -->
+
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                    </mat-card-content>
+                </mat-tab>
+                <!-- End Tab 5 -->
+                <!-- Tab 6 -->
+                <mat-tab label="ONQUEST CLEAN">
+                    <mat-card-content>
+                        <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+                            <mat-card class="oh text-center little-profile">
+                                <!-- <img mat-card-image src="assets/images/background/profile-bg.jpg" alt="Photo of a Shiba Inu" style="height: 187px;"> -->
+                                <mat-card-content class="payment-cont">
+                                    <!-- <div class="pro-img user-img">
+                                        <img src="{{onquestService[0].service_image}}" width="100" alt="user">
+                                    </div> -->
+                                    <h3 class="m-b-0">OnQuest Clean</h3>
+                                    <!-- <h6 class="m-t-0 ">{{onquestService[0].description}}</h6> -->
+                                    <!-- <mat-card-actions *ngIf="userType == '5' || userType == '4'">
+                                         <button mat-raised-button color="warn" class="cursor-p" (click)="editProperty(locationPropertyCode)">Edit</button>
+                                     </mat-card-actions>-->
+
+
+                                     <div class="gro_item" *ngFor="let services of onquestService; index as i" class="m-t-40">
+                                        <div (click)="openTaskDetail(services)" fxLayout="row wrap" class="m-t-40 cursor-p">
+                                            <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left">
+                                                <div class="row ">
+                                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Date Created:</span>
+                                                    <span fxFlex.gt-sm="50%">{{services.created_at}}</span>
+                                                </div>
+                                                <div class="row">
+                                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Service Status:</span>
+                                                    <span fxFlex.gt-sm="50%">{{services.service_enable!='true'?"Cancelled":services.service_completed=='true'?'Completed':'Not Completed'}}</span>
+                                                </div>
+                                            </div>
+                                            <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left">
+                                                <div class="row">
+                                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Responsible Party :</span>
+                                                    <span fxFlex.gt-sm="50%">{{services.responsible_party}}</span>
+                                                </div>
+                                                <div class="row">
+                                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Service Day:</span>
+                                                    <span fxFlex.gt-sm="50%">{{services.user_profile_service_day=='1'?'Monday':services.user_profile_service_day=='2'?'Tuesday':services.user_profile_service_day=='3'?'Wednesday':services.user_profile_service_day=='4'?'Thursday':services.user_profile_service_day=='5'?'Friday':services.user_profile_service_day=='6'?'Saturday':services.user_profile_service_day=='7'?'Sunday':'Not Assigned'}}</span>
+                                                </div>
+                                            
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                     <!-- <div class="responsive-table">
+                                        <mat-table [dataSource]="dataSourceOC" matSort>
+                              
+                                          <ng-container matColumnDef="created_at">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header class="m-w-250 align-center"> Date Created </mat-header-cell>
+                                            <mat-cell *matCellDef="let row" (click)="openTaskDetail(row)" class="cursor-p m-w-250 align-center"> {{row.created_at}} </mat-cell>
+                                          </ng-container>
+
+                                          <ng-container matColumnDef="service_completed">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header class="m-w-250 align-center"> Service Status </mat-header-cell>
+                                            <mat-cell *matCellDef="let row" (click)="openTaskDetail(row)" class="cursor-p m-w-250 align-center"> {{row.service_enable!='true'?"Cancelled":row.service_completed=='true'?'Completed':'Not Completed'}} </mat-cell>
+                                          </ng-container>
+
+                                          <ng-container matColumnDef="responsible_party">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header class="m-w-250 align-center"> Responsible Party </mat-header-cell>
+                                            <mat-cell *matCellDef="let row;let i = index;" (click)="openTaskDetail(row)"  class="m-w-250 align-center cursor-p"> {{row.responsible_party}}</mat-cell>
+                                          </ng-container>
+
+                                       
+
+                                          <ng-container matColumnDef="user_profile_service_day">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header class="m-w-250 align-center"> Service Day </mat-header-cell>
+                                            <mat-cell *matCellDef="let row" (click)="openTaskDetail(row)" class="cursor-p m-w-250 align-center"> {{row.user_profile_service_day=='1'?'Monday':row.user_profile_service_day=='2'?'Tuesday':row.user_profile_service_day=='3'?'Wednesday':row.user_profile_service_day=='4'?'Thursday':row.user_profile_service_day=='5'?'Friday':row.user_profile_service_day=='6'?'Saturday':row.user_profile_service_day=='7'?'Sunday':'Not Assigned'}} </mat-cell>
+                                          </ng-container>
+
+                                          <mat-header-row *matHeaderRowDef="displayedColumnsOC"></mat-header-row>
+                                          <mat-row *matRowDef="let row; columns: displayedColumnsOC;">
+                                          </mat-row>
+                                        </mat-table>
+                              
+                                        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                                      </div> -->
+
+
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                    </mat-card-content>
+                </mat-tab>
+                <!-- End Tab 6 -->
+                <!-- Tab 7 -->
+                <mat-tab label="FLOWER DELIVERY">
+                    <mat-card-content >
+                        <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+                            <mat-card class="oh text-center little-profile">
+                                <!-- <img mat-card-image src="assets/images/background/profile-bg.jpg" alt="Photo of a Shiba Inu" style="height: 187px;"> -->
+                                <mat-card-content class="payment-cont">
+                                    <!-- <div class="pro-img user-img">
+                                        <img src="{{flowerDeliveryService[0].service_image}}" width="100" alt="user">
+                                    </div> -->
+                                    <h3 class="m-b-0">Flower Delivery</h3>
+                                    <!-- <h6 class="m-t-0 ">{{flowerDeliveryService[0].description}}</h6> -->
+                                    <!-- <mat-card-actions *ngIf="userType == '5' || userType == '4'">
+                                         <button mat-raised-button color="warn" class="cursor-p" (click)="editProperty(locationPropertyCode)">Edit</button>
+                                     </mat-card-actions>-->
+
+                                     <div class="gro_item" *ngFor="let services of flowerDeliveryService; index as i" class="m-t-40">
+                                        <div (click)="openTaskDetail(services)" fxLayout="row wrap" class="m-t-40 cursor-p">
+                                            <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left">
+                                                <div class="row ">
+                                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Date Created:</span>
+                                                    <span fxFlex.gt-sm="50%">{{services.created_at}}</span>
+                                                </div>
+                                                <div class="row">
+                                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Service Status:</span>
+                                                    <span fxFlex.gt-sm="50%">{{services.service_enable!='true'?"Cancelled":services.service_completed=='true'?'Completed':'Not Completed'}}</span>
+                                                </div>
+                                                <div class="row">
+                                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Responsible Party :</span>
+                                                    <span fxFlex.gt-sm="50%">{{services.responsible_party}}</span>
+                                                </div>
+                                            </div>
+                                            <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left">
+                                                <div class="row">
+                                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Paid Status:</span>
+                                                    <span fxFlex.gt-sm="50%">{{services.is_paid==0? 'Not paid':'Paid'}}</span>
+                                                </div>
+                                                <div class="row">
+                                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Service Day:</span>
+                                                    <span fxFlex.gt-sm="50%">{{services.user_profile_service_day=='1'?'Monday':services.user_profile_service_day=='2'?'Tuesday':services.user_profile_service_day=='3'?'Wednesday':services.user_profile_service_day=='4'?'Thursday':services.user_profile_service_day=='5'?'Friday':services.user_profile_service_day=='6'?'Saturday':services.user_profile_service_day=='7'?'Sunday':'Not Assigned'}}</span>
+                                                </div>
+                                            
+                                            </div>
+                                        </div>
+                                    </div>
+
+<!-- 
+                                     <div class="responsive-table">
+                                        <mat-table [dataSource]="dataSourceFlo" matSort>
+                              
+                                          <ng-container matColumnDef="created_at">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header class="m-w-250 align-center"> Date Created </mat-header-cell>
+                                            <mat-cell *matCellDef="let row" (click)="openTaskDetail(row)" class="cursor-p m-w-250 align-center"> {{row.created_at}} </mat-cell>
+                                          </ng-container>
+                                          <ng-container matColumnDef="is_paid">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header class="m-w-250 align-center"> Paid Status </mat-header-cell>
+                                            <mat-cell *matCellDef="let row" (click)="openTaskDetail(row)" class="cursor-p m-w-250 align-center"> {{ row.is_paid==0? 'Not paid':'Paid'}} </mat-cell>
+                                          </ng-container>
+
+                                          <ng-container matColumnDef="service_completed">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header class="m-w-250 align-center"> Service Status </mat-header-cell>
+                                            <mat-cell *matCellDef="let row" (click)="openTaskDetail(row)" class="cursor-p m-w-250 align-center"> {{row.service_enable!='true'?"Cancelled":row.service_completed=='true'?'Completed':'Not Completed'}} </mat-cell>
+                                          </ng-container>
+
+                                          <ng-container matColumnDef="responsible_party">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header class="m-w-250 align-center"> Responsible Party </mat-header-cell>
+                                            <mat-cell *matCellDef="let row;let i = index;" (click)="openTaskDetail(row)"  class="m-w-250 align-center cursor-p"> {{row.responsible_party}}</mat-cell>
+                                          </ng-container>
+
+                                          <ng-container matColumnDef="user_profile_service_day">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header class="m-w-250 align-center"> Service Day </mat-header-cell>
+                                            <mat-cell *matCellDef="let row" (click)="openTaskDetail(row)" class="cursor-p m-w-250 align-center"> {{row.user_profile_service_day=='1'?'Monday':row.user_profile_service_day=='2'?'Tuesday':row.user_profile_service_day=='3'?'Wednesday':row.user_profile_service_day=='4'?'Thursday':row.user_profile_service_day=='5'?'Friday':row.user_profile_service_day=='6'?'Saturday':row.user_profile_service_day=='7'?'Sunday':'Not Assigned'}} </mat-cell>
+                                          </ng-container>
+
+                                          <mat-header-row *matHeaderRowDef="displayedColumnsFlo"></mat-header-row>
+                                          <mat-row *matRowDef="let row; columns: displayedColumnsFlo;">
+                                          </mat-row>
+                                        </mat-table>
+                              
+                                        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                                      </div>
+                                  -->
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                    </mat-card-content>
+                </mat-tab>
+                <!-- End Tab 7 -->
+                <!-- Tab 8 -->
+                <mat-tab label="PACKAGE PICK-UP">
+                    <mat-card-content>
+                        <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+                            <mat-card class="oh text-center little-profile">
+                                <!-- <img mat-card-image src="assets/images/background/profile-bg.jpg" alt="Photo of a Shiba Inu" style="height: 187px;"> -->
+                                <mat-card-content class="payment-cont">
+                                    <!-- <div class="pro-img user-img">
+                                        <img src="{{packageService[0].service_image}}" width="100" alt="user">
+                                    </div> -->
+                                    <h3 class="m-b-0">Package Pick-Up</h3>
+                                    <!-- <h6 class="m-t-0 ">{{packageService[0].description}}</h6> -->
+                                    <!-- <mat-card-actions *ngIf="userType == '5' || userType == '4'">
+                                         <button mat-raised-button color="warn" class="cursor-p" (click)="editProperty(locationPropertyCode)">Edit</button>
+                                     </mat-card-actions>-->
+
+
+                                     <div class="gro_item" *ngFor="let services of packageService; index as i" class="m-t-40">
+                                        <div (click)="openTaskDetail(services)" fxLayout="row wrap" class="m-t-40 cursor-p">
+                                            <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left">
+                                                <div class="row ">
+                                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Date Created:</span>
+                                                    <span fxFlex.gt-sm="50%">{{services.created_at}}</span>
+                                                </div>
+                                                <div class="row">
+                                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Service Status:</span>
+                                                    <span fxFlex.gt-sm="50%">{{services.service_enable!='true'?"Cancelled":services.service_completed=='true'?'Completed':'Not Completed'}}</span>
+                                                </div>
+                                                <div class="row">
+                                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Number of Packages :</span>
+                                                    <span fxFlex.gt-sm="50%">{{services.number_of_packages}}</span>
+                                                </div>
+                                            </div>
+                                            <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left">
+                                                <div class="row">
+                                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Responsible Party :</span>
+                                                    <span fxFlex.gt-sm="50%">{{services.responsible_party}}</span>
+                                                </div>
+                                                <div class="row">
+                                                    <span style="font-weight: 500;" fxFlex.gt-sm="50%">Service Day:</span>
+                                                    <span fxFlex.gt-sm="50%">{{services.user_profile_service_day=='1'?'Monday':services.user_profile_service_day=='2'?'Tuesday':services.user_profile_service_day=='3'?'Wednesday':services.user_profile_service_day=='4'?'Thursday':services.user_profile_service_day=='5'?'Friday':services.user_profile_service_day=='6'?'Saturday':services.user_profile_service_day=='7'?'Sunday':'Not Assigned'}}</span>
+                                                </div>
+                                            
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                     <!-- <div class="responsive-table">
+                                        <table mat-table [dataSource]="dataSourcePack" matSort>
+                              
+                                          <ng-container matColumnDef="created_at">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header class="m-w-250 align-center"> Date Created </mat-header-cell>
+                                            <mat-cell *matCellDef="let row" (click)="openTaskDetail(row)" class="cursor-p m-w-250 align-center"> {{row.created_at}} </mat-cell>
+                                          </ng-container>
+
+                                          <ng-container matColumnDef="number_of_packages">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header class="m-w-250 align-center"> Number of Packages </mat-header-cell>
+                                            <mat-cell *matCellDef="let row" (click)="openTaskDetail(row)" class="cursor-p m-w-250 align-center"> {{row.number_of_packages}} </mat-cell>
+                                          </ng-container>
+
+                                          <ng-container matColumnDef="service_completed">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header class="m-w-250 align-center"> Service Status </mat-header-cell>
+                                            <mat-cell *matCellDef="let row" (click)="openTaskDetail(row)" class="cursor-p m-w-250 align-center"> {{row.service_enable!='true'?"Cancelled":row.service_completed=='true'?'Completed':'Not Completed'}} </mat-cell>
+                                          </ng-container>
+
+                                          <ng-container matColumnDef="responsible_party">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header class="m-w-250 align-center"> Responsible Party </mat-header-cell>
+                                            <mat-cell *matCellDef="let row;let i = index;" (click)="openTaskDetail(row)"  class="m-w-250 align-center cursor-p"> {{row.responsible_party}}</mat-cell>
+                                          </ng-container>
+
+                                          <ng-container matColumnDef="user_profile_service_day">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header class="m-w-250 align-center"> Service Day </mat-header-cell>
+                                            <mat-cell *matCellDef="let row" (click)="openTaskDetail(row)" class="cursor-p m-w-250 align-center"> {{row.user_profile_service_day=='1'?'Monday':row.user_profile_service_day=='2'?'Tuesday':row.user_profile_service_day=='3'?'Wednesday':row.user_profile_service_day=='4'?'Thursday':row.user_profile_service_day=='5'?'Friday':row.user_profile_service_day=='6'?'Saturday':row.user_profile_service_day=='7'?'Sunday':'Not Assigned'}} </mat-cell>
+                                          </ng-container>
+
+                                          <mat-header-row *matHeaderRowDef="displayedColumnsPack"></mat-header-row>
+                                          <mat-row *matRowDef="let row; columns: displayedColumnsPack;">
+                                          </mat-row>
+                                        </table>
+                              
+                                        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                                      </div> -->
+                                  
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                    </mat-card-content>
+                   
+                </mat-tab>
+                <!-- End Tab 8 -->
+            </mat-tab-group>
+        </mat-card>
+    </div>
+    <div id="myModal" class="modal">
+        <div style="position: relative;margin-left: 15%;">
+            <span (click)="closeModal()" class="close">&times;</span>
+            <img class="modal-content" id="img01">
+        </div>
+      </div>
+</div>
+

@@ -1,0 +1,18 @@
+.user-img {
+    margin-top: 0px !important;
+}
+.mat-card .mat-card-content {
+    font-size: 0.9rem !important;
+}
+.comment-footer .action-icons a {
+    padding-left: 0px!important;
+}
+.comment-footer .action-icons {
+    visibility: visible!important;
+}
+.round img {
+    height: 50px;
+}
+.caps{
+    text-transform: capitalize;
+}

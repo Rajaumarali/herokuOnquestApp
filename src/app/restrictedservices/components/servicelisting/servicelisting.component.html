@@ -1,0 +1,68 @@
+<div class="mat-card mat-focus-indicator" >
+    <div class="bg-light p-10 p-r-20 p-l-20 table-filter" fxFlex.gt-lg="75" fxFlex.gt-md="30" fxFlex.gt-xs="100" fxFlex="100">
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+    </div>
+     <div  *ngIf="userType == '5' || userType == '6'" fxFlex.gt-lg="75" fxFlex.gt-md="70" fxFlex.gt-xs="100" fxFlex="100" class="align-item-center"> <button mat-raised-button color="primary" (click)="btnCreate()">Create Restricted Service</button></div>
+   
+  </div>
+  
+  <div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+      <mat-card>
+        <mat-card-content>
+          <mat-card-title>All Restricted Services</mat-card-title>
+         
+          <div class="responsive-table">
+            <mat-table [dataSource]="dataSource" matSort>
+              <ng-container matColumnDef="service_name">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Service Name </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.service_name}} </mat-cell>
+              </ng-container>
+  
+              <!-- Name Column -->
+              <ng-container matColumnDef="service_restriction_type_id">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Restricted By </mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                  <span *ngIf="row.service_restriction_type_id == '1'" >City</span>
+                  <span *ngIf="row.service_restriction_type_id == '2'" >State</span>
+                  <span *ngIf="row.service_restriction_type_id == '3'" >Building</span>
+                  <span *ngIf="row.service_restriction_type_id == '4'" >Zip</span>
+                </mat-cell>
+              </ng-container>
+  
+         <!--     &lt;!&ndash; Color Column &ndash;&gt;
+              <ng-container matColumnDef="description">
+                <mat-header-cell *matHeaderCellDef mat-sort-header class="m-w-45-per"> Service Description </mat-header-cell>
+                <mat-cell *matCellDef="let row" class="cursor-p m-w-45-per descritpions-cell" (click)="detail(row.user_id)"> {{row.description}} </mat-cell>
+              </ng-container>-->
+  
+              <!-- Name Column -->
+              <ng-container matColumnDef="criteria">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Criteria </mat-header-cell>
+                <mat-cell *matCellDef="let row" > {{row.criteria}}</mat-cell>
+              </ng-container>
+  
+              <!-- Color Column -->
+              <ng-container matColumnDef="action">
+                <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                  <span class="material-icons m-r-10 cursor-p" (click)="btnClick(row.id)">edit</span>
+                  <span class="material-icons cursor-p c-red" (click)="openDialog(row.id)">delete_forever</span>
+                </mat-cell>
+  
+              </ng-container>
+  
+  
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;">
+              </mat-row>
+            </mat-table>
+  
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>

@@ -1,0 +1,36 @@
+<mat-card>
+  <mat-card-content>
+    <div class="taskboard page-height">
+      <div class="taskboard-wrapper taskboard-w" *ngFor="let board of taskboard">
+        <div class="taskboard-list" [ngClass]="board.class">
+          <div class="taskboard-header text-uppercase">
+            <strong>{{board.title}}</strong>
+          </div>
+
+          <div class="taskboard-cards" [dragula]='"task-group"' [(dragulaModel)]='board.tasks'>
+
+            <div class="taskboard-task" *ngFor="let task of board.tasks" [ngClass]="task.class">
+
+              <div class="taskboard-task-title">Resident: {{task.first_name}} {{task.last_name}}</div>
+              <span class="task-decription">Phone: {{task.phone}}</span>
+              <span class="task-decription">Captain: {{task.assigned_captain}}</span>
+              <span class="task-decription">Property: {{task.property_name}}</span>
+              <span class="task-decription">Meet & Greet Date: {{task.meet_greet_date_time | slice:0:10}}</span>
+
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+
+<!-- <div class='container'0 [dragula]="MANY_ITEMS" [(dragulaModel)]='many'>
+  <div *ng0For='let text of many' [innerHtml]='text'></div>
+</div>
+<div class='container' [dragula]="MANY_ITEMS" [(dragulaModel)]='many2'>
+  <div *ngFor='let text of many2' [innerHtml]='text'></div>
+</div> -->

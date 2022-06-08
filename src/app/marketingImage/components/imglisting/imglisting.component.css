@@ -1,0 +1,51 @@
+.bg-color-fff {
+    background-color: #fff;
+}
+.table-filter{
+    background: transparent;
+    max-width: 30%;
+}
+mat-row, mat-footer-row {
+    min-height: 75px;
+}
+.align-item-center{
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    margin-right: 20px;
+}
+.m-w-250{
+    min-width: 250px;
+}
+.m-w-45-per{
+    min-width: 45%;
+}
+.descritpions-cell{
+    padding: 0px 25px 0px 0px;
+}
+.m-r-10{
+    margin-right: 10px;
+}
+.cursor-p{
+    cursor: pointer;
+}
+.c-red{
+    color: red;
+}
+.d-n{
+    display: none;
+}
+.d-b{
+    display: block;
+}
+.mat-header-cell {
+    justify-content: center;
+    padding: 0px;
+  }
+  mat-cell.mat-cell {
+    padding: 0px;
+    justify-content: center;
+    text-align: center;
+    overflow-wrap: anywhere;
+    word-break: break-all;
+  }

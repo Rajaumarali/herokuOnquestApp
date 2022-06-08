@@ -1,0 +1,160 @@
+<div class="mat-card mat-focus-indicator">
+    <div style="min-width: 100%; display: block" class="top-report bg-light p-10 p-r-20 p-l-20 table-filter" fxFlex.gt-lg="75" fxFlex.gt-md="30" fxFlex.gt-xs="100" fxFlex="100">
+      <mat-form-field style="max-width: fit-content;">
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+      <mat-form-field style="max-width: fit-content; float: right">
+        <mat-label>Download As</mat-label>
+        <select matNativeControl required [(ngModel)]="downloadOption"  #building="ngModel">
+          <option selected value="PDF" >
+            PDF
+          </option>
+          <option  value="EXCEL" >
+            EXCEL
+          </option>
+          <option  value="CSV" >
+            CSV
+          </option>
+        </select>
+      </mat-form-field>
+    </div>
+    <!-- <div fxFlex.gt-lg="75" fxFlex.gt-md="70" fxFlex.gt-xs="100" fxFlex="100" class="align-item-center"> <button mat-raised-button color="primary">Add Service</button></div> -->
+   
+  </div>
+  
+  <div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+      <mat-card>
+        <mat-card-content>
+            <mat-card-title>All Reports</mat-card-title>
+            <div class="row wrap a-c">
+                <span  style="font-weight: 500; margin-right: 20px;" fxFlex.gt-sm="50%">Report Name :</span>
+                <mat-form-field>
+                    <mat-label>Select Report</mat-label>
+                      <select matNativeControl required [(ngModel)]="selectedReport"  #building="ngModel" >
+                        <option  value="{{report.id}}" *ngFor="let report  of reports">
+                          {{report.name}}
+                        </option>
+                      </select>
+                  </mat-form-field>
+            </div>
+            <div style="display: inline-block;" class="m-t-40">
+
+                <div  style="text-align: left">
+
+                    <div class="row wrap a-c">
+                        <span  style="font-weight: 500; margin-right: 20px;" fxFlex.gt-sm="50%">Region :</span>
+                        <mat-form-field>
+                            <mat-label>Select Region</mat-label>
+                              <select matNativeControl required [(ngModel)]="selectedRegion"  #building="ngModel" (change)="onRegionChange()">
+                                <option  value= "">
+                                   </option>
+                                   <option  value="All">
+                                       All
+                                      </option>
+                                <option  value="{{building.region}}" *ngFor="let building  of allRegions">
+                                  {{building.region}}
+                                </option>
+                              </select>
+                          </mat-form-field>
+                    </div>
+                   
+                    <div *ngIf="selectedReport!='app_downloads'  && selectedReport!='feature_usage' && selectedReport!='residents' && selectedReport!='new_signup' && selectedReport!='property_summary' && selectedReport!='admin_users' && selectedReport!='missing_payment_method' && selectedReport!='captain_list' && selectedReport!='properties'  && selectedReport!='task_completion' && selectedReport!='task_detail' && selectedReport!='incomplete_tasks' && selectedReport!='payment_histories'" class="row wrap a-c">
+                        <span  style="font-weight: 500; margin-right: 20px;" fxFlex.gt-sm="50%">Property :</span>
+                        <mat-form-field>
+                            <mat-label>Select Property</mat-label>
+                            <select matNativeControl required [(ngModel)]="selectedProperty"  #building="ngModel" (change)="onBuildingChange()">
+                                  <option  value="">
+                                    </option>
+                                    
+                                <option  value="{{building.property_code}}" *ngFor="let building  of allbuilding">
+                                  {{building.property_name}}
+                                </option>
+                              </select>
+                          </mat-form-field>
+                    </div>
+
+                    <div *ngIf="selectedReport=='task_detail'" class="row wrap a-c">
+                      <span  style="font-weight: 500; margin-right: 20px;" fxFlex.gt-sm="50%">Services :</span>
+                      <mat-form-field>
+                          <mat-label>Select Service</mat-label>
+                          <select matNativeControl required [(ngModel)]="selectedService"  #building="ngModel">
+                                  
+                              <option  value="{{service}}" *ngFor="let service  of services_types">
+                                {{service}}
+                              </option>
+                            </select>
+                        </mat-form-field>
+                  </div>
+
+                    <div *ngIf=" selectedReport=='admin_users' || selectedReport=='captain_list' || selectedReport=='app_downloads' ||selectedReport=='new_signup' || selectedReport=='feature_usage' ||selectedReport=='residents' || selectedReport=='missing_payment_method' || selectedReport=='property_summary' || selectedReport=='properties' || selectedReport=='task_completion' || selectedReport=='task_detail' || selectedReport=='incomplete_tasks' || selectedReport=='payment_histories'" class="row wrap a-c">
+                      <span  style="font-weight: 500; margin-right: 20px;" fxFlex.gt-sm="50%">Property :</span>
+                      <mat-form-field>
+                          <mat-label>Select Property</mat-label>
+                          <mat-select class="mat-prop" #mySel multiple matNativeControl required [(ngModel)]="selectedProperty"  #building="ngModel">
+                              
+                              <mat-option (onSelectionChange)="onMultiBuildingChange($event)" value="{{building.property_code}}" *ngFor="let building  of allbuilding">
+                                {{building.property_name}}
+                              </mat-option>
+                              <mat-option style="position: absolute;width: 100%;top: 0;" (click)="toggleAllSelection()" value="All">
+                                All
+                              </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                  </div>
+    
+                    <div *ngIf="selectedReport=='resident_list' || selectedReport=='task_completion' || selectedReport=='task_detail' || selectedReport=='incomplete_tasks'" class="row wrap a-c">
+                        <span  style="font-weight: 500; margin-right: 20px;" fxFlex.gt-sm="50%">Captain :</span>
+                        <mat-form-field>
+                            <mat-label>Select Captain</mat-label>
+                              <mat-select #mySelCap multiple matNativeControl required [(ngModel)]="selectedCaptain"  #building="ngModel" >
+                                
+                                <mat-option  value="{{captain.user_id}}" *ngFor="let captain  of allCaptainUsers" (onSelectionChange)="onChange('cap')">
+                                  {{captain.first_name}} {{captain.last_name}}
+                                </mat-option>
+                                <mat-option style="position: absolute;width: 100%;top: 0;" value="All" (click)="toggleAllSelectionCap()" >
+                                  All
+                                </mat-option>
+                              </mat-select>
+                          </mat-form-field>
+                    </div>
+                    <div *ngIf="selectedReport=='payment_histories'" class="row wrap a-c">
+                      <span  style="font-weight: 500; margin-right: 20px;" fxFlex.gt-sm="50%">Residents :</span>
+                      <mat-form-field>
+                          <mat-label>Select Residents</mat-label>
+                            <mat-select class="mat-resi" #mySelResi multiple matNativeControl required [(ngModel)]="selectedResidents"  #building="ngModel" >
+                              <mat-option (onSelectionChange)="onChange('resi')"  value="{{resident.user_id}}" *ngFor="let resident  of allResidents">
+                                {{resident.first_name}} {{resident.last_name}}
+                              </mat-option>
+                              <mat-option style="position: absolute;width: 100%;top: 0;" value="All" (click)="toggleAllSelectionResi()" >
+                                All
+                              </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                  </div>
+                    <div  class="row wrap a-c">
+                        <span  style="font-weight: 500; margin-right: 20px;" fxFlex.gt-sm="50%">Select Start Date :</span>
+                        <mat-form-field>
+                            <input [max]="maxDate" matInput [ngxMatDatetimePicker]="startDate"
+                                placeholder="Choose start date" name="meet_greet_date_time" [formControl]="startdate">
+                            <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                            <ngx-mat-datetime-picker (closed)="onClosed(0)" [hideTime]="true" #startDate></ngx-mat-datetime-picker>
+                        </mat-form-field>
+                    </div>
+                    <div  class="row wrap a-c">
+                        <span  style="font-weight: 500; margin-right: 20px;" fxFlex.gt-sm="50%">Select End Date :</span>
+                        <mat-form-field>
+                            <input [max]="maxDate" [min]="minDate" matInput [ngxMatDatetimePicker]="endDate"
+                                   placeholder="Choose end date" name="meet_greet_date_time" [formControl]="enddate" >
+                            <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+                            <ngx-mat-datetime-picker [hideTime]="true" #endDate></ngx-mat-datetime-picker>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="align-item-center m-t-40"> <button mat-raised-button color="primary" (click)="detail()">Details</button></div>
+
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
