@@ -155,13 +155,11 @@ export class Dashboard1Component implements OnInit {
                 response.map(item => {
                     if (item.os == 'android') {
                         var date = new Date(item.created_at);
-                        console.log(date.getMonth());
                         if (date.getFullYear() == dateToday.getFullYear())
                             this.monthsandroid.push(date.getMonth());
                     }
                     else {
                         var date = new Date(item.created_at);
-                        console.log(date.getMonth());
                         if (date.getFullYear() == dateToday.getFullYear())
                             this.monthsios.push(date.getMonth());
                     }

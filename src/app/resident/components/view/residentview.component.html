@@ -159,7 +159,7 @@
                                             </div>
                                             <div class="row">
                                                 <span style="font-weight: 500;" fxFlex.gt-sm="50%"> Birthday:</span>
-                                                <span fxFlex.gt-sm="50%">{{user.birthday | slice:0:10}}</span>
+                                                <span fxFlex.gt-sm="50%">{{user.birthday === "NaN/NaN/NaN" ? "NaN" : user.birthday}}</span>
                                             </div>
                                             <div class="row">
                                                 <span style="font-weight: 500;" fxFlex.gt-sm="50%">Property Name:</span>
