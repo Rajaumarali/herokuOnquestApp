@@ -213,7 +213,7 @@
                         </div>
                         <!-- column -->
                      <!--   <div fxFlex.gt-md="100" fxFlex="100">
-                            <mat-form-field>
+                         <mat-form-field>
                                 <input matInput placeholder="Meet $ greet Status" name="meet_greet_status" required [ngModel]="user.meet_greet_status">
                             </mat-form-field>
                         </div>-->
@@ -225,10 +225,10 @@
                                 <mat-datepicker #meet_greet_date_time></mat-datepicker>
                             </mat-form-field>
                         </div>-->
-
+                        
 <!--                        <div style="display: {{meetgreetday}}" fxFlex.gt-md="100" fxFlex="100">-->
-<!--                            <mat-form-field>-->
-<!--                                <mat-select [disabled]="user.assigned_captain_id!=='' && user.assigned_captain_id!==null?'false':'true'" placeholder="Meet and greet day" name="meet_greet_date_time" [(ngModel)]="user.meet_greet_date_time">-->
+    <!--                            <mat-form-field>-->
+        <!--                                <mat-select [disabled]="user.assigned_captain_id!=='' && user.assigned_captain_id!==null?'false':'true'" placeholder="Meet and greet day" name="meet_greet_date_time" [(ngModel)]="user.meet_greet_date_time">-->
 <!--                                    <mat-option value="1" *ngIf="service_day.includes('1')==true">Monday </mat-option>-->
 <!--                                    <mat-option value="2" *ngIf="service_day.includes('2')==true">Tuesday </mat-option>-->
 <!--                                    <mat-option value="3" *ngIf="service_day.includes('3')==true">Wednesday</mat-option>-->
@@ -240,17 +240,22 @@
 <!--                            </mat-form-field>-->
 <!--                        </div>-->
 
-                        <!-- column -->
-                        <div fxFlex.gt-md="100" fxFlex="100" *ngIf="showPassFields">
-
-                            <div fxFlex.gt-md="50" fxFlex="50">
-                                <mat-form-field>
-                                    <input (input)="txtChange($event.target.value, 0)" matInput placeholder="Password" name="password" type="password" value="{{pass}}">
-                                </mat-form-field>
-<!--                                <small *ngIf="form.controls['password'].hasError('required') && form.controls['password'].touched" class="text-danger font-14">You must include password.</small>-->
-                                <small class="text-danger font-14">{{passMatchErr}}</small>
-                            </div>
-
+<!-- column -->
+<mat-card-content class="matcard-changepass">
+<div class="btn-changepass" fxFlex.gt-sm="100" fxFlex="100" (click)="toogleFields()">
+    <mat-checkbox [disabled]="showLoader" mat-raised-button color="primary">{{passBtnName}}</mat-checkbox>
+</div>
+</mat-card-content>
+<div fxFlex.gt-md="100" fxFlex="100" *ngIf="showPassFields">
+    
+    <div fxFlex.gt-md="50" fxFlex="50">
+        <mat-form-field>
+            <input (input)="txtChange($event.target.value, 0)" matInput placeholder="Password" name="password" type="password" value="{{pass}}">
+        </mat-form-field>
+        <!--                                <small *ngIf="form.controls['password'].hasError('required') && form.controls['password'].touched" class="text-danger font-14">You must include password.</small>-->
+        <small class="text-danger font-14">{{passMatchErr}}</small>
+    </div>
+    
                             <div fxFlex.gt-md="50" fxFlex="50">
                                 <mat-form-field>
                                     <input (input)="txtChange($event.target.value, 1)" matInput placeholder="Confirm Password" name="cpassword" type="password" value="{{cpass}}">
@@ -267,11 +272,6 @@
                         </div>
                     </div>
                 </form>
-            </mat-card-content>
-            <mat-card-content class="matcard-changepass">
-            <div class="btn-changepass" fxFlex.gt-sm="100" fxFlex="100" (click)="toogleFields()">
-                <mat-checkbox [disabled]="showLoader" mat-raised-button color="primary">{{passBtnName}}</mat-checkbox>
-            </div>
             </mat-card-content>
         </mat-card>
     </div>

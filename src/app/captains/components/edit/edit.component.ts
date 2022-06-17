@@ -139,7 +139,7 @@ export class EditComponent implements OnInit {
         let findReg = responseBuild.find(item=>  item.property_code==this.user.building_id);
         if(findReg)
         this.user = {...this.user, region: findReg.region};
-        console.log(this.user);
+        console.log("usr",this.user);
         
         if (this.user.additional_building != null) {
           this.user.additional_building = response.additional_building.split(',');

@@ -47,7 +47,7 @@
                             <div fxFlex.gt-sm="50%" fxFlex.gt-xs="50%" fxFlex="100" style="text-align: left"> -->
                                 <div class="row">
                                     <span style="font-weight: 500;" fxFlex.gt-sm="50%">Birthday:</span>
-                                    <span fxFlex.gt-sm="50%">{{user.birthday==""||user.birthday==null?'N/A':user.birthday}}</span>
+                                    <span fxFlex.gt-sm="50%">{{user.birthday === "NaN/NaN/NaN" ? "NaN" : user.birthday}}</span>
                                 </div>
                                 <div class="row">
                                     <span style="font-weight: 500;" fxFlex.gt-sm="50%">Phone :</span>

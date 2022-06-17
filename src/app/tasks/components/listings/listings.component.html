@@ -27,6 +27,7 @@
                 {{building.property_name}}
               </option>
             </select> -->
+            <span style="color: red;">{{alertMessage}}</span><br><br>
             <input style="border-bottom: 1px solid; border-width: 1px;" type="text"
            placeholder="Select Property"
            aria-label="Number"
@@ -47,7 +48,6 @@
             </mat-autocomplete>
           <!-- </mat-form-field> -->
           <span><img *ngIf="propertyDropdown" src="assets/images/loader.gif" alt="homepage" width="40px" class="dark-logo m-l-20 p-a p-t-10"></span>
-          <span style="color: red;">{{alertMessage}}</span>
         </div>
           <div class="responsive-table">
             <mat-table [dataSource]="dataSource" matSort>

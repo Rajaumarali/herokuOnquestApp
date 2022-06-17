@@ -121,53 +121,53 @@
                         </div>
                          <!-- column -->
                          <div fxFlex.gt-md="100" fxFlex="100">
-                            <mat-form-field>
-                                <input [disabled]="true" matInput placeholder="Phone Number" name="phone"  [ngModel]="getPhone(user.phone)">
-                            </mat-form-field>
-                        </div>
-                        <div fxFlex.gt-md="100" fxFlex="100" *ngIf="showPassFields">
-
-                            <div fxFlex.gt-md="50" fxFlex="50">
-                                <mat-form-field>
-                                    <input (input)="txtChange($event.target.value, 0)" matInput placeholder="Password" name="password" type="password" value="{{pass}}">
+                             <mat-form-field>
+                                 <input [disabled]="true" matInput placeholder="Phone Number" name="phone"  [ngModel]="getPhone(user.phone)">
                                 </mat-form-field>
-<!--                                <small *ngIf="form.controls['password'].hasError('required') && form.controls['password'].touched" class="text-danger font-14">You must include password.</small>-->
-                                <small class="text-danger font-14">{{passMatchErr}}</small>
                             </div>
-
-                            <div fxFlex.gt-md="50" fxFlex="50">
+                            <mat-card-content class="matcard-changepass">
+                                <div class="btn-changepass" fxFlex.gt-sm="100" fxFlex="100" (click)="tooglePhone()">
+                                    <mat-checkbox [disabled]="showLoader" mat-raised-button color="primary">{{phoneBtnName}}</mat-checkbox>
+                                </div>
+                            </mat-card-content>
+                            <div fxFlex.gt-sm="100" fxFlex="100" *ngIf="showPhoneChange">
                                 <mat-form-field>
-                                    <input (input)="txtChange($event.target.value, 1)" matInput placeholder="Confirm Password" name="cpassword" type="password" value="{{cpass}}">
-                                </mat-form-field>
-<!--                                <small *ngIf="form.controls['confirmPassword'].hasError('required') && form.controls['confirmPassword'].touched" class="text-danger font-14">You must include confirm password.</small>-->
-<!--                                <small *ngIf="form.controls['confirmPassword'].errors?.equalTo" class="text-danger font-14">Passwords do not match.</small>-->
-                            </div>
-
-                        </div>
-                        <div fxFlex.gt-sm="100" fxFlex="100" *ngIf="showPhoneChange">
-                            <mat-form-field>
                                 <mat-select (selectionChange)="onPhoneChange($event.value)" [disabled]="allphones[0]?false:true" placeholder="Select Phone Number"  name="phone_select">
                                     <mat-option value="{{phone.phoneNumber}}" *ngFor="let phone  of allphones">{{phone.phoneNumber}}</mat-option>
                                 </mat-select>
                             </mat-form-field>
                             <!-- <small *ngIf="form.controls['building_id'].hasError('building_id') && form.controls['building_id'].touched" class="text-danger font-14">You must select property name.</small> -->
                         </div>
+                            <mat-card-content class="matcard-changepass">
+                                <div class="btn-changepass" fxFlex.gt-sm="100" fxFlex="100" (click)="toogleFields()">
+                                    <mat-checkbox [disabled]="showLoader" mat-raised-button color="primary">{{passBtnName}}</mat-checkbox>
+                                </div>
+                            </mat-card-content>
+                            <div fxFlex.gt-md="100" fxFlex="100" *ngIf="showPassFields">
+                                
+                                <div fxFlex.gt-md="50" fxFlex="50">
+                                    <mat-form-field>
+                                        <input (input)="txtChange($event.target.value, 0)" matInput placeholder="Password" name="password" type="password" value="{{pass}}">
+                                    </mat-form-field>
+                                    <!--                                <small *ngIf="form.controls['password'].hasError('required') && form.controls['password'].touched" class="text-danger font-14">You must include password.</small>-->
+                                    <small class="text-danger font-14">{{passMatchErr}}</small>
+                                </div>
+                                
+                                <div fxFlex.gt-md="50" fxFlex="50">
+                                    <mat-form-field>
+                                        <input (input)="txtChange($event.target.value, 1)" matInput placeholder="Confirm Password" name="cpassword" type="password" value="{{cpass}}">
+                                    </mat-form-field>
+                                    <!--                                <small *ngIf="form.controls['confirmPassword'].hasError('required') && form.controls['confirmPassword'].touched" class="text-danger font-14">You must include confirm password.</small>-->
+                                    <!--                                <small *ngIf="form.controls['confirmPassword'].errors?.equalTo" class="text-danger font-14">Passwords do not match.</small>-->
+                                </div>
+                                
+                            </div>
                         <!-- column -->
                         <div fxFlex.gt-sm="100" fxFlex="100">
                             <button [disabled]="showLoader" mat-raised-button color="primary">Update</button><span><img *ngIf="showLoader" src="assets/images/loader.gif" alt="homepage" width="40px" class="dark-logo m-l-20 p-a p-t-10"></span>
                         </div>
                     </div>
                 </form>
-                <mat-card-content class="matcard-changepass">
-                    <div class="btn-changepass" fxFlex.gt-sm="100" fxFlex="100" (click)="toogleFields()">
-                        <button [disabled]="showLoader" mat-raised-button color="primary">{{passBtnName}}</button>
-                    </div>
-                </mat-card-content>
-                <mat-card-content class="matcard-changepass">
-                    <div class="btn-changepass" fxFlex.gt-sm="100" fxFlex="100" (click)="tooglePhone()">
-                        <button [disabled]="showLoader" mat-raised-button color="primary">{{phoneBtnName}}</button>
-                    </div>
-                </mat-card-content>
             </mat-card-content>
         </mat-card>
     </div>
