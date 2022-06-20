@@ -112,6 +112,8 @@ export class EditComponent implements OnInit {
       this.previewUrl = this.user.profile_picture_url;
     });
     this.authService.getAllLocations().subscribe((response: any) => {
+      console.log(response);
+      
       var useType = JSON.parse(localStorage.getItem("user")).user_type_id;
       if(useType=="3"){
         var building = JSON.parse(localStorage.getItem("user")).building_id;

@@ -165,13 +165,14 @@ export class ResidentlistingComponent implements OnInit {
         if (!event) {
             this.allbuilding = this.allbuildingfilter;
           } // when nothing has typed*/   
-          if (typeof event === 'string') {
+          if (typeof event.value === 'string') {
             console.log(event);
             console.log(this.allbuildingfilter);
             this.allbuilding = this.allbuildingfilter.filter(a => a.property_name.toLowerCase()
-              .startsWith(event.toLowerCase()));
+              .startsWith(event.value.toLowerCase()));
           }
           console.log(this.allbuilding.length);
+          console.log(event);
         //   this.selectList.nativeElement.size = this.allbuilding.length + 1;
     }
     applyFilter(filterValue: string) {

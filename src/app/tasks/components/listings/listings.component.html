@@ -28,7 +28,25 @@
               </option>
             </select> -->
             <span style="color: red;">{{alertMessage}}</span><br><br>
-            <input style="border-bottom: 1px solid; border-width: 1px;" type="text"
+
+            <mat-form-field appearance="fill">
+              <mat-label>Select Property</mat-label>
+              <mat-select aria-label="Number"
+              matInput
+              
+              (selectionChange)="onChange($event.value)"
+              >
+                  <mat-option [value]="'All'">
+                    All              
+                  </mat-option>
+                <mat-option *ngFor="let building of allbuilding" [value]="building.property_name">
+                  {{building.property_name}}
+                  <span class="help-desk" *ngIf="building.invalid && building.touched" style="color: red;" >Please select property.</span>
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <!-- <input style="border-bottom: 1px solid; border-width: 1px;" type="text"
            placeholder="Select Property"
            aria-label="Number"
            matInput
@@ -45,7 +63,8 @@
                 {{building.property_name}}
                 <span class="help-desk" *ngIf="building.invalid && building.touched" style="color: red;" >Please select property.</span>
               </mat-option>
-            </mat-autocomplete>
+            </mat-autocomplete> -->
+
           <!-- </mat-form-field> -->
           <span><img *ngIf="propertyDropdown" src="assets/images/loader.gif" alt="homepage" width="40px" class="dark-logo m-l-20 p-a p-t-10"></span>
         </div>

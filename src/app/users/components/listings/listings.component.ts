@@ -71,6 +71,8 @@ export class ListingsComponent implements OnInit {
     getAllUsers() {
       this.showLoader=true
       this.authsService.getUsers().subscribe((response: any) => {
+        console.log("resd",response);
+        
         var myInterval = setInterval(() => {
           console.log("chal ra");
           

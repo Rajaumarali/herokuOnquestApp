@@ -151,7 +151,7 @@ export class ListingComponent implements OnInit {
           return item;
       });
       if(!findMatch[0])
-      this.alertMessage="No Results Found"
+      this.alertMessage="No Captain Found"
       this.allResidentUsers = findMatch;
       this.dataSource = new MatTableDataSource<any>(this.allResidentUsers);
       this.dataSource.paginator = this.paginator;
