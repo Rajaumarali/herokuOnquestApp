@@ -92,7 +92,6 @@ export class GrocerylistComponent {
         breakpointObserver: BreakpointObserver,
         @Inject(MAT_DIALOG_DATA) public data: any
     ) {
-        console.log(this.data.id);
         breakpointObserver.observe(['(max-width: 1000px)']).subscribe(result => {
 
             this.displayedColumns = result.matches ?
@@ -108,7 +107,6 @@ export class GrocerylistComponent {
     }
     getList(): void {
         this.data.service.getGroceryList(this.data.id).subscribe((resp: any) => {
-            console.log(resp);
             this.allMessagesLogs = resp;
             this.dataSource = new MatTableDataSource<any>(this.allMessagesLogs);
             this.dataSource.paginator = this.paginator;
@@ -120,14 +118,12 @@ export class GrocerylistComponent {
     //     this.loader = true;
     //     this.data.service.smsSend(this.data.name,this.data.user_id,this.data.phone,this.msg).subscribe((response: any) => {
     //         this.dialogRef.close();
-    //         console.log('SMS' + response);
     //         this.loader = false;
     //         if(response.status !== 'failed')
     //             this.openSnackBar('Successfully sent your message', '');
     //         else
     //             this.openSnackBar('An error occurred! Please try again later.', '');
     //     });
-    //     console.log(this.msg);
     // }
     openSnackBar(message: string, action: string) {
         this.snackBar.open(message, action, {

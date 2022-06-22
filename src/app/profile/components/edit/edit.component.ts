@@ -62,7 +62,6 @@ export class EditComponent implements OnInit {
       if (response) {
         response.birthday = new Date(user.birthday);
         this.user = response;
-        console.log(this.user);
         if(this.user.user_type_id=='4' || this.user.user_type_id=='5')
         this.user = {...this.user, building_id:'All',user_region:'All'}
         this.previewUrl = response.profile_picture_url;
@@ -98,9 +97,6 @@ export class EditComponent implements OnInit {
         return "N/A";
 };
   userProfileUpdate(data) {
-    
-    console.log(data);
-
     this.service.updateUserProfile(data).subscribe((response: any) => {
       if (response) {
         localStorage.setItem('user', JSON.stringify(response));
@@ -117,7 +113,6 @@ export class EditComponent implements OnInit {
 
   fileProgress(fileInput: any) {
     this.fileData = <File>fileInput.target.files[0];
-    console.log(<File>fileInput.target.files[0]);
     this.preview();
   }
 
@@ -139,12 +134,9 @@ export class EditComponent implements OnInit {
   }
 
   onSubmit () {
-    this.showLoader = true;
-    console.log(this.profileForm.value);
-    
+    this.showLoader = true;    
     if (this.fileData) {
       const formData = new FormData();
-      console.log('filedata', this.fileData);
       formData.append('uploaded_file', this.fileData);
       let bday = new Date(this.profileForm.value.birthday);
       this.profileForm.value.birthday = bday.getMonth()+1 + "/" + bday.getDate() + "/" + bday.getFullYear();
@@ -166,7 +158,6 @@ export class EditComponent implements OnInit {
       this.profileForm.value.birthday = bday.getMonth()+1 + "/" + bday.getDate() + "/" + bday.getFullYear();
       const user = JSON.parse(localStorage.getItem('user'));
       const data = {...this.user,user_id: this.user_id, profile_picture_url: user.profile_picture_url, ...this.profileForm.value};
-      console.log(this.profileForm.value);
       this.userProfileUpdate(data);
     }
   }

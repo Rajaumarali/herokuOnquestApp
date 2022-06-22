@@ -55,12 +55,9 @@ export class PaymentFormPopup {
     }
     fileProgress(fileInput: any) {
         this.fileData = <File>fileInput.target.files;
-        // console.log(this.fileData);
         // this.preview();
         var fileList = [];
 
-        console.log(this.fileData);
-        console.log(fileInput.target.files.length);
         this.filesCount = fileInput.target.files.length;
         
         

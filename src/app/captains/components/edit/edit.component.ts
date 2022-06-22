@@ -74,9 +74,7 @@ export class EditComponent implements OnInit {
   constructor(fb: FormBuilder , private route: ActivatedRoute , private captainsService: CaptainsService, private router: Router, public snackBar: MatSnackBar) {
     this.userObject = JSON.parse(localStorage.getItem('user'));
     this.captainsService.getPhoneNumbers().subscribe(res => {
-      // console.log(res);
       this.allphones=res;
-      console.log(this.allphones);
       
   });
     $('.page-title').text('Edit Captain');
@@ -118,8 +116,6 @@ export class EditComponent implements OnInit {
       this.allBuilding=responseBuild;
 
       var tempRegion = [];
-      console.log("all");
-      console.log(this.allBuilding);
       
         this.allBuilding.map(item => {
             if(tempRegion[0]){
@@ -131,7 +127,7 @@ export class EditComponent implements OnInit {
             tempRegion.push(item);
         });
         this.allRegions = tempRegion;
-        console.log(this.allRegions);
+  
         
       this.captainsService.getUserProfile(this.user_id).subscribe((response) => {
         response.birthday = new Date(response.birthday);
@@ -139,13 +135,11 @@ export class EditComponent implements OnInit {
         let findReg = responseBuild.find(item=>  item.property_code==this.user.building_id);
         if(findReg)
         this.user = {...this.user, region: findReg.region};
-        console.log("usr",this.user);
         
         if (this.user.additional_building != null) {
           this.user.additional_building = response.additional_building.split(',');
           if(!findReg){
           let findReg1 = responseBuild.find(item=>  this.user.additional_building.find(ite=> item.property_code==ite));
-          console.log(findReg1.region);
           
             if(findReg1)
               this.user = {...this.user, region: findReg1.region};
@@ -166,7 +160,6 @@ export class EditComponent implements OnInit {
     $(".form-control.b-b").click();
   }
   onPhoneChange(phone){
-    console.log(phone);
     this.newPhone=phone;
   }
   txtChange(txt, id) {
@@ -218,8 +211,6 @@ tooglePhone () {
 
   onSubmit () {
     this.showLoader = true;
-    console.log(this.profileForm.value);
-    console.log(this.user);
     let bday = new Date(this.profileForm.value.birthday);
     this.profileForm.value.birthday = bday.getMonth()+1 + "/" + bday.getDate() + "/" + bday.getFullYear();
 

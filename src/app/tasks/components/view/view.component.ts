@@ -61,11 +61,9 @@ export class ViewComponent implements OnInit {
     this.task_id = this.route.snapshot.params.id;
     // this.taskDetail = JSON.parse(localStorage.getItem('tasklist'))[this.task_id];
     this.taskDetail = JSON.parse(localStorage.getItem('task'));
-    console.log(this.taskDetail);
 
     if (this.taskDetail.service_name == "GROCERY SHOPPING")
     this.service.getGroceryList(this.taskDetail.list_id).subscribe((resp: any) => {
-      console.log(resp);
       this.allMessagesLogs = resp.filter(item => item.item_type != 'userItem');
       this.userItem = resp.filter(item => item.item_type == 'userItem');
       if (this.userItem[0])
@@ -77,20 +75,15 @@ export class ViewComponent implements OnInit {
         this.dataSource.sort = this.sort;
       })
       this.loader = false;
-      console.log(this.userItem);
 
     });
-    console.log("data user saved");
-    console.log(JSON.parse(localStorage.getItem('task')));
     if (this.taskDetail.service_name == "GROCERY SHOPPING" || this.taskDetail.service_name == "FLOWER DELIVERY" || (this.taskDetail.service_name == "RX PICK-UP" && this.taskDetail.payment_required_for_pickup == "Yes")) {
       if (this.taskDetail.payment_invoice != '' && this.taskDetail.payment_invoice != null){
-        console.log('parse');
         
         this.taskDetail.payment_invoice = JSON.parse(this.taskDetail.payment_invoice);
       }
 
       this.taskService.getPayment({ user_id: this.taskDetail.user_id }).subscribe(res => {
-        console.log(res);
         if (res) {
           this.paymentProfFound = true;
         }
@@ -115,7 +108,6 @@ export class ViewComponent implements OnInit {
     modalImg = document.getElementById("img01");
 
     modal.style.display = "block";
-    console.log(image);
 
     try {
       modalImg.src = JSON.parse(image);
@@ -152,12 +144,10 @@ export class ViewComponent implements OnInit {
           .subscribe((res) => {
             if (res) {
 
-              console.log(res);
               if (res.message == "Image uploaded successfully.") {
                 this.allInvoices.push(JSON.stringify(res.imageUrl));
                 if (data.fileCount == f) {
                   resolve("");
-                  console.log("ashdaosdhaosuid");
 
                 }
               }
@@ -176,16 +166,11 @@ export class ViewComponent implements OnInit {
   saveImg = async (data, serv) => {
     await this.finalSave(data).then(res => {
 
-      console.log("this.allInvoices");
-      console.log(this.allInvoices);
       if (serv == "Grocery") {
         setTimeout(() => {
-          console.log("Hello from setTimeout");
           let todayDate = new Date();
 
           let body = { completed_from:true, responsible_party: this.userType.first_name + ' ' + this.userType.last_name, total_amount: data.txt, service_completed_date: todayDate.toString().substring(0, 15), id: this.taskDetail.list_id, user_id: this.taskDetail.user_id, service_completed: "true", payment_invoice: JSON.stringify(this.allInvoices) }
-          console.log("body");
-          console.log(body);
 
           this.taskService.completeGrocery(body).subscribe(res => {
             if (res.status == "success") {
@@ -194,7 +179,6 @@ export class ViewComponent implements OnInit {
             } else {
               this.showLoader = false;
             }
-            console.log(res);
 
           });
         }, 2000);
@@ -203,9 +187,6 @@ export class ViewComponent implements OnInit {
           let todayDate = new Date();
 
           let body = { completed_from:true, responsible_party: this.userType.first_name + ' ' + this.userType.last_name, total_amount: data.txt, service_completed_date: todayDate.toString().substring(0, 15), id: this.taskDetail.id, user_id: this.taskDetail.user_id, service_completed: "true", payment_invoice: JSON.stringify(this.allInvoices) }
-          console.log("body");
-          console.log(body);
-
           this.taskService.completeFlower(body).subscribe(res => {
             if (res.status == "success") {
               this.showLoader = false;
@@ -213,7 +194,6 @@ export class ViewComponent implements OnInit {
             } else {
               this.showLoader = false;
             }
-            console.log(res);
 
           });
         }, 2000);
@@ -223,8 +203,7 @@ export class ViewComponent implements OnInit {
           let todayDate = new Date();
 
           let body = { completed_from:true, responsible_party: this.userType.first_name + ' ' + this.userType.last_name, total_amount: data.txt, service_completed_date: todayDate.toString().substring(0, 15), id: this.taskDetail.id, user_id: this.taskDetail.user_id, service_completed: "true", payment_invoice: JSON.stringify(this.allInvoices) }
-          console.log("body");
-          console.log(body);
+        
 
           this.taskService.completeRxPay(body).subscribe(res => {
             if (res.status == "success") {
@@ -233,7 +212,6 @@ export class ViewComponent implements OnInit {
             } else {
               this.showLoader = false;
             }
-            console.log(res);
 
           });
         }, 2000);
@@ -254,7 +232,6 @@ export class ViewComponent implements OnInit {
       dialogRef.afterClosed().subscribe(data => {
         if (data !== "cancel") {
           this.showLoader = true;
-          console.log(data);
           if (data.txt !== undefined && data.fileData !== null) {
             this.saveImg(data, "Grocery");
           }
@@ -276,10 +253,8 @@ export class ViewComponent implements OnInit {
           this.showLoader = true;
 
           let todayDate = new Date();
-          console.log(todayDate.toString().substring(0, 15));
           let body = { responsible_party: this.userType.first_name + ' ' + this.userType.last_name, id: this.taskDetail.id, user_id: this.taskDetail.user_id, service_completed: "true", service_completed_date: todayDate.toString().substring(0, 15) }
           this.taskService.completeLaundryPickUp(body).subscribe(res => {
-            console.log(res);
             if (res) {
               this.showLoader = false;
               this.openSnackBar('Completed successfully', '', true);
@@ -300,10 +275,8 @@ export class ViewComponent implements OnInit {
           this.showLoader = true;
 
           let todayDate = new Date();
-          console.log(todayDate.toString().substring(0, 15));
           let body = { responsible_party: this.userType.first_name + ' ' + this.userType.last_name, id: this.taskDetail.id, user_id: this.taskDetail.user_id, service_completed: "true", service_completed_date: todayDate.toString().substring(0, 15) }
           this.taskService.completeLaundryDropOff(body).subscribe(res => {
-            console.log(res);
             if (res) {
               this.showLoader = false;
               this.openSnackBar('Completed successfully', '', true);
@@ -325,10 +298,8 @@ export class ViewComponent implements OnInit {
           this.showLoader = true;
 
           let todayDate = new Date();
-          console.log(todayDate.toString().substring(0, 15));
           let body = { responsible_party: this.userType.first_name + ' ' + this.userType.last_name, id: this.taskDetail.id, user_id: this.taskDetail.user_id, service_completed: "true", service_completed_date: todayDate.toString().substring(0, 15) }
           this.taskService.completePackage(body).subscribe(res => {
-            console.log(res);
             if (res) {
               this.showLoader = false;
               this.openSnackBar('Completed successfully', '', true);
@@ -349,10 +320,8 @@ export class ViewComponent implements OnInit {
           this.showLoader = true;
 
           let todayDate = new Date();
-          console.log(todayDate.toString().substring(0, 15));
           let body = { responsible_party: this.userType.first_name + ' ' + this.userType.last_name, id: this.taskDetail.id, user_id: this.taskDetail.user_id, service_completed: "true", service_completed_date: todayDate.toString().substring(0, 15) }
           this.taskService.completeOnQuestClean(body).subscribe(res => {
-            console.log(res);
             if (res) {
               this.showLoader = false;
               this.openSnackBar('Completed successfully', '', true);
@@ -371,7 +340,6 @@ export class ViewComponent implements OnInit {
       dialogRef.afterClosed().subscribe(data => {
         if (data !== "cancel") {
           this.showLoader = true;
-          console.log(data);
           if (data.txt !== undefined && data.fileData !== null) {
 
             this.saveImg(data, "Flower");
@@ -396,10 +364,8 @@ export class ViewComponent implements OnInit {
             this.showLoader = true;
 
             let todayDate = new Date();
-            console.log(todayDate.toString().substring(0, 15));
             let body = { responsible_party: this.userType.first_name + ' ' + this.userType.last_name, id: this.taskDetail.id, user_id: this.taskDetail.user_id, service_completed: "true", service_completed_date: todayDate.toString().substring(0, 15) }
             this.taskService.completeRx(body).subscribe(res => {
-              console.log(res);
               if (res) {
                 this.showLoader = false;
                 this.openSnackBar('Completed successfully', '', true);
@@ -416,7 +382,6 @@ export class ViewComponent implements OnInit {
         });
         dialogRef.afterClosed().subscribe(data => {
           if (data !== "cancel") {
-            console.log(data);
             this.showLoader = true;
 
             if (data.txt !== undefined && data.fileData !== null) {
@@ -444,8 +409,7 @@ export class ViewComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result == "CANCEL") {
         if (this.taskDetail.service_name == "GROCERY SHOPPING") {
-          console.log(this.taskDetail.list_id);
-          console.log(this.taskDetail.user_id);
+        
           var body = { responsible_party: this.userType.first_name + ' ' + this.userType.last_name, id: this.taskDetail.list_id, user_id: this.taskDetail.user_id, service_enable: 'false' }
           this.taskService.completeGroceryService(body).subscribe(res => {
             if (res) {
@@ -532,7 +496,6 @@ export class ViewComponent implements OnInit {
 
   }
   getImage(image) {
-    console.log(image);
     try {
       return (this.dom.bypassSecurityTrustResourceUrl(JSON.parse(image)));
     } catch {

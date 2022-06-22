@@ -103,7 +103,6 @@ export class ViewreportsComponent {
 
         });
 
-        console.log(this.reportId);
 
         if (this.reportId == 'app_downloads') {
             this.getDownloads();
@@ -151,7 +150,6 @@ export class ViewreportsComponent {
     getPaymentHistories() {
         this.service.getPayments().subscribe(response => {
             var selectedResi = JSON.parse(localStorage.getItem('selectedResidents'));
-            console.log(selectedResi);
             
             if(selectedResi[0])
             response = response.filter(item => selectedResi.find(ite => ite == item.user_id));
@@ -163,7 +161,6 @@ export class ViewreportsComponent {
                 if (item.rx_pickup_total_amount != null)
                     this.allPaymentHistoryArr.push({ ...item, service: "Rx Pick-Up", created_at: item.rx_pickup_created_at });
             });
-            console.log(this.allPaymentHistoryArr);
             this.dataSource = new MatTableDataSource<any>(this.allPaymentHistoryArr);
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
@@ -198,7 +195,6 @@ export class ViewreportsComponent {
                 this.service.getAllResidents().subscribe(resResi => {
                     var bakingServices = [];
                     let index = 0;
-                    console.log(responseSer);
                     for (let i = 0; i < responseSer.length; i++) {
                         const services = responseSer[i];
                         for (let j = 0; j < services.length; j++) {
@@ -232,7 +228,6 @@ export class ViewreportsComponent {
                         let taskCom = bakingServices.filter(itemSer => itemSer.building_code == item);
                         this.allPropertySummary.push({ name: findProp.property_name, total_task: taskCom.length, total_acc: findResiAcc.length });
                     })
-                    console.log(this.allPropertySummary);
                     this.loader = false;
                     if (this.downloadOption == "CSV") {
                         const arr = [];
@@ -252,7 +247,6 @@ export class ViewreportsComponent {
 
     getMissingPayments() {
         this.service.getPayments().subscribe(response => {
-            console.log(response);
             let allCaps = [];
             this.service.getAllCaptains().subscribe(resC => {
                 allCaps = resC;
@@ -265,7 +259,6 @@ export class ViewreportsComponent {
                         return itemRes;
                 });
                 var selectedProp = JSON.parse(localStorage.getItem('selectedProperty'));
-                console.log(res);
                 res = res.filter(item => selectedProp.find(ite => ite == item.building_id));
                 var endDateOld = new Date(localStorage.getItem('enddate'));
                 endDateOld.setHours(0, 0, 0, 0);
@@ -287,7 +280,6 @@ export class ViewreportsComponent {
                     })
                 }
 
-                console.log(res);
                 res.map(item => {
                     let findCap = allCaps.find(itemC => itemC.user_id == item.assigned_captain_id);
                     if (findCap)
@@ -353,7 +345,6 @@ export class ViewreportsComponent {
                         return item;
                 });
             }
-            console.log(response);
 
             response.map(item => {
 
@@ -385,7 +376,6 @@ export class ViewreportsComponent {
                     this.allCaptainList.push({ ...item, assigned_buildings: properties });
                 }
             });
-            console.log(this.allCaptainList);
             this.loader = false;
             if (this.downloadOption == "CSV") {
                 const arr = [];
@@ -415,7 +405,6 @@ export class ViewreportsComponent {
             var startDateOld = new Date(localStorage.getItem('startdate'));
             startDateOld.setHours(0, 0, 0, 0);
             let startDate = Date.parse(startDateOld.toString());
-            console.log(response);
             if (this.userType == '3') {
                 var building = JSON.parse(localStorage.getItem("user")).building_id;
                 response = response.filter(item => item.user_type_id == '3' && item.property_code == building);
@@ -480,7 +469,6 @@ export class ViewreportsComponent {
     getAllProperties() {
         this.service.getAllLocations().subscribe(res => {
             var selectedProp = JSON.parse(localStorage.getItem('selectedProperty'));
-            console.log(selectedProp);
             var finalPropDetailArr = [];
             if (this.userType == '3') {
                 var building = JSON.parse(localStorage.getItem("user")).property_code;
@@ -502,15 +490,12 @@ export class ViewreportsComponent {
             this.service.getUsers().subscribe(res => {
 
                 this.allBasicUsers = res.filter(item => item.user_type_id == 3 && this.allPropertiesReport.find(it => it.property_code == item.property_code));
-                console.log(this.allBasicUsers);
 
                 this.allRegionalUsers = res.filter(item => item.user_type_id == 6 && this.allPropertiesReport.find(it => it.region == item.user_region));
-                console.log(this.allRegionalUsers);
 
             });
             this.service.getAllCaptains().subscribe(res => {
                 this.allCaptains = res
-                console.log(this.allCaptains);
             });
 
             this.service.getAllRestrictedService().subscribe((response: any) => {
@@ -527,7 +512,6 @@ export class ViewreportsComponent {
                             additionaBuild = itemCap.additional_building.split(",");
                             findAddBuild = additionaBuild.find(ite => ite == item.property_code)
                         }
-                        console.log(findAddBuild);
                         if (item.property_code == itemCap.property_code || findAddBuild)
                             return item;
                     });
@@ -540,10 +524,8 @@ export class ViewreportsComponent {
                             findService.push(itemR);
 
                     })
-                    console.log(this.services_enable);
                     this.finalDetailArr.push({ property: item, captains: findCap, Regional: findRegional, Basic: findBasic, services: findService });
                 })
-                console.log(this.finalDetailArr);
             });
         })
     }
@@ -562,17 +544,13 @@ export class ViewreportsComponent {
             var startDateOld = new Date(localStorage.getItem('startdate'));
             startDateOld.setHours(0, 0, 0, 0);
             let startDate = Date.parse(startDateOld.toString());
-            console.log(endDate);
-            console.log(startDate);
 
             var selectedProp = JSON.parse(localStorage.getItem('selectedProperty'));
-            console.log(selectedProp);
             let data = { "property_code": "", "captainId": "", "service_day": "" };
             this.service.getAllServices(data).subscribe(resService => {
 
                 var bakingServices = [];
                 let index = 0;
-                console.log(resService);
                 for (let i = 0; i < resService.length; i++) {
                     const services = resService[i];
                     for (let j = 0; j < services.length; j++) {
@@ -602,11 +580,9 @@ export class ViewreportsComponent {
                     })
                 }
                 var selectedService = localStorage.getItem('selectedService');
-                console.log(selectedService);
 
                 allSelectedService = bakingServices.filter(item => item.service_name == selectedService);
                 this.taskDetailsArr = allSelectedService;
-                console.log(this.taskDetailsArr);
                 this.loader = false;
                 if (this.downloadOption == "CSV") {
                     const arr = [];
@@ -730,7 +706,6 @@ export class ViewreportsComponent {
                             });
                         });
                     this.downloadCSVArray = arr;
-                    console.log(arr);
 
                 }
 
@@ -758,17 +733,13 @@ export class ViewreportsComponent {
             var startDateOld = new Date(localStorage.getItem('startdate'));
             startDateOld.setHours(0, 0, 0, 0);
             let startDate = Date.parse(startDateOld.toString());
-            console.log(endDate);
-            console.log(startDate);
 
             var selectedProp = JSON.parse(localStorage.getItem('selectedProperty'));
-            console.log(selectedProp);
             let data = { "property_code": "", "captainId": "", "service_day": "" };
             this.service.getAllServices(data).subscribe(resService => {
 
                 var bakingServices = [];
                 let index = 0;
-                console.log(resService);
                 for (let i = 0; i < resService.length; i++) {
                     const services = resService[i];
                     for (let j = 0; j < services.length; j++) {
@@ -799,7 +770,6 @@ export class ViewreportsComponent {
                 }
 
                 this.inCompleteTasksArr = bakingServices;
-                console.log(this.inCompleteTasksArr);
                 this.loader = false;
                 if (this.downloadOption == "CSV") {
                     const arr = [];
@@ -855,17 +825,13 @@ export class ViewreportsComponent {
             var startDateOld = new Date(localStorage.getItem('startdate'));
             startDateOld.setHours(0, 0, 0, 0);
             let startDate = Date.parse(startDateOld.toString());
-            console.log(endDate);
-            console.log(startDate);
 
             var selectedProp = JSON.parse(localStorage.getItem('selectedProperty'));
-            console.log(selectedProp);
             let data = { "property_code": "", "captainId": "", "service_day": "" };
             this.service.getAllServices(data).subscribe(resService => {
 
                 var bakingServices = [];
                 let index = 0;
-                console.log(resService);
                 for (let i = 0; i < resService.length; i++) {
                     const services = resService[i];
                     for (let j = 0; j < services.length; j++) {
@@ -895,7 +861,6 @@ export class ViewreportsComponent {
                     })
                 }
                 this.taskCompletionArr = bakingServices;
-                console.log(bakingServices);
                 this.loader = false;
                 if (this.downloadOption == "CSV") {
                     const arr = [];
@@ -929,7 +894,6 @@ export class ViewreportsComponent {
                 var selectedProp = JSON.parse(localStorage.getItem('selectedProperty'));
                 this.service.getAllLocations().subscribe(allProp => {
                     let findPropName = allProp.filter(item => selectedProp.find(ite => ite == item.property_code))
-                    console.log(findPropName);
 
                     res = res.filter(item => findPropName.find(ite => ite.property_name == item.property_name));
                     var endDateOld = new Date(localStorage.getItem('enddate'));
@@ -941,7 +905,6 @@ export class ViewreportsComponent {
                     var allAndroid = [];
                     var allIOS = [];
                     if (endDate && startDate) {
-                        console.log("aysyasyd");
 
                         res = res.filter(item => {
                             let createdDateOld = new Date(item.created_at);
@@ -988,9 +951,6 @@ export class ViewreportsComponent {
     }
 
     openUsers(prop_code, type, region) {
-        console.log(prop_code);
-        console.log(type);
-        console.log(region);
 
         const dialogRef = this.dialog.open(UserlistComponent, {
             width: '80vw',
@@ -1004,7 +964,6 @@ export class ViewreportsComponent {
     }
 
     getSignUpBaseResidents() {
-        console.log(localStorage.getItem('selectedProperty'));
         const selectedProperty = JSON.parse(localStorage.getItem('selectedProperty'));
         // let data = { "property_code": selectedProperty, "captainId": "", "service_day": "" };
         this.service.getAllResidents().subscribe((response: any) => {
@@ -1013,11 +972,8 @@ export class ViewreportsComponent {
                 var findMatch = response.filter(item => item.building_id == building)
                 response = findMatch;
             }
-            console.log(response);
             var endDate = new Date(localStorage.getItem('enddate'));
             var startDate = new Date(localStorage.getItem('startdate'));
-            console.log(endDate);
-            console.log(startDate);
             var matchedResidents = response.filter(item => selectedProperty.find(ite => item.building_id == ite));
             matchedResidents = matchedResidents.map(item => {return {...item,service_day:item.user_profile_service_day=='1'?'Monday':
             item.user_profile_service_day=='2'?'Tuesday':
@@ -1055,7 +1011,6 @@ export class ViewreportsComponent {
                 });
                 this.downloadCSVArray = arr;
             }
-            console.log(this.matchedSignupResident);
         });
     }
 
@@ -1088,7 +1043,6 @@ export class ViewreportsComponent {
                     }
                 }
 
-                console.log(bakingServices);
                 response.map((item, index) => {
                     let createdDateOld = new Date(item.created_at);
                     createdDateOld.setHours(0, 0, 0, 0);
@@ -1097,7 +1051,6 @@ export class ViewreportsComponent {
 
 
                     if (building_code.find(ite => item.building_id == ite)) {
-                        console.log(endDate.toString());
                         if (endDate.toString() != 'Invalid Date' && startDate.toString() != 'Invalid Date' && endDate.toString() != 'NaN' && startDate.toString() != 'NaN') {
                             if (createdDate <= endDate && createdDate >= startDate) {
                                 let findCap = allCaptains.find(itC => itC.user_id == item.assigned_captain_id);
@@ -1123,7 +1076,6 @@ export class ViewreportsComponent {
                         }
                     }
                 });
-                console.log(this.allResidents);
                 this.dataSource = new MatTableDataSource<any>(this.allResidents);
                 this.dataSource.paginator = this.paginator;
                 this.dataSource.sort = this.sort;
@@ -1174,13 +1126,10 @@ export class ViewreportsComponent {
 
             );
 
-            console.log(arr);
 
             finalExcel.push(arr);
             arr = [];
         });
-        console.log(arr);
-        console.log(finalExcel);
         var lineArray = [];
         finalExcel.forEach(function (infoArray, index) {
             var line = infoArray.join(" \t");
@@ -1212,13 +1161,11 @@ export class ViewreportsComponent {
 
             );
 
-            console.log(arr);
 
             finalExcel.push(arr);
             arr = [];
         });
-        console.log(arr);
-        console.log(finalExcel);
+
         var lineArray = [];
         finalExcel.forEach(function (infoArray, index) {
             var line = infoArray.join(" \t");
@@ -1359,15 +1306,13 @@ export class ViewreportsComponent {
                     '\"' + item.number_of_packages + '\"',
                     '\"' + item.other_information + '\"',
                 );
-            console.log(arr);
 
             finalExcel.push(arr);
             arr = [];
         });
         var today = new Date();
         var date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
-        console.log(arr);
-        console.log(finalExcel);
+
         var lineArray = [];
         finalExcel.forEach(function (infoArray, index) {
             var line = infoArray.join(" \t");
@@ -1399,13 +1344,10 @@ export class ViewreportsComponent {
 
             );
 
-            console.log(arr);
 
             finalExcel.push(arr);
             arr = [];
         });
-        console.log(arr);
-        console.log(finalExcel);
         var lineArray = [];
         finalExcel.forEach(function (infoArray, index) {
             var line = infoArray.join(" \t");
@@ -1433,12 +1375,9 @@ export class ViewreportsComponent {
                 '\"' + item.total_task + '\"',
                 '\"' + item.total_acc + '\"'
             );
-            console.log(arr);
             finalExcel.push(arr);
             arr = [];
         });
-        console.log(arr);
-        console.log(finalExcel);
         var lineArray = [];
         finalExcel.forEach(function (infoArray, index) {
             var line = infoArray.join(" \t");
@@ -1471,13 +1410,11 @@ export class ViewreportsComponent {
 
             );
 
-            console.log(arr);
 
             finalExcel.push(arr);
             arr = [];
         });
-        console.log(arr);
-        console.log(finalExcel);
+
         var lineArray = [];
         finalExcel.forEach(function (infoArray, index) {
             var line = infoArray.join(" \t");
@@ -1526,13 +1463,11 @@ export class ViewreportsComponent {
                             item.user_profile_service_day == '6' ? "Saturday" : "Not Assigned" + '\"'
 
                 );
-            console.log(arr);
 
             finalExcel.push(arr);
             arr = [];
         });
-        console.log(arr);
-        console.log(finalExcel);
+    
         var lineArray = [];
         finalExcel.forEach(function (infoArray, index) {
             var line = infoArray.join(" \t");
@@ -1584,7 +1519,6 @@ export class ViewreportsComponent {
             fileName = "missing_payment_method";
             else
             fileName = this.reportId;
-            console.log(date);
             var base64Img = null;
             var margins = {
                 top: 20,
@@ -1720,8 +1654,7 @@ export class ViewreportsComponent {
             finalExcel.push(arr);
             arr = [];
         });
-        console.log(arr);
-        console.log(finalExcel);
+
         var lineArray = [];
         finalExcel.forEach(function (infoArray, index) {
             var line = infoArray.join(" \t");
@@ -1828,7 +1761,6 @@ export class ViewreportsComponent {
             tempArr.push('\"' + propName + '\"','\"' + propMgmtC + '\"','\"' + propMgr + '\"', '\"' + serviceName + '\"', '\"' + captainName + '\"', '\"' + regionalName + '\"', '\"' + basicName + '\"');
             finalExcel.push(tempArr);
         })
-        console.log(finalExcel);
         var lineArray = [];
         finalExcel.forEach(function (infoArray, index) {
             var line = infoArray.join(" \t");
@@ -1846,13 +1778,10 @@ export class ViewreportsComponent {
     }
 
     exportTableToExcel(tableID, filename = '') {
-        console.log("aya");
 
         var downloadLink;
         var dataType = 'application/vnd.ms-excel';
         var tableSelect = document.getElementById('mytab');
-        console.log("tableSelect");
-        console.log(tableSelect);
         var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
         var today = new Date();
         var date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
@@ -1882,7 +1811,6 @@ export class ViewreportsComponent {
     }
 
     getBuildingTasks(propertyCode) {
-        console.log(propertyCode);
 
         // if (propertyCode == 4 || propertyCode == 5) {
         // }
@@ -1923,7 +1851,6 @@ export class ViewreportsComponent {
                         return item;
                 });
             }
-            console.log(allServices);
             let allGroceryCompleted = allServices.filter(item => item.service_name == "GROCERY SHOPPING" && item.service_completed == "true" && item.service_enable == "true");
             let allgrocery = allServices.filter(item => item.service_name == "GROCERY SHOPPING" && item.service_enable == "true");
             let allPackageCompleted = allServices.filter(item => item.service_name == "PACKAGE PICK-UP" && item.service_completed == "true" && item.service_enable == "true");
@@ -1998,8 +1925,6 @@ export class ViewreportsComponent {
 
                     });
                 });
-                console.log(arr);
-
                 this.downloadCSVArray = arr;
 
             }

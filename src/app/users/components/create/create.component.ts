@@ -119,7 +119,6 @@ export class CreateComponent implements OnInit {
     onSubmit () {
         this.showLoader=true;
         let formData = this.form.value;
-        console.log(this.form.value);
         
         let bday = new Date(formData.birthday);
         formData.birthday = bday.getMonth()+1 + "/" + bday.getDate() + "/" + bday.getFullYear();
@@ -132,9 +131,7 @@ export class CreateComponent implements OnInit {
             delete formData.region;
         }
         delete formData.confirmPassword;
-        console.log(formData);
                 this.authService.createUser(formData).subscribe((response) => {
-                    console.log(response);
                     if (!response.response){
                         this.openSnackBar( response.message, '');
                         this.showLoader=false;

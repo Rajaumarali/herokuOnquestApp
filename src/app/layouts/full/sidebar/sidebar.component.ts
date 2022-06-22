@@ -80,7 +80,6 @@ export class AppSidebarComponent implements OnDestroy {
         console.log(href);
         // if(href=="dashboard")
         // setTimeout(() => {
-        //     console.log("Hello from setTimeout");
         //     window.location.reload();
         //  }, 500);
     }
@@ -92,8 +91,6 @@ export class AppSidebarComponent implements OnDestroy {
                 var arr : any;
                 arr = res;
                 if(userType=="3"){
-                    console.log("SIDENAVE");
-                    console.log(res);
                     var building = JSON.parse(localStorage.getItem("user")).building_id;
                     var findProp = arr.response.filter(item=> item.property_code==building);
                     if(findProp)
@@ -135,12 +132,10 @@ export class AppSidebarComponent implements OnDestroy {
               },
             (err: HttpErrorResponse) => {
               if (err.error instanceof Error) {
-                console.log('Client-side error occured.');
               } else {
                 if ( err.error &&  err.error.text) {
                   return;
                 }
-                console.log('Server-side error occured.');
               }
             }
           );

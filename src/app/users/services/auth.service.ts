@@ -72,7 +72,6 @@ export class AuthService {
       }));
   }
   getUsers() {
-    console.log("this.urls.getUsers",this.urls.getUsers);
     return this.httpClient.get<any>(this.urls.getUsers, this.httpOptions).pipe(
       map(res => res.response),
       catchError(errorRes => {

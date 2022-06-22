@@ -58,14 +58,11 @@ constructor(private router: Router , private service: MeetService ,breakpointObs
          res.map(item => {
            let captain = this.captains.find(itec => itec.user_id == item.assigned_captain_id)
              if(item.meet_greet_date_time!=null&& item.meet_greet_date_time!=""){
-              let dateTimeMeet = new Date(item.meet_greet_date_time);
-              console.log(dateTimeMeet.getDay()+'/'+dateTimeMeet.getMonth()+'/'+dateTimeMeet.getFullYear());
-              
+              let dateTimeMeet = new Date(item.meet_greet_date_time);              
               finalMeet.push({...item,status:item.meet_greet_status == 'true'||item.meet_greet_status == 'completed'?"Completed":'Open', captain: captain ? captain.first_name + ' ' + captain.last_name : '',resident: item.first_name+' '+item.last_name,meet_date: dateTimeMeet.getDay()+'/'+dateTimeMeet.getMonth()+'/'+dateTimeMeet.getFullYear(),meet_time:dateTimeMeet.toLocaleTimeString(), user_profile_service_day: item.user_profile_service_day == '1' ? 'Monday' : item.user_profile_service_day == '2' ? 'Tuesday' : item.user_profile_service_day == '3' ? 'Wednesday' : item.user_profile_service_day == '4' ? 'Thursday' : item.user_profile_service_day == '5' ? 'Friday' : item.user_profile_service_day == '6' ? 'Saturday' : item.user_profile_service_day == '7' ? 'Sunday' : 'Not Assigned' }) 
             }else
             finalMeet.push({...item,status:item.meet_greet_status == 'true'||item.meet_greet_status == 'completed'?"Completed":'Open', captain: captain ? captain.first_name + ' ' + captain.last_name : '',resident: item.first_name+' '+item.last_name, meet_date: "N/A",meet_time:"N/A", user_profile_service_day: item.user_profile_service_day == '1' ? 'Monday' : item.user_profile_service_day == '2' ? 'Tuesday' : item.user_profile_service_day == '3' ? 'Wednesday' : item.user_profile_service_day == '4' ? 'Thursday' : item.user_profile_service_day == '5' ? 'Friday' : item.user_profile_service_day == '6' ? 'Saturday' : item.user_profile_service_day == '7' ? 'Sunday' : 'Not Assigned' })
           })
-          console.log(finalMeet);
           
           this.dataSource = new MatTableDataSource<any>(finalMeet);
           this.dataSource.paginator = this.paginator;
@@ -88,7 +85,6 @@ constructor(private router: Router , private service: MeetService ,breakpointObs
 
   changeStatus(row,i){
     // this.allMeetGreet[i].meet_greet_status = true;
-    console.log(row);
     
     if(row.meet_greet_status!='completed'){
       const dialogRef = this.dialog.open(CompleteTaskPopup, {
@@ -97,14 +93,11 @@ constructor(private router: Router , private service: MeetService ,breakpointObs
       });
 
       dialogRef.afterClosed().subscribe(result => {
-        console.log(result);
         if(result=="COMPLETE"){
           var body = row;
           body.meet_greet_status = "completed";
           body.building_id = body.property_code;
           this.service.completeMeetGreet(body).subscribe(res=> {
-            console.log(res);
-            
           })
         }
       })

@@ -251,12 +251,8 @@ export class ResidentviewComponent implements OnInit {
                                 gro++;
                             }
                         });
-                        console.log("groceryPayment");
-                        console.log(this.groceryPayment);
 
                     }
-                    console.log("response");
-                    console.log(res);
                 });
 
                 this.residentService.getFlowerPayment(this.user_id).subscribe(res => {
@@ -269,12 +265,8 @@ export class ResidentviewComponent implements OnInit {
                                 flower++;
                             }
                         });
-                        console.log("flowerPayment");
-                        console.log(this.flowerPayment);
-
+                     
                     }
-                    console.log("response");
-                    console.log(res);
                 });
                 this.residentService.getRxPayment(this.user_id).subscribe(res => {
                     if (res.response) {
@@ -286,12 +278,8 @@ export class ResidentviewComponent implements OnInit {
                                 rx++;
                             }
                         });
-                        console.log("rxPayment");
-                        console.log(this.rxPayment);
-
+                     
                     }
-                    console.log("response");
-                    console.log(res);
                 });
 
                 this.flowerDeliveryService = this.userService.filter(item => item.service_name == "FLOWER DELIVERY");
@@ -302,7 +290,6 @@ export class ResidentviewComponent implements OnInit {
                         this.allList.push({ id: item.list_id, res: res.filter(it => it.item_type == 'inventoryItem') });
                     })
                 })
-                console.log(this.allList);
                 this.laundryPickService = this.userService.filter(item => item.service_name == "LAUNDRY PICK-UP");
                 this.laundryDropService = this.userService.filter(item => item.service_name == "LAUNDRY DROP-OFF");
                 this.rxService = this.userService.filter(item => item.service_name == "RX PICK-UP");
@@ -356,7 +343,6 @@ export class ResidentviewComponent implements OnInit {
                     this.dataSourceFlo.paginator = this.paginatorFlo
                     this.dataSourceFlo.sort = this.sortFlo;
                 });
-                console.log(this.groceryService);
             });
         });
 
@@ -364,7 +350,6 @@ export class ResidentviewComponent implements OnInit {
     }
 
     getImage(image) {
-        console.log(image);
         try {
             return (this.dom.bypassSecurityTrustResourceUrl(JSON.parse(image)));
         } catch {
@@ -383,14 +368,12 @@ export class ResidentviewComponent implements OnInit {
         item = { ...item, service_name: "RX PICK-UP", first_name: this.user.first_name, last_name: this.user.last_name, unit_number: this.user.unit_number, email: this.user.email, property_name: this.user.property_name, phone: this.user.phone };
         localStorage.setItem('task', JSON.stringify(item));
         this.router.navigate(['/tasks/' + 1 + '/view']);
-        console.log(item);
 
     }
     openFlowerTask(item) {
         item = { ...item, service_name: "FLOWER DELIVERY", first_name: this.user.first_name, last_name: this.user.last_name, unit_number: this.user.unit_number, email: this.user.email, property_name: this.user.property_name, phone: this.user.phone };
         localStorage.setItem('task', JSON.stringify(item));
         this.router.navigate(['/tasks/' + 1 + '/view']);
-        console.log(item);
 
     }
     parseJson(jsonString) {
@@ -415,8 +398,6 @@ export class ResidentviewComponent implements OnInit {
         return "N/A";
     };
     openImage(image) {
-        console.log(image);
-
         var modal = document.getElementById("myModal");
         var modalImg: any;
         modalImg = document.getElementById("img01");

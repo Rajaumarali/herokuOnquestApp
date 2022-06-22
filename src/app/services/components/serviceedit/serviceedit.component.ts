@@ -62,7 +62,6 @@ export class ServiceeditComponent implements OnInit {
     $(".form-control.b-b").click();
   }
   showList(serv) {
-    console.log(serv);
     localStorage.setItem( 'serValue' , serv);
     this.router.navigate(['/restrictedservices']);
 }
@@ -70,7 +69,6 @@ export class ServiceeditComponent implements OnInit {
     this.router.navigate(['/restrictedservices/create']);
   }
   saveService(data) {
-    console.log(data);
     this.showLoader = true;
     this.service.serviceUpdate(data).subscribe((response  ) => {
       this.showLoader = false;

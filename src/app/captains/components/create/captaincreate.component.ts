@@ -50,9 +50,7 @@ export class CaptaincreateComponent implements OnInit {
     this.buildingID = JSON.parse(localStorage.getItem("user")).building_id;
       this.userType = JSON.parse(localStorage.getItem("user")).user_type_id;
         this.captainsService.getPhoneNumbers().subscribe(res => {
-            // console.log(res);
             this.allphones=res;
-            console.log(this.allphones);
             
         });
         this.captainsService.getAllLocations().subscribe((response: any) => {
@@ -131,15 +129,13 @@ export class CaptaincreateComponent implements OnInit {
             addBuild += item+',';
         });
         formData  = {...formData, additional_building: addBuild,phone:"3937363673"}
-        console.log(formData);
         var body = {phone_number: formData.phone};
         
         // this.captainsService.purchaseNumber(body).subscribe(res=> {
-        //     console.log(res);
         //     if(res.status == "in-use"){
 
                 this.captainsService.createCaptainUsers({...formData , building_id: this.selectedBuilding.toString(),user_type_id: '2'}).subscribe((response) => {
-                    console.log(response);
+            
                     if (!response.response){
                         this.openSnackBar( response.message, '');
                         this.showLoader=false;
@@ -156,7 +152,6 @@ export class CaptaincreateComponent implements OnInit {
     }
     onPropertyChange(propCode){
         this.user.building_id=propCode;
-        console.log(this.userRegion);
         
     }
     onRegionChange(region){

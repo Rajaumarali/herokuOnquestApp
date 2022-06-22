@@ -37,9 +37,6 @@ export class MailComponent {
     email(): void {
         this.data.service.emailSend('Hi '+this.data.fname+",","",this.sub,this.data.email,this.msg+'\n\nYour OnQuest Support Team').subscribe((response: any) => {
             this.dialogRef.close();
-            console.log(response)
         });
-        console.log(this.msg);
-        console.log(this.sub);
     }
 }

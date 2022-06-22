@@ -125,7 +125,6 @@ export class ResidenteditComponent implements OnInit {
         this.user_id = this.route.snapshot.params.id;
 
         this.service.getUserProfile(this.user_id).subscribe((user) => {
-            console.log(user);
             user.birthday = new Date(user.birthday);
             user = {...user, phone:user.phone.replace("+1","")}
             this.user = user;
@@ -141,7 +140,6 @@ export class ResidenteditComponent implements OnInit {
             const now = new Date();
             this.minDate = new Date();
             this.minDate.setDate(now.getDate());
-            console.log(user);
             if(user.meet_greet_status=="completed"){
                 this.meetgreetday='none';
             }
@@ -154,7 +152,6 @@ export class ResidenteditComponent implements OnInit {
                 'property_code': this.user.building_id
             }).subscribe((response: any) => {
                 this.allcaptains = response.filter(item => item.user_type_id=='2');
-                console.log(response);
             });
             this.residentService.getLocation(this.user.building_id).subscribe((response: any) => {
                 this.service_day = response.service_day.split(',');
@@ -187,15 +184,12 @@ export class ResidenteditComponent implements OnInit {
     }
 
     changeBuild(event){
-        console.log("hua");
-        console.log(this.user.building_id);
         this.user.assigned_captain_id=null;
         this.residentService.getAllUsers({
             'user_type': 'captain',
             'property_code': this.user.building_id
         }).subscribe((response: any) => {
             this.allcaptains = response;
-            console.log(response);
         });
     }
 

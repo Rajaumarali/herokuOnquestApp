@@ -180,12 +180,12 @@ export class ReportsComponent {
     });
     this.maxDate = new Date();
     $('.page-title').text('Reports');
-    console.log(this.maxDate);
+
     this.maxDate.setDate(this.maxDate.getDate());
     this.maxDate.setMinutes(59);
     this.maxDate.setHours(23);
     this.maxDate.setMilliseconds(59);
-    console.log(this.maxDate);
+    
     this.startdate = new FormControl('');
     this.enddate = new FormControl('');
     this.startdate1 = new FormControl('');
@@ -211,8 +211,6 @@ export class ReportsComponent {
 
   getAllResidents() {
     this.service.getAllResidents().subscribe(response => {
-      console.log(response);
-
       this.allResidentsFilter = response;
     })
   }
@@ -221,7 +219,6 @@ export class ReportsComponent {
     this.router.navigate(['/services/' + btntype + '/edit']);
   }
   detail() {
-    console.log("selectedProperty" + this.downloadOption);
     localStorage.setItem("downloadOption", this.downloadOption);
     if (this.selectedRegion) {
       if (this.selectedProperty[0])
@@ -244,8 +241,6 @@ export class ReportsComponent {
       }
       else if (this.selectedReport == 'new_signup' || this.selectedReport == 'residents' || this.selectedReport == 'feature_usage') {
        
-          console.log(this.startdate.value.toLocaleString());
-          console.log(this.enddate.value.toLocaleString());
           
           localStorage.setItem("startdate", this.startdate.value.toLocaleString());
           localStorage.setItem("enddate", this.enddate.value.toLocaleString());
@@ -254,7 +249,6 @@ export class ReportsComponent {
       }
       else if (this.selectedReport == 'properties' || this.selectedReport == 'missing_payment_method' || this.selectedReport == 'incomplete_tasks' || this.selectedReport == 'task_completion' || this.selectedReport == 'incomplete_tasks') {
        
-          console.log(this.selectedProperty);
           localStorage.setItem("startdate", this.startdate.value.toLocaleString());
           localStorage.setItem("enddate", this.enddate.value.toLocaleString());
           if (this.selectedCaptain[0])
@@ -324,7 +318,6 @@ export class ReportsComponent {
       this.skillSel.options.forEach((item: MatOption) => { item.deselect() });
     }
     // this.skillSel.close();
-    console.log(this.selectedProperty);
 
   }
   toggleAllSelectionCap() {
@@ -340,7 +333,6 @@ export class ReportsComponent {
       this.skillSelCap.options.forEach((item: MatOption) => { item.deselect() });
     }
     // this.skillSel.close();
-    console.log(this.selectedCaptain);
 
   }
   toggleAllSelectionResi() {
@@ -356,7 +348,6 @@ export class ReportsComponent {
       this.skillSelResi.options.forEach((item: MatOption) => { item.deselect() });
     }
     // this.skillSel.close();
-    console.log(this.selectedResidents);
 
   }
   onMultiBuildingChange(event) {
@@ -364,7 +355,6 @@ export class ReportsComponent {
       if (item.value == 'All')
         item.deselect()
     });
-    console.log(event);
     var time = setTimeout(() => {
       this.allCaptainUsers = this.allCaptainfilter.filter(item => {
         var additionaBuild: any;
@@ -373,7 +363,6 @@ export class ReportsComponent {
           additionaBuild = item.additional_building.split(",");
           findAddBuild = additionaBuild.find(ite => this.selectedProperty.find(itemP => itemP == ite))
         }
-        console.log(findAddBuild);
 
         // var findMatchResi = this.allbuilding.find(itemProp => itemProp.property_code == item.property_code);
         if (this.selectedProperty.find(itemP => itemP == item.property_code) || findAddBuild)
@@ -419,7 +408,6 @@ export class ReportsComponent {
     this.service.getAllLocations().subscribe((response: any) => {
       if (this.userType == '3') {
         var property_code = JSON.parse(localStorage.getItem("user")).building_id;
-        console.log(property_code);
 
         var findProp = response.filter(item => item.property_code == property_code)
         if (findProp)
@@ -482,7 +470,6 @@ export class ReportsComponent {
           additionaBuild = item.additional_building.split(",");
           findAddBuild = additionaBuild.find(ite => ite == this.selectedProperty)
         }
-        console.log(findAddBuild);
 
         // var findMatchResi = this.allbuilding.find(itemProp => itemProp.property_code == item.property_code);
         if (this.selectedProperty == item.property_code || findAddBuild)
@@ -501,7 +488,6 @@ export class ReportsComponent {
               return ite;
           })
         }
-        console.log(findAddBuild);
 
         var findMatchResi = this.allbuilding.find(itemProp => itemProp.property_code == item.property_code);
         if (findMatchResi || findAddBuild)
@@ -539,7 +525,6 @@ export class ReportsComponent {
                 return ite;
             })
           }
-          console.log(findAddBuild);
 
           var findMatchResi = this.allbuilding.find(itemProp => itemProp.property_code == item.property_code);
           if (findMatchResi || findAddBuild)
@@ -548,8 +533,6 @@ export class ReportsComponent {
         res = findAllResi;
       }
       this.allCaptainfilter = res;
-      console.log("allCaptainUsers");
-      console.log(this.allCaptainUsers);
 
     })
   }

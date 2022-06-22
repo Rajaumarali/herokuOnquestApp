@@ -76,8 +76,7 @@ export class ImgCreateComponent implements OnInit {
       this.skillSel.options.forEach((item: MatOption) => { item.deselect() });
     }
     // this.skillSel.close();
-    console.log(this.imageForm.value.property_code);
-    console.log(this.skillSel);
+    
 
   }
   updateImage(data) {
@@ -88,7 +87,6 @@ export class ImgCreateComponent implements OnInit {
   }
   getAllProperties() {
     this.service.getAllProp().subscribe((response  ) => {
-      console.log(response);
       if(this.userType=='6'){
         let region = JSON.parse(localStorage.getItem("user")).user_region;
         this.properties = response.filter(item => item.region==region);

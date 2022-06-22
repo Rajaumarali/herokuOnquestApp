@@ -100,15 +100,12 @@ export class AppHeaderComponent {
     this.router.navigate(['/profile']);
   }
   openMsgLog(user_id) {
-    console.log("aya");
     this.router.navigate(['/residents/' + user_id + '/messageLogs']);
 
   }
   setupSocketConnection() {
     this.socket = io(`${config.apiUrl}`);
     this.socket.on('my_broadcast', (data: any) => {
-      console.log(this.userData);
-      console.log(data);
       var date = new Date();
       if(this.userData.phone==data.sender_phone_number)
       this.notifications.push({user_id: data.user_id, round: 'round-success',icon: 'ti-user',title: data.resident_name, subject: data.message,time: date.getHours()+":"+date.getMinutes()});

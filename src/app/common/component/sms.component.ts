@@ -40,18 +40,15 @@ export class SMSComponent {
     }
     sms(): void {
         this.data.phone = "+1"+this.data.phone;
-        console.log(this.data.phone);
         this.loader = true;
         this.data.service.smsSend(this.data.name,this.data.user_id,this.data.phone,this.msg).subscribe((response: any) => {
             this.dialogRef.close();
-            console.log('SMS' + response);
             this.loader = false;
             if(response.status !== 'failed')
                 this.openSnackBar('Successfully sent your message', '');
             else
                 this.openSnackBar('An error occurred! Please try again later.', '');
         });
-        console.log(this.msg);
     }
     openSnackBar(message: string, action: string) {
         this.snackBar.open(message, action, {

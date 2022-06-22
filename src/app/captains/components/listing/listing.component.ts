@@ -66,12 +66,9 @@ export class ListingComponent implements OnInit {
       this.allbuilding = this.allbuildingfilter;
     } // when nothing has typed*/   
     if (typeof event === 'string') {
-      console.log(event);
-      console.log(this.allbuildingfilter);
       this.allbuilding = this.allbuildingfilter.filter(a => a.property_name.toLowerCase()
         .startsWith(event.toLowerCase()));
     }
-    console.log(this.allbuilding.length);
     //   this.selectList.nativeElement.size = this.allbuilding.length + 1;
   }
   getAllResidents() {
@@ -93,8 +90,6 @@ export class ListingComponent implements OnInit {
       } else if (this.userType == "6") {
         var region = JSON.parse(localStorage.getItem("user")).user_region;
         var findAllProp = this.allbuildingfilter.filter(item => item.region == region);
-        console.log(findAllProp);
-        console.log(region);
 
         var findAllResi = response.filter(item => {
           var additionaBuild: any;
@@ -107,7 +102,6 @@ export class ListingComponent implements OnInit {
                 return ite;
             })
           }
-          console.log(findAddBuild);
 
           var findMatchResi = findAllProp.find(itemProp => itemProp.property_code == item.property_code);
           if (findMatchResi || findAddBuild)

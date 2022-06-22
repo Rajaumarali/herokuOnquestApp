@@ -34,8 +34,7 @@ export class ResidentlistingComponent implements OnInit {
     propertyDropdown=true;
   constructor(public dialog: MatDialog,private router: Router , private residentService: ResidentService ,breakpointObserver: BreakpointObserver) {
       this.userType = JSON.parse(localStorage.getItem("user")).user_type_id;
-      console.log(this.userType);
-     
+       
       $('.page-title').text('All Residents');
 
     breakpointObserver.observe(['(max-width: 600px)']).subscribe(result => {
@@ -66,7 +65,6 @@ export class ResidentlistingComponent implements OnInit {
             let region = JSON.parse(localStorage.getItem("user")).user_region;
             this.allbuildingfilter = response.filter(item => item.region == region);
             this.allbuilding = this.allbuildingfilter;
-            console.log(this.allbuilding);
             
         }else{
          this.allbuildingfilter = response;
@@ -93,7 +91,6 @@ export class ResidentlistingComponent implements OnInit {
               let it = {...item,user_profile_service_day: item.user_profile_service_day == '1' ? 'Monday' : item.user_profile_service_day == '2' ? 'Tuesday' : item.user_profile_service_day == '3' ? 'Wednesday' : item.user_profile_service_day == '4' ? 'Thursday' : item.user_profile_service_day == '5' ? 'Friday' : item.user_profile_service_day == '6' ? 'Saturday' : item.user_profile_service_day == '7' ? 'Sunday' : 'Not Assigned' }
                 return it;
             });
-            console.log(this.allResidentUsers);
             
           this.dataSource = new MatTableDataSource<any>(this.allResidentUsers);
           this.dataSource.paginator = this.paginator;
@@ -166,20 +163,14 @@ export class ResidentlistingComponent implements OnInit {
             this.allbuilding = this.allbuildingfilter;
           } // when nothing has typed*/   
           if (typeof event.value === 'string') {
-            console.log(event);
-            console.log(this.allbuildingfilter);
             this.allbuilding = this.allbuildingfilter.filter(a => a.property_name.toLowerCase()
               .startsWith(event.value.toLowerCase()));
           }
-          console.log(this.allbuilding.length);
-          console.log(event);
         //   this.selectList.nativeElement.size = this.allbuilding.length + 1;
     }
     applyFilter(filterValue: string) {
     //   filterValue = filterValue.trim(); // Remove whitespace
-      filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
-      console.log(this.dataSource.filter);
-      
+      filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches      
       this.dataSource.filter = filterValue;
     }
     openDialog(id): void {

@@ -51,8 +51,6 @@ export class ImgeditComponent implements OnInit {
       this.skillSel.options.forEach((item: MatOption) => { item.deselect() });
     }
     // this.skillSel.close();
-    console.log(this.imageForm.value.property_code);
-    console.log(this.skillSel);
 
   }
   onSubmit () {
@@ -85,7 +83,6 @@ export class ImgeditComponent implements OnInit {
     }
   }
   updateImage(data) {
-    console.log(data);
     this.service.updateImage(data).subscribe((response  ) => {
       this.showLoader = false;
       this.openSnackBar( 'Updated Successfully', '');
@@ -102,7 +99,6 @@ export class ImgeditComponent implements OnInit {
   }
   getAllProperties() {
     this.service.getAllProp().subscribe((response  ) => {
-      console.log(response);
       if(this.userType=="3"){
         var building = JSON.parse(localStorage.getItem("user")).building_id;
         var findProp = response.filter(item=> item.property_code==building)
@@ -123,7 +119,6 @@ export class ImgeditComponent implements OnInit {
           }
           console.table(this.imageData.property_code);
         }
-      console.log(this.imageData);
       this.previewUrl = responseImage.image_url;
     });
       }

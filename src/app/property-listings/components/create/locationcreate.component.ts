@@ -126,7 +126,6 @@ export class LocationCreateComponent implements OnInit {
     }
     getAllServices() {
         this.service.getAllServices().subscribe((response: any) => {
-            console.log(response);
             response.map((item,index)=>{
                 this.fitness_service.push({value:index,service:item.service_name,id:item.id, type: item.service_type});
             });
@@ -158,9 +157,6 @@ export class LocationCreateComponent implements OnInit {
         } else {
           this.enableSel.options.forEach((item: MatOption) => { item.deselect() });
         }
-        console.log(this.fitness_service);
-        console.log(this.enableSel);
-    
     }
     toggleAllSelectionDay() {
         this.allselectedDay = !this.allselectedDay;  // to control select-unselect
@@ -172,9 +168,6 @@ export class LocationCreateComponent implements OnInit {
         } else {
           this.enableDay.options.forEach((item: MatOption) => { item.deselect() });
         }
-        console.log(this.selectedDay);
-        console.log(this.enableDay);
-    
     }
     onSubmit () {
         this.showLoader=true;
@@ -183,7 +176,6 @@ export class LocationCreateComponent implements OnInit {
         this.form.value.address_line1 = jQuery('#adrs1_places').val();
         this.form.value.address_line2 = jQuery('#adrs2_places').val();
         let phone = "+1"+this.form.value.property_phone;
-        console.log(formData);
         var fitness = undefined;
         var restrictedService = [];
         var enabledService = [];
@@ -191,18 +183,15 @@ export class LocationCreateComponent implements OnInit {
         var findFitness2 = undefined;
         var alc = false;
         fitness = this.form.value.fitness_service;
-        console.log(fitness);
-        
+    
         if(fitness){
             findFitness1 = fitness?.find(item => item.id==22);
             findFitness2 = fitness?.find(item => item.id==23);
         }
-        console.log(this.fitness_service);
 
         delete this.form.value.fitness_service;
          if(fitness!=undefined){
-                    console.log(fitness);
-                    
+
                     this.fitness_service.map((item,index)=> {
                         var findMatch = fitness?.find(item => item==index.toString());
                         if(findMatch==undefined){
@@ -214,7 +203,6 @@ export class LocationCreateComponent implements OnInit {
                 }else{
                     restrictedService = this.fitness_service;
                 }
-                console.log(enabledService);
                 var findAlc = enabledService.find(item => (item.type=="mainService"&& item.service!=="A LA CARTE"&& item.service!=="FITNESS SERVICE RESIDENT PAID"&&item.service!=="FITNESS SERVICE PROPERTY PAID")||item.type=="errandService"||item.type=="laundryService");
                 if(findAlc==undefined)
                     alc= true;
@@ -225,9 +213,7 @@ export class LocationCreateComponent implements OnInit {
                 this.service.createLocation({...this.form.value,address_line2:'',property_phone:phone , alc_building:alc,service_day: this.selectedDay.toString(),fitness_package_1: findFitness1!=undefined?"true":"false",fitness_package_2: findFitness2!=undefined?"true":"false"}).subscribe((response) => {
             
             if(response[0]){
-                // if(fitness!=undefined){
-                //     console.log(fitness);
-                    
+                // if(fitness!=undefined){                    
                 //     this.fitness_service.map((item,index)=> {
                 //         var findMatch = fitness.find(item => item==index.toString());
                 //         if(findMatch==undefined){
@@ -237,7 +223,7 @@ export class LocationCreateComponent implements OnInit {
                 // }else{
                 //     restrictedService = this.fitness_service;
                 // }
-                // console.log(restrictedService);
+
                 restrictedService.map(item=> {
                     var data = {
                         'service_id': item.id,
@@ -259,7 +245,6 @@ export class LocationCreateComponent implements OnInit {
                 this.alertStatus = {'display': 'block'};
                 this.router.navigate(['/properties']).then(()=>{
                     setTimeout(() => {
-                        console.log("Hello from setTimeout");
                         window.location.reload();
                      }, 2000);
                 });

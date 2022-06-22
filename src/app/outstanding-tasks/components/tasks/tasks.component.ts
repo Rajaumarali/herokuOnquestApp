@@ -56,7 +56,6 @@ constructor(private router: Router, breakpointObserver: BreakpointObserver, priv
       element.captain = captains.first_name+' '+captains.last_name;
       
     });
-    console.log(allCaptains);
     this.allTasks = allTasks;
     this.allTasksfilter = allTasks;
     localStorage.setItem('tasklist', JSON.stringify(this.allTasks));
@@ -101,12 +100,9 @@ constructor(private router: Router, breakpointObserver: BreakpointObserver, priv
         this.allbuilding = this.allbuildingfilter;
       } // when nothing has typed*/   
       if (typeof event === 'string') {
-        console.log(event);
-        console.log(this.allbuildingfilter);
         this.allbuilding = this.allbuildingfilter.filter(a => a.property_name.toLowerCase()
           .startsWith(event.toLowerCase()));
       }
-      console.log(this.allbuilding.length);
     //   this.selectList.nativeElement.size = this.allbuilding.length + 1;
 }
 onChange(prop) {
@@ -146,8 +142,6 @@ onChange(prop) {
   }
 
   applyFilter(filterValue: string) {
-    console.log(filterValue);
-    
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
     this.dataSource.filter = filterValue;
   }

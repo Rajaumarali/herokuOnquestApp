@@ -112,7 +112,6 @@ export class ListingComponent implements OnInit {
         return service.service_completed == "true";
       });
       this.closedTickets = this.completeService.length;
-      console.log(bakingServices);
       this.dataSource = new MatTableDataSource<any>(bakingServices);
       localStorage.setItem('tasklist', JSON.stringify(bakingServices));
       this.dataSource.paginator = this.paginator;

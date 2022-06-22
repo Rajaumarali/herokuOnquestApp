@@ -60,7 +60,6 @@ export class ChangePassword implements OnInit {
     this.service.getUserProfile(this.user_id).subscribe((response: any) => {
       if (response) {
         this.user = response;
-        console.log(this.user);
         this.previewUrl = response.profile_picture_url;
       }
     });
@@ -94,7 +93,6 @@ export class ChangePassword implements OnInit {
 
   fileProgress(fileInput: any) {
     this.fileData = <File>fileInput.target.files[0];
-    console.log(<File>fileInput.target.files[0]);
     this.preview();
   }
 
@@ -115,7 +113,6 @@ export class ChangePassword implements OnInit {
     this.showLoader = true;
     var data = {username: this.user.email,password:this.form.value.cpassword,user_type_id: this.user.user_type_id}
         this.service.checkPass(data).subscribe((res:any)=>{
-          console.log(res.message);
           if (res) {
             var data = {user_id: this.user.user_id, password: this.form.value.password, user_verified:'true'};
             this.service.changePass(data).subscribe((res:any)=>{

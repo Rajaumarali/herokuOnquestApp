@@ -469,8 +469,6 @@ export class PropertyComponent implements AfterViewInit {
     getMeetGreet(propCode){
         var body = {user_type: "resident", property_code: propCode};
         this.service.getAllResidents(body).subscribe(res=> {
-            console.log("res");
-            console.log(res);
             this.allMeetGreet = res;
             this.totalMeetGreet = res.filter(item=> item.meet_greet_status != 'true'&&item.meet_greet_status != 'completed').length;
         })
@@ -597,7 +595,6 @@ export class PropertyComponent implements AfterViewInit {
         });
         //this.newResidentsArray[0].service_day = this.serviceDay;
         //this.newResidentsArray[0].property_name = this.locationName;
-        console.log(this.locationName);
         
         localStorage.setItem('residentListing', JSON.stringify(this.allResidents));
         localStorage.setItem('screenName', this.locationName);

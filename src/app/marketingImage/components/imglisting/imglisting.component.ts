@@ -46,7 +46,6 @@ export class ImglistingComponent implements OnInit {
     this.service.getAllProp().subscribe((response: any) => {
       if (this.userType == '3') {
         var property_code = JSON.parse(localStorage.getItem("user")).building_id;
-        console.log(property_code);
 
         var findProp = response.filter(item => item.property_code == property_code)
         if (findProp)
@@ -76,7 +75,6 @@ export class ImglistingComponent implements OnInit {
       } else if (this.userType == '6') {
         var findMatch = response.filter(item => {
           var buildings = item.property_code.split(",");
-          console.log(buildings);
 
           var findProp = buildings.find(it => this.allbuilding.find(itemB => itemB.property_code == it));
           if (findProp)
@@ -86,7 +84,6 @@ export class ImglistingComponent implements OnInit {
           response = findMatch;
       }
       this.allImages = response;
-      console.log("this.allImages",this.allImages);
       this.dataSource = new MatTableDataSource<any>(this.allImages);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;

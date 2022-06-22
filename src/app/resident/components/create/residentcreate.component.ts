@@ -99,11 +99,9 @@ export class ResidentcreateComponent implements OnInit {
     onSubmit () {
         this.showLoader=true;
         let formData = this.form.value;
-        console.log(formData);
         delete formData.confirmPassword;
         let phone = "+1"+formData.phone;
         this.service.createResidentUsers({...formData,phone:phone,platform:'dashboard' , building_id: this.selectedBuilding.toString(),user_type_id: '1'}).subscribe((response) => {
-            console.log(response);
             if(response.response){
             if(response.response[0].user_id){
                 

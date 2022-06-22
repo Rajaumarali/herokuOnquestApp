@@ -27,11 +27,9 @@ export class UpdatePassword implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.form.value);
     this.showLoader=true;
     var data = {user_id: this.user_id,password: this.form.value.password,user_verified: 'true'};
     this.service.changePassword(data).subscribe((res: any) => {
-      console.log(res);
       this.showLoader=false;
       this.router.navigate(['/login']);
     });

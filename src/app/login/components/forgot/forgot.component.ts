@@ -40,17 +40,14 @@ export class ForgotComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.form.value);
     if(this.form.value.validcode){
       if (this.form.value.validcode==this.vcode){
         this.router.navigate(['/login/update/' + this.userId]);
       }
     }else {
       var body = {email: this.form.value.email, user_type_id: this.selectedUserType};
-      console.log(body);
-      
+
       this.service.verifyEmailPass(body).subscribe((res: any) => {
-        console.log(res); 
         if (res.verification_code) {
           this.showvalid = 'block';
           this.vcode=res.verification_code;

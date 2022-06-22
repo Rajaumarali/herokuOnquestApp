@@ -32,7 +32,6 @@ export class ListingsComponent implements OnInit {
   userType: any;
   constructor(private router: Router, private service: TasksService, breakpointObserver: BreakpointObserver) {
     this.userType = JSON.parse(localStorage.getItem("user")).user_type_id;
-    console.log(this.userType);
     $('.page-title').text('All Tasks');
 
     breakpointObserver.observe(['(max-width: 600px)']).subscribe(result => {
@@ -87,7 +86,6 @@ export class ListingsComponent implements OnInit {
     if (e == "All") {
       this.selectedProperty = "";
       this.getAllCaptains('all');
-      console.log("Allllll");
       
     } else {
       this.selectedProperty = this.allbuildingfilter.find(item => item.property_name == e).property_code;
@@ -174,7 +172,6 @@ export class ListingsComponent implements OnInit {
   }
 
   detail(index) {
-    console.log(index);
     localStorage.setItem('task', JSON.stringify(index));
     this.router.navigate(['/tasks/' + 1 + '/view']);
   }
@@ -184,12 +181,9 @@ export class ListingsComponent implements OnInit {
       this.allbuilding = this.allbuildingfilter;
     } // when nothing has typed*/   
     if (typeof event === 'string') {
-      console.log(event);
-      console.log(this.allbuildingfilter);
       this.allbuilding = this.allbuildingfilter.filter(a => a.property_name.toLowerCase()
         .startsWith(event.toLowerCase()));
     }
-    console.log(this.allbuilding.length);
     this.selectList.nativeElement.size = this.allbuilding.length + 1;
   }
 
@@ -214,10 +208,6 @@ export class ListingsComponent implements OnInit {
 
       const bakingServices = [];
       let index = 0;
-      console.log(response);
-      console.log(this.allbuildingfilter);
-      console.log("captains");
-      console.log(this.captains);
 
       const servicesObject = response;
       for (let i = 0; i < servicesObject.length; i++) {
@@ -236,7 +226,6 @@ export class ListingsComponent implements OnInit {
           }
         }
       }
-      console.log(bakingServices);
 
       localStorage.setItem('tasklist', JSON.stringify(bakingServices));
       this.dataSource = new MatTableDataSource<any>(bakingServices);
@@ -262,16 +251,13 @@ export class ListingsComponent implements OnInit {
    */
   getAllCaptains(prop) {
     this.captains = [];
-    console.log("build");
-    console.log(this.allbuildingfilter);
     
     this.service.getAllPropertyCaptains().subscribe((response: any) => {
       var findAllProp;
       if (this.userType == '3' || this.userType == '6') {
         var region = JSON.parse(localStorage.getItem("user")).user_region;
         findAllProp = this.allbuildingfilter.filter(item => item.region == region);
-        console.log(findAllProp);
-        console.log(region);
+
       } else {
         findAllProp = this.allbuildingfilter
       }
@@ -286,16 +272,13 @@ export class ListingsComponent implements OnInit {
               return ite;
           })
         }
-        console.log(findAddBuild);
 
         var findMatchResi = findAllProp.find(itemProp => itemProp.property_code == item.property_code);
         if (findMatchResi || findAddBuild)
           return item;
       })
-      console.log(this.allbuildingfilter);
+      
       response = findAllResi;
-      console.log("caps");
-      console.log(findAllResi);
       
       this.captains = findAllResi;
       // if(prop=='all')

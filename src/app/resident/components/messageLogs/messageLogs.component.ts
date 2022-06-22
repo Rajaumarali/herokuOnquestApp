@@ -53,7 +53,6 @@ export class MessageLogsComponent implements OnInit {
         };
     getMessageLogs() {
         this.service.getMessageLogs(this.user_id).subscribe(response => {
-            console.log(response);
             this.allMessagesLogs = response;
             this.dataSource = new MatTableDataSource<any>(this.allMessagesLogs);
             this.dataSource.paginator = this.paginator;

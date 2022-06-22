@@ -39,7 +39,6 @@ export class ViewComponent implements OnInit {
             return item;
       })
       this.user = {...this.user, region: findReg.region}
-      console.log(this.user);
     });
   })
     this.captainsService.getServiceByUserId(this.user_id).subscribe((response) => {
@@ -53,7 +52,7 @@ export class ViewComponent implements OnInit {
           index++;
         }
       }
-      console.log(this.userService);
+
     });
   }
   getPhone = function(phone){

@@ -71,7 +71,7 @@ export class ViewComponent implements OnInit {
       else if(item==7)
         day = day+"Sunday";
     })
-    this.taskDetail.service_day = day.replace(/,\s*$/, "");;
+    this.taskDetail.service_day = day.replace(/,\s*$/, "");
     console.log(JSON.parse(localStorage.getItem('task')));
     
   }
@@ -91,12 +91,9 @@ export class ViewComponent implements OnInit {
   getAllServices() {
 
     this.service.getAllServices().subscribe((response: any) => {
-        console.log(response);
         response.map((item, index) => {
             this.services.push({ value: index, service: item.service_name, id: item.id, type: item.service_type });
         });
-        console.log(this.services);
-        
         this.getRestrictedServices();
     });
 
@@ -107,7 +104,6 @@ export class ViewComponent implements OnInit {
     var enableService = [];
     this.service.getAllRestrictedService().subscribe((response: any) => {
         var findallRestrictedService = response.filter(item => item.criteria == this.location.property_code);
-        console.log(findallRestrictedService);
         this.allRestrictedServices = findallRestrictedService;
         this.services.map(itemR => {
             var findRestrictedService = findallRestrictedService.find(item => itemR.id == item.service_id);
@@ -117,8 +113,6 @@ export class ViewComponent implements OnInit {
         })
         this.services_enable = enableService.join(', ');
         this.services_enable_old = this.services_enable;
-        console.log(this.services_enable);
-        console.log((enableService));
         this.showLoader = false;
 
     });

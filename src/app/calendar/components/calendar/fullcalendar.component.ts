@@ -148,7 +148,6 @@ export class FullcalendarComponent implements OnInit {
             'user_type': 'resident',
             'property_code': this.propertyCode
         }).subscribe((data: any) => {
-            console.log("meet wala data");
 
             this.respData = data;
             var service_day = this.respData.service_day;
@@ -159,9 +158,7 @@ export class FullcalendarComponent implements OnInit {
                 var currentDay = meet_greet_date_time_resident.getDay();
                 if (element.meet_greet_status != null && element.meet_greet_status != "completed" && element.meet_greet_date_time != null && element.meet_greet_date_time != "Invalid Date" && element.meet_greet_date_time != "") {
                     var meetDay = new Date(element.meet_greet_date_time);
-                    console.log(currentDay);
-                    console.log(meetDay.getDay());
-                    console.log(element);
+                
                     if (meetDay.getDay() == currentDay) {
                         var service_day_json = {
                             start: startOfDay(meet_greet_date_time_resident),

@@ -33,7 +33,6 @@ export class ViewComponent implements OnInit {
             this.user = response;
             if(response.user_type_id==3){
                 let findRegion = resBuild.find(item => item.property_code==response.building_id).region;
-                console.log(findRegion);
                 this.user={...this.user,user_region:findRegion};
                 
             }

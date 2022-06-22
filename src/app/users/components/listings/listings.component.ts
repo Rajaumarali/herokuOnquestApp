@@ -47,7 +47,6 @@ export class ListingsComponent implements OnInit {
      this.authsService.getAllLocations().subscribe((response: any) => {
             if (this.userType == '3' ) {
               var property_code = JSON.parse(localStorage.getItem("user")).building_id;
-              console.log(property_code);
               
               var findProp = response.filter(item=> item.property_code==property_code)
               if(findProp)
@@ -71,13 +70,10 @@ export class ListingsComponent implements OnInit {
     getAllUsers() {
       this.showLoader=true
       this.authsService.getUsers().subscribe((response: any) => {
-        console.log("resd",response);
         
         var myInterval = setInterval(() => {
-          console.log("chal ra");
           
           if(this.allUsers[0]){
-          console.log(this.allUsers);
           
           this.dataSource = new MatTableDataSource<any>(this.allUsers);
           this.dataSource.paginator = this.paginator;
@@ -163,7 +159,6 @@ export class ListingsComponent implements OnInit {
       });
 
       dialogRef.afterClosed().subscribe(result => {
-        console.log("asdasdasdasd");
         
           this.getAllUsers();
       });

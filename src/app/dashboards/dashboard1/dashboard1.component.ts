@@ -150,7 +150,6 @@ export class Dashboard1Component implements OnInit {
 
         if (this.userType == '5' || this.userType == '4') {
             this.dbService.getAllDownloads().subscribe((response: any) => {
-                console.log("responseRes", response);
                 let dateToday = new Date();
                 response.map(item => {
                     if (item.os == 'android') {
@@ -171,8 +170,6 @@ export class Dashboard1Component implements OnInit {
                     this.ios.push(findMonthsIOS.length);
                     this.android.push(findMonthsAndroid.length);
                 }
-                console.log("ios", this.ios);
-                console.log("and", this.android);
 
             });
 
@@ -354,8 +351,6 @@ export class Dashboard1Component implements OnInit {
         let todayend = new Date(today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + ' 23:59:59')
 
         this.dbService.getAllLastWeekServices().subscribe((response: any) => {
-            console.log("lastweek");
-            console.log(response);
 
             const bakingServices = [];
             let index = 0;
@@ -380,7 +375,6 @@ export class Dashboard1Component implements OnInit {
             }
             this.lastWeekServices = bakingServices;
             this.total_services = this.lastWeekServices.length;
-            console.log(this.lastWeekServices);
             this.dataSource = new MatTableDataSource<any>(this.lastWeekServices);
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
@@ -438,12 +432,9 @@ export class Dashboard1Component implements OnInit {
         });
         
         this.dbService.getAllConciergesusers().subscribe((response: any) => {
-            console.log('allCaps');
-            console.log(response);
             if (this.userType == '6') {
 
                 var region = JSON.parse(localStorage.getItem("user")).user_region;
-                console.log(this.allbuildings);
 
                 var findAllResi = response.filter(item => {
                     var additionaBuild: any;
@@ -456,18 +447,15 @@ export class Dashboard1Component implements OnInit {
                                 return ite;
                         })
                     }
-                    console.log(findAddBuild);
 
                     var findMatchResi = this.allbuildings.find(itemProp => itemProp.property_code == item.property_code);
                     if (findMatchResi || findAddBuild)
                         return item;
                 })
-                console.log(findAllResi);
 
                 response = findAllResi;
 
             }
-            console.log(response);
 
             localStorage.setItem('allCaptains', JSON.stringify(response));
             let allConciergeUsers = response.filter((user) => {
@@ -493,7 +481,6 @@ export class Dashboard1Component implements OnInit {
         var today = new Date();
         var date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
         var fileName = 'downloadDevice';
-        console.log(date);
         var base64Img = null;
         var margins = {
             top: 20,
@@ -683,21 +670,17 @@ export class Dashboard1Component implements OnInit {
     newResidentsListing() {
         localStorage.setItem('residentListing', JSON.stringify(this.newResidentsArray));
         localStorage.setItem('screenName', "New Residents");
-
-        // console.log(this.newResidentsArray);
         this.router.navigate(['/residents/listings',]);
     }
 
     lastWeekTasksListing() {
         localStorage.setItem('tasksListing', JSON.stringify(this.lastWeekServices));
-        // console.log(this.lastWeekServices);
         localStorage.setItem('screenName', "Tasks This Week");
         this.router.navigate(['/tasks/listings',]);
     }
 
     todayTasksListing() {
         localStorage.setItem('tasksListing', JSON.stringify(this.todaysServicesListing));
-        // console.log(this.todaysServicesListing);
         localStorage.setItem('screenName', "Today's Tasks");
         this.router.navigate(['/todaytask',]);
     }
@@ -705,7 +688,6 @@ export class Dashboard1Component implements OnInit {
     outstandingTasksListing() {
         localStorage.setItem('tasksListing', JSON.stringify(this.outStandingServicesArray));
         localStorage.setItem('screenName', "Outstanding Tasks");
-        // console.log(this.outStandingServicesArray);
         this.router.navigate(['/outstanding/tasks',]);
     }
 
@@ -736,9 +718,6 @@ export class Dashboard1Component implements OnInit {
      */
     getAllCaptains() {
         this.dbService.getAllPropertyCaptains().subscribe((response: any) => {
-            console.log("Capresponse");
-            console.log(JSON.parse(localStorage.getItem("user")));
-            console.log(response);
 
             if (this.userType == "3") {
 
@@ -760,8 +739,6 @@ export class Dashboard1Component implements OnInit {
             } else if (this.userType == '6') {
                 var region = JSON.parse(localStorage.getItem("user")).user_region;
                 // var findAllProp = this.allbuildings.filter(item => item.region == region);
-                console.log(this.allbuildings);
-                console.log(region);
 
                 var findAllResi = response.filter(item => {
                     var additionaBuild: any;
@@ -774,13 +751,11 @@ export class Dashboard1Component implements OnInit {
                                 return ite;
                         })
                     }
-                    console.log(findAddBuild);
 
                     var findMatchResi = this.allbuildings.find(itemProp => itemProp.property_code == item.property_code);
                     if (findMatchResi || findAddBuild)
                         return item;
                 })
-                console.log(findAllResi);
 
                 response = findAllResi;
             }

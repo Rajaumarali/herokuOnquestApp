@@ -72,7 +72,6 @@ export class UserlistComponent {
         @Inject(MAT_DIALOG_DATA) public data: any
     ) {
 
-        console.log(this.data.id);
         breakpointObserver.observe(['(max-width: 1000px)']).subscribe(result => {
 
             this.displayedColumns = result.matches ?
@@ -104,7 +103,6 @@ export class UserlistComponent {
                       additionaBuild = item.additional_building.split(",");
                       findAddBuild = additionaBuild.find(ite => ite == data.property_code)
                     }
-                    console.log(findAddBuild);
                     if(item.property_code==data.property_code || findAddBuild)
                       return item;
                   })
@@ -122,11 +120,9 @@ export class UserlistComponent {
     getAllServices() {
 
         this.data.service.allServices().subscribe((response: any) => {
-            console.log(response);
             response.map((item, index) => {
                 this.services.push({ value: index, service: item.service_name, id: item.id, type: item.service_type });
             });
-            console.log(this.services);
             
             this.getRestrictedServices();
         });
@@ -137,7 +133,6 @@ export class UserlistComponent {
 
         this.data.service.getAllRestrictedService().subscribe((response: any) => {
              this.allRestrictedServices = response.filter(item => item.criteria == this.data.property_code);
-            console.log(this.allRestrictedServices);
             this.services.map(itemR => {
                 var findRestrictedService = this.allRestrictedServices.find(item => itemR.id == item.service_id);
                 if (findRestrictedService == undefined)
@@ -145,7 +140,6 @@ export class UserlistComponent {
 
             })
             
-            console.log(this.services_enable);
             this.dataSource = new MatTableDataSource<any>(this.services_enable);
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;

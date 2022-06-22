@@ -112,7 +112,6 @@ export class EditComponent implements OnInit {
       this.previewUrl = this.user.profile_picture_url;
     });
     this.authService.getAllLocations().subscribe((response: any) => {
-      console.log(response);
       
       var useType = JSON.parse(localStorage.getItem("user")).user_type_id;
       if(useType=="3"){
@@ -137,7 +136,6 @@ export class EditComponent implements OnInit {
             tempRegion.push(item);
         });
         this.allRegion = tempRegion;
-      console.log(this.allBuilding);
       }
       
     });
@@ -194,7 +192,6 @@ toogleFields () {
     this.showLoader = true;
     let bday = new Date(this.profileForm.value.birthday);
     this.profileForm.value.birthday = bday.getMonth()+1 + "/" + bday.getDate() + "/" + bday.getFullYear();
-    console.log(this.profileForm.value);
     if (this.fileData) {
       const formData = new FormData();
       formData.append('uploaded_file', this.fileData);
@@ -222,7 +219,6 @@ toogleFields () {
     }
   }
   updateCaptain(data) {
-    console.log(data);
     
     this.authService.updateUserProfile(data).subscribe((response: any) => {
       if (response) {

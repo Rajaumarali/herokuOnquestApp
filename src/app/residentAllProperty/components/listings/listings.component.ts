@@ -44,7 +44,6 @@ export class ListingsAllPropertyComponent implements OnInit {
     ngOnInit() {
       this.allResidentUsers = JSON.parse(localStorage.getItem('residentListing'));
       this.allResidentUsersfilter = JSON.parse(localStorage.getItem('residentListing'));
-      console.log(this.allResidentUsers);
       
       this.dataSource = new MatTableDataSource<any>(JSON.parse(localStorage.getItem('residentListing')));
       this.dataSource.paginator = this.paginator;
@@ -65,7 +64,6 @@ export class ListingsAllPropertyComponent implements OnInit {
             let region = JSON.parse(localStorage.getItem("user")).user_region;
             this.allbuildingfilter = response.filter(item => item.region == region);
             this.allbuilding = this.allbuildingfilter;
-            console.log(this.allbuilding);
             
         }else{
          this.allbuildingfilter = response;
@@ -98,12 +96,9 @@ export class ListingsAllPropertyComponent implements OnInit {
           this.allbuilding = this.allbuildingfilter;
         } // when nothing has typed*/   
         if (typeof event === 'string') {
-          console.log(event);
-          console.log(this.allbuildingfilter);
           this.allbuilding = this.allbuildingfilter.filter(a => a.property_name.toLowerCase()
             .startsWith(event.toLowerCase()));
         }
-        console.log(this.allbuilding.length);
       //   this.selectList.nativeElement.size = this.allbuilding.length + 1;
   }
   onChange(prop) {

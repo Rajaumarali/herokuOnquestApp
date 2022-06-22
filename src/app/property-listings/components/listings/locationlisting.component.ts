@@ -49,11 +49,8 @@ export class LocationListingComponent implements OnInit {
     getAllLocations(){
         
         this.service.getAllLocations().subscribe((response: any) => {
-            console.log(response);
             if (this.userType == '3' ) {
-                this.property_code = JSON.parse(localStorage.getItem("user")).building_id;
-                console.log(this.property_code);
-                
+                this.property_code = JSON.parse(localStorage.getItem("user")).building_id;    
                 var findProp = response.filter(item=> item.property_code==this.property_code)
                 if(findProp)
                 this.locations = findProp;
@@ -74,7 +71,6 @@ export class LocationListingComponent implements OnInit {
         });
     }*/
     changeStatus(row){
-        console.log(row);
         
         if(row.active=="true"){
             row.active="false";

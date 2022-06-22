@@ -63,7 +63,6 @@ export class LocationEditComponent implements OnInit {
       $('.page-title').text('Edit Property');
       const id = this.route.snapshot.params.id;
         this.service.getLocation(id).subscribe((response: any) => {
-            console.log(response);
             this.location = {...response,property_phone:response.property_phone.replace("+1","")};
             this.location.service_day = response.service_day.split(',');
             let sdays = ['1','2','3','4','5','6','7'];
@@ -82,7 +81,6 @@ export class LocationEditComponent implements OnInit {
             //         this.fitness_service.splice(1,1);
             //     }
 
-            console.log(this.location.service_day);
         });
         this.getAllServices();
 
@@ -91,11 +89,9 @@ export class LocationEditComponent implements OnInit {
     getAllServices() {
 
         this.service.getAllServices().subscribe((response: any) => {
-            console.log(response);
             response.map((item, index) => {
                 this.services.push({ value: index, service: item.service_name, id: item.id, type: item.service_type });
             });
-            console.log(this.services);
             
             this.getRestrictedServices();
         });
@@ -126,8 +122,6 @@ export class LocationEditComponent implements OnInit {
         } else {
           this.enableSel.options.forEach((item: MatOption) => { item.deselect() });
         }
-        console.log(this.fitness_service);
-        console.log(this.enableSel);
     
     }
     toggleAllSelectionDay() {
@@ -140,8 +134,6 @@ export class LocationEditComponent implements OnInit {
         } else {
           this.enableDay.options.forEach((item: MatOption) => { item.deselect() });
         }
-        // console.log(this.selectedDay);
-        console.log(this.enableDay);
     
     }
 
@@ -150,7 +142,6 @@ export class LocationEditComponent implements OnInit {
         var enableService = "";
         this.service.getAllRestrictedService().subscribe((response: any) => {
             var findallRestrictedService = response.filter(item => item.criteria == this.location.property_code);
-            console.log(findallRestrictedService);
             this.allRestrictedServices = findallRestrictedService;
             this.services.map(itemR => {
                 var findRestrictedService = findallRestrictedService.find(item => itemR.id == item.service_id);
@@ -169,9 +160,6 @@ export class LocationEditComponent implements OnInit {
                   });
             }
             this.services_enable_old = this.services_enable;
-            console.log(this.services_enable);
-            console.log(enableService);
-
 
         });
     }
@@ -187,10 +175,7 @@ export class LocationEditComponent implements OnInit {
         this.locationForm.value.address_line2 = jQuery('#adrs2_places').val();
         var findfitness1 = allServicesUnRestricted.find(item => item == "22");
         var findfitness2 = allServicesUnRestricted.find(item => item == "23");
-        console.log(allServicesUnRestricted);
-        console.log(this.locationForm.value);
-        console.log(findfitness1);
-        console.log(findfitness2);
+
         let phone = "+1"+this.locationForm.value.property_phone;
 
         allServicesUnRestricted.map(item=> {
@@ -206,7 +191,6 @@ export class LocationEditComponent implements OnInit {
                     alc= true;
                 else
                     alc=false;
-        console.log(alc);
         
         delete this.locationForm.value.services;
 
@@ -219,9 +203,7 @@ export class LocationEditComponent implements OnInit {
             // };
             // this.alertStatus = {'display': 'block'};
             if (response) {
-                console.log(response);
                 if (allServicesUnRestricted.length > this.services_enable_old.length) {
-                    console.log('enabled');
                     var unrestricServiceID=[];
                     allServicesUnRestricted.map(itemR => {
                         var findNewService = this.services_enable_old.find(item => item == itemR);
@@ -230,11 +212,9 @@ export class LocationEditComponent implements OnInit {
                             unrestricServiceID.push(itemR);
                         }
                     });
-                    console.log("unrestricServiceID");
-                    console.log(unrestricServiceID);
+    
                     unrestricServiceID.map(itemR=>{
                         var unrestricServiceDeleteID = this.allRestrictedServices.find(item => item.service_id.toString() == itemR);
-                        console.log(unrestricServiceDeleteID);
                         if(unrestricServiceDeleteID)
                         this.service.deleteRestrictionS(unrestricServiceDeleteID.id).subscribe(res => {
         
@@ -242,14 +222,12 @@ export class LocationEditComponent implements OnInit {
                     });
         
                 } else if (allServicesUnRestricted.length < this.services_enable_old.length) {
-                    console.log('restrict');
                     var restricServiceID=[];
                     this.services_enable_old.map(itemR => {
                         var findNewService = allServicesUnRestricted.find(item => item == itemR);
                         if (findNewService == undefined)
                             restricServiceID.push(itemR);
                     });
-                    console.log(restricServiceID);
                     restricServiceID.map(itemR=>{
                         var data = {
                             'service_id': itemR,
@@ -257,7 +235,6 @@ export class LocationEditComponent implements OnInit {
                             'criteria': this.locationForm.value.property_code
                         }
                         this.service.createRestrictedS(data).subscribe(res => {
-                            console.log(res);
         
                         });
                     });
@@ -277,7 +254,6 @@ export class LocationEditComponent implements OnInit {
         });
         this.router.navigate(['/properties/']).then(()=>{
             setTimeout(() => {
-                console.log("Hello from setTimeout");
                 window.location.reload();
              }, 2000);
         });
