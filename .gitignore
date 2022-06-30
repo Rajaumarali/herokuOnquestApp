@@ -38,3 +38,4 @@ Gruntfile-custom.js
 gems.locked
 .grunt/
 /package-lock.json
+/node_modules
