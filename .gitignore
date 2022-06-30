@@ -24,7 +24,6 @@ npm-debug.log
 .idea/*
 */images/Thumbs.db
 **/.DS_Store
-node_modules
 *~
 dist
 /target
@@ -39,3 +38,4 @@ Gruntfile-custom.js
 gems.locked
 .grunt/
 /package-lock.json
+/node_modules
