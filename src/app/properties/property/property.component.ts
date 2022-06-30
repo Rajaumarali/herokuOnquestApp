@@ -379,8 +379,7 @@ export class PropertyComponent implements AfterViewInit {
             plotOptions: {
                 bar: {
                     horizontal: false,
-                    columnWidth: '40%',
-                    endingShape: 'flat'
+                    columnWidth: '40%'
                 },
 
             },
