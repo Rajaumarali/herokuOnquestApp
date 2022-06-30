@@ -14,18 +14,36 @@
         <mat-card-content>
           <!-- <mat-card-title>Outstanding Tasks</mat-card-title> -->
           <!-- Property dropdown -->
+          <span style="color: red;">{{alertMessage}}</span>
           <div *ngIf="showSelectProp" class="table-dropdown" >
+
+            <mat-form-field appearance="fill">
+              <mat-label>Select Property</mat-label>
+              <mat-select aria-label="Number"
+              matInput
+              
+              (selectionChange)="onChange($event.value)"
+              >
+                  <mat-option [value]="'All'">
+                    All              
+                  </mat-option>
+                <mat-option *ngFor="let building of allbuilding" [value]="building.property_name">
+                  {{building.property_name}}
+                  <span class="help-desk" *ngIf="building.invalid && building.touched" style="color: red;" >Please select property.</span>
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
          
-            <input style="border-bottom: 1px solid; border-width: 1px;" type="text"
+            <!-- <input style="border-bottom: 1px solid; border-width: 1px;" type="text"
              placeholder="Select Property"
              aria-label="Number"
              matInput
              [formControl]="myControl"
              (ngModelChange)="filterItem($event)"
-             [matAutocomplete]="auto">
+             [matAutocomplete]="auto"> -->
           <!-- #enddocregion input -->
           <!-- #docregion mat-autocomplete -->
-              <mat-autocomplete (optionSelected)="onChange($event.option.value)" #auto="matAutocomplete">
+              <!-- <mat-autocomplete (optionSelected)="onChange($event.option.value)" #auto="matAutocomplete">
                 <mat-option [value]="'All'">
                   All
                 
@@ -34,10 +52,9 @@
                   {{building.property_name}}
                   <span class="help-desk" *ngIf="building.invalid && building.touched" style="color: red;" >Please select property.</span>
                 </mat-option>
-              </mat-autocomplete>
+              </mat-autocomplete> -->
         
             <span><img *ngIf="propertyDropdown" src="assets/images/loader.gif" alt="homepage" width="40px" class="dark-logo m-l-20 p-a p-t-10"></span>
-            <span style="color: red;">{{alertMessage}}</span>
           </div>
           <div class="responsive-table">
             <mat-table [dataSource]="dataSource" matSort>

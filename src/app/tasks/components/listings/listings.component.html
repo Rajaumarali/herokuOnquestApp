@@ -13,6 +13,7 @@
         <mat-card-content>
           <!-- <mat-card-title>All Tasks</mat-card-title> -->
           <!-- Property dropdown -->
+          <span style="color: red;">{{alertMessage}}</span>
           <div class="table-dropdown" >
             <!-- <input placeholder="Select Property" style="margin-bottom: 10px;border: none;border-bottom: 1px solid;" type="text"         
             (ngModelChange)="filterItem($event)" 
@@ -27,7 +28,6 @@
                 {{building.property_name}}
               </option>
             </select> -->
-            <span style="color: red;">{{alertMessage}}</span><br><br>
 
             <mat-form-field appearance="fill">
               <mat-label>Select Property</mat-label>

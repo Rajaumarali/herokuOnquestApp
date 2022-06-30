@@ -155,7 +155,7 @@ export class ListingsComponent implements OnInit {
     openDialog(id): void {
       const dialogRef = this.dialog.open(DeletepopupComponent, {
           width: '400px',
-          data: {id:  id, service: this.authsService}
+          data: {id:  id, service: this.authsService, showConfirmField: true}
       });
 
       dialogRef.afterClosed().subscribe(result => {
