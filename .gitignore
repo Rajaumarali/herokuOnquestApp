@@ -37,5 +37,4 @@ Gruntfile-custom.js
 .sass-cache
 gems.locked
 .grunt/
-/package-lock.json
 node_modules
