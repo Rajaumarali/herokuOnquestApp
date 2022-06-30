@@ -198,7 +198,7 @@ export class Dashboard1Component implements OnInit {
                         bar: {
                             horizontal: false,
                             columnWidth: '30%',
-                            endingShape: 'flat'
+                            // endingShape: 'flat'
                         },
 
                     },
